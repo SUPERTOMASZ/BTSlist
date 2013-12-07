@@ -1,13 +1,103 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background" >
-   <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/searchico1"
+   android:background="#171717">
+   	<LinearLayout 
+		android:layout_width="match_parent"
+   		android:layout_height="0dp"
+   		android:layout_weight="0.05"
+    	android:orientation="horizontal"
+   		android:background="#171717">
+   		</LinearLayout>
+	<LinearLayout 
+		android:layout_width="match_parent"
+   		android:layout_height="0dp"
+   		android:layout_weight="0.9"
+    	android:orientation="horizontal"
+   		android:background="#171717">
+     
+     	<LinearLayout
+          android:background="#171717"
+          android:layout_width="0dp"
+          android:layout_weight="0.15"
+          android:layout_height="wrap_content"
+          android:orientation="vertical" >
+ 		</LinearLayout>
+ 
+    		<LinearLayout
+     			android:background="#171717"
+       			android:layout_width="0dp"
+        		android:layout_weight="1"
+        		android:layout_height="fill_parent"
+        		android:orientation="vertical" >
+        		<Button
+          		 android:layout_height="0dp"
+           		 android:id="@+id/addIngredient1"
+          		 android:layout_weight="1"
+           		 android:layout_width="fill_parent"
+           		 android:background="@drawable/searchico1"
+           		 android:layout_marginBottom="10dp"
+       			 />
+           		<Button
+          		  android:layout_height="0dp"
+           		  android:id="@+id/addIngredient2"
+          		  android:layout_weight="1"
+           		  android:layout_width="fill_parent"
+            	  android:background="@drawable/smsicon1"
+            	  android:layout_marginBottom="10dp"
         />
-
+         <Button
+            android:layout_height="0dp"
+            android:id="@+id/addIngredient3"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:background="@drawable/searchico1"
+            android:layout_marginBottom="10dp"
+        />
+           <Button
+            android:layout_height="0dp"
+            android:id="@+id/addIngredient4"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:background="@drawable/dyzuryicon1"
+            android:layout_marginBottom="10dp"
+        />
+             <Button
+            android:layout_height="0dp"
+            android:id="@+id/addIngredient5"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:background="@drawable/searchico1"
+            android:layout_marginBottom="10dp"
+        />
+              	 <Button
+            		android:layout_height="0dp"
+            		android:id="@+id/addIngredient6"
+            		android:layout_weight="1"
+            		android:layout_width="fill_parent"
+            		android:background="@drawable/searchico1"
+           	 		android:layout_marginBottom="10dp"
+      			  />
+    </LinearLayout>
+    	<LinearLayout
+         android:background="#171717"
+        android:layout_width="0dp"
+        android:layout_weight="0.75"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+ 
+       
+     
+    	</LinearLayout>
+         
+	</LinearLayout>
+	<LinearLayout 
+		android:layout_width="match_parent"
+   		android:layout_height="0dp"
+   		android:layout_weight="0.05"
+    	android:orientation="horizontal"
+   		android:background="#171717">
+   		</LinearLayout>
 </LinearLayout>
