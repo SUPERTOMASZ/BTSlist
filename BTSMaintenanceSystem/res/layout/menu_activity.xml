@@ -37,15 +37,16 @@
            		 android:id="@+id/addIngredient1"
           		 android:layout_weight="1"
            		 android:layout_width="fill_parent"
-           		 android:background="@drawable/searchico1"
+           		 android:background="@drawable/searchico"
            		 android:layout_marginBottom="10dp"
+           		 android:onClick="searchMenu"
        			 />
            		<Button
           		  android:layout_height="0dp"
            		  android:id="@+id/addIngredient2"
           		  android:layout_weight="1"
            		  android:layout_width="fill_parent"
-            	  android:background="@drawable/smsicon1"
+            	  android:background="@drawable/smsico"
             	  android:layout_marginBottom="10dp"
         />
          <Button
@@ -53,7 +54,7 @@
             android:id="@+id/addIngredient3"
             android:layout_weight="1"
             android:layout_width="fill_parent"
-            android:background="@drawable/searchico1"
+            android:background="@drawable/gpsico"
             android:layout_marginBottom="10dp"
         />
            <Button
@@ -61,7 +62,7 @@
             android:id="@+id/addIngredient4"
             android:layout_weight="1"
             android:layout_width="fill_parent"
-            android:background="@drawable/dyzuryicon1"
+            android:background="@drawable/dyzico"
             android:layout_marginBottom="10dp"
         />
              <Button
@@ -69,7 +70,7 @@
             android:id="@+id/addIngredient5"
             android:layout_weight="1"
             android:layout_width="fill_parent"
-            android:background="@drawable/searchico1"
+            android:background="@drawable/updateico"
             android:layout_marginBottom="10dp"
         />
               	 <Button
@@ -77,7 +78,7 @@
             		android:id="@+id/addIngredient6"
             		android:layout_weight="1"
             		android:layout_width="fill_parent"
-            		android:background="@drawable/searchico1"
+            		android:background="@drawable/aboutico"
            	 		android:layout_marginBottom="10dp"
       			  />
     </LinearLayout>

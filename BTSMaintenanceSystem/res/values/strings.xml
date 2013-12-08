@@ -5,7 +5,17 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="startButton">startBut</string>
-    
+    <string-array name="category">
+        <item>wszystkie</item>
+        <item>nrNet</item>
+        <item>nrPTC</item>
+        <item>nrPTK</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
    
 
 </resources>

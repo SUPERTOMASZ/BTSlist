@@ -2,7 +2,9 @@ package com.example.btsmaintenancesystem;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class MenuActivity extends Activity {
 
@@ -22,6 +24,14 @@ public class MenuActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		
 		return true;
+	}
+	public void  searchMenu(View view)
+	{
+		Intent intent = new Intent(this,SearchActivity.class);
+	
+		startActivity(intent);
+		
+		
 	}
 
 }
