@@ -4,20 +4,7 @@
     android:orientation="vertical"
     android:background="#343434"
      >
-	<TextView 
-	    android:id="@+id/chooselabel"
-	    android:layout_width="match_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="0.15"
-	    android:textAlignment="center"
-	    android:background="#ffa200"
-	    android:textColor="#ffffff"
-	    android:textAllCaps="true"
-	    android:textScaleX="1.2"
-	    android:textStyle="bold"
-	    
-	    
-	    />
+	
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -53,9 +40,11 @@
 	 android:layout_height="0dp"
 	 android:layout_weight="0.01"
 	 android:layout_width="fill_parent"
+	
 	    
 	    />
     <ListView
+        
         android:id="@+id/listView1"
         android:layout_height="0dp"
         android:layout_weight="2"
