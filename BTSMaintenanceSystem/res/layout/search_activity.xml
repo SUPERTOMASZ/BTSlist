@@ -1,24 +1,42 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#343434" >
-
+    android:orientation="vertical"
+    android:background="#343434"
+     >
+	<TextView 
+	    android:id="@+id/chooselabel"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="0.15"
+	    android:textAlignment="center"
+	    android:background="#ffa200"
+	    android:textColor="#ffffff"
+	    android:textAllCaps="true"
+	    android:textScaleX="1.2"
+	    android:textStyle="bold"
+	    
+	    
+	    />
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.25"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp" >
 
         <EditText
             android:id="@+id/editText1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="0.75"
             android:textColor="#00a8ff"
             android:textSize="25sp"
             android:background="#343434" >
 
-            <requestFocus />
+            
         </EditText>
 
         <Spinner
@@ -27,16 +45,26 @@
             android:layout_height="fill_parent"
             android:layout_weight="0.15"
             android:background="@drawable/spinnerico"
+            android:popupBackground="#343434"
              />
     </LinearLayout>
-
+	<ImageView 
+	 android:id="@+id/line"
+	 android:layout_height="0dp"
+	 android:layout_weight="0.01"
+	 android:layout_width="fill_parent"
+	    
+	    />
     <ListView
         android:id="@+id/listView1"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-      
-        android:layout_below="@+id/linearLayout1" >
+        android:divider="#0c608c"
+        android:dividerHeight="2sp"
+        android:background="#222222"
+        
+       >
     </ListView>
 
-</RelativeLayout>
+</LinearLayout>
