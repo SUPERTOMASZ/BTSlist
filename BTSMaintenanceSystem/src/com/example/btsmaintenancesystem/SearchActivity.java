@@ -9,6 +9,7 @@ import searchpack.CustomListView;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -80,26 +81,15 @@ public class SearchActivity extends Activity  {
 	{
 		
 		
-		this.choseSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {  
-		  public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {  
-		// hide selection text  
-		((TextView)view).setText(null);  
-		// if you want you can change background here  
-		}  
-		  public void onNothingSelected(AdapterView<?> arg0) {}  
-		 });
-		
-		
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-		        R.array.category, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
-		adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
-		// Apply the adapter to the spinner
-		this.choseSpinner.setAdapter(adapter);
+		        R.array.category, R.layout.choosespinneritem);
+		adapter.setDropDownViewResource(R.layout.choosespinneritem_drop_down);
+		choseSpinner.setAdapter(adapter);
+		
 	}
 	private void setEditText()
 	{
-editText.setOnEditorActionListener(new OnEditorActionListener() {
+		editText.setOnEditorActionListener(new OnEditorActionListener() {
 			
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

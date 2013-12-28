@@ -24,7 +24,7 @@ public class BTS
 		this.cordY=cordY;
 		this.PTCname=PTCname;
 		this.PTKname=PTKname;
-		this.type=R.drawable.towericon;
+		this.type=R.drawable.towerico1;
 	
 	}
 	public String getCity() {

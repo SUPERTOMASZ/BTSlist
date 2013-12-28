@@ -7,15 +7,23 @@
     <string name="startButton">startBut</string>
     <string-array name="category">
         <item>wszystkie</item>
+        <item>nr stacji</item>
         <item>nrNet</item>
         <item>nrPTC</item>
         <item>nrPTK</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>właściciel</item>
+        <item>nazwa stacji</item>
+        <item>nazwa PTC</item>
+        <item>nazwa PTK</item>
+        <item>region</item>
+        <item>obszar</item>
+        <item>ulica</item>
+        <item>kod pocztowy</item>
+        <item>miasto</item>
+        <item>gmina</item>
+        <item>powiat</item>
+        <item>wojewodztwo</item>
     </string-array>
-   
+
 
 </resources>

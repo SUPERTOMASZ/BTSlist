@@ -33,6 +33,8 @@
             android:layout_weight="0.15"
             android:background="@drawable/spinnerico"
             android:popupBackground="#343434"
+          	
+            
              />
     </LinearLayout>
 	<ImageView 
