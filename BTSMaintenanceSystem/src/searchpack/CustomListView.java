@@ -3,6 +3,8 @@ package searchpack;
 import java.util.List;
 
 import com.example.btsmaintenancesystem.R;
+import com.example.btsmaintenancesystem.R.id;
+import com.example.btsmaintenancesystem.R.layout;
 
 import android.app.Activity;
 import android.content.Context;
