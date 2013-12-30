@@ -5,6 +5,37 @@ import com.example.btsmaintenancesystem.R.drawable;
 
 public class BTS
 {
+	private String nrStacji;
+	private String nrNetWorks;
+	private String nrPTC;
+	private String nrPTK;
+	private String Owner;
+	private String nazwaStacji;
+	private String nazwaPTC;
+	private String nazwPTK;
+	private String region;
+	private String obszar;
+	private String topListy;
+	private String dataSkasowania;
+	private String ulica;
+	private String nr;
+	private String kodPocztowy;
+	private String miasto;
+	private String gmina;
+	private String powiat;
+	private String wojewodztwo;
+	private String ulicaInaczej;
+	private String typ;
+	private String Kandydat;
+	private String wspolX;
+	private String wspolY;
+	private String wysNadPomMorz;
+	private String wysBud;
+	private String Zagiel;
+	private String OpisDost;
+	private String OpisStacji;
+	private String nrPlus;
+	private String nrPlay;
 	
 	private String city;
 	private String street;

@@ -7,11 +7,11 @@
     <string name="startButton">startBut</string>
     <string-array name="category">
         <item>wszystkie</item>
-        <item>nr stacji</item>
-        <item>nrNet</item>
-        <item>nrPTC</item>
-        <item>nrPTK</item>
-        <item>właściciel</item>
+        <item>numer stacji</item>
+        <item>numer NetWorks</item>
+        <item>numer PTC</item>
+        <item>numer PTK</item>
+        <item>wlasciciel</item>
         <item>nazwa stacji</item>
         <item>nazwa PTC</item>
         <item>nazwa PTK</item>

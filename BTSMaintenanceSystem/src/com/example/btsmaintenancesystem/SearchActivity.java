@@ -1,31 +1,20 @@
 package com.example.btsmaintenancesystem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import searchpack.BTS;
 import searchpack.CustomListView;
-import searchpack.DataBase;
+import searchpack.MyDataBaseHelper;
 import searchpack.PreparingDataBase;
-
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnKeyListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -34,7 +23,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 
 public class SearchActivity extends Activity  {
@@ -47,15 +35,17 @@ public class SearchActivity extends Activity  {
 	private ArrayList<BTS> tempList;
 	private EditText editText;
 	private String spinnerChoose;
+	private MyDataBaseHelper mydb;
 	
 	
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_activity);
 		
 		this.db= new PreparingDataBase(getApplicationContext());
+		this.mydb= new MyDataBaseHelper(getApplicationContext());
+		
 		
 		((ImageView)findViewById(R.id.line)).setImageResource(R.drawable.line);
 		this.choseSpinner= (Spinner) findViewById(R.id.spinner1);
@@ -106,6 +96,7 @@ public class SearchActivity extends Activity  {
 				
 				spinnerChoose=arg0.getItemAtPosition(pos).toString();
 				editText.setText(spinnerChoose);
+				mydb.getBTS(" nazwastacji", spinnerChoose);
 			}
 
 			@Override
@@ -139,6 +130,7 @@ public class SearchActivity extends Activity  {
 					
 					customListView.notifyDataSetChanged();
 					list.refreshDrawableState();
+				
 					return true;
 				}
 				else
