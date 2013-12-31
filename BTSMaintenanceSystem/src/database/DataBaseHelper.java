@@ -1,6 +1,7 @@
-package searchpack;
+package database;
 
 import java.util.ArrayList;
+
 
 import com.example.btsmaintenancesystem.R;
 
@@ -11,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class MyDataBaseHelper extends SQLiteOpenHelper {
+public class DataBaseHelper extends SQLiteOpenHelper {
 	
 	
 	private static String BASENAME="base.db";
@@ -35,7 +36,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 	private static String KEY_COMMUNITY="gmina";
 	private static String KEY_DISTRICT="powiat";
 	private static String KEY_PROVINCE="wojewodztwo";
-	private static String KEY_TYPE="typ ";
+	private static String KEY_TYPE="typ";
 	private static String KEY_CANDIDATE="kandydat";
 	private static String KEY_CORD_X="wspX";
 	private static String KEY_CORD_Y="wspY";
@@ -57,7 +58,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 		KEY_UPDATE_DATE};
 	
 
-	public MyDataBaseHelper(Context context)
+	public DataBaseHelper(Context context)
 	{
 		super(context, BASENAME, null, 1);
 		
@@ -97,41 +98,11 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         db.close(); 
     }
 	 */
-	public ArrayList<BTS> getBTS(String keyword,String choose)
+	public ArrayList<Station> getBTS(String keyword,String choose)
 	{
 		
-		// 0 PRIMARY_KEY="id"; (ALL)
-		// 1 KEY_STATION_NUM="NRStacji";
-		// 2 KEY_NETWORKS_NUM="nrNetWorks";
-		// 3 KEY_PTC_NUM="nrPTC";
-		// 4 KEY_PTK_NUM="nrPTK";
-		// 5 KEY_OWMER="wlasciciel";
-		// 6 KEY_STATION_NAME="nazwaStacji";
-		// 7 KEY_PTC_NAME="nazwaPTC";
-		// 8 KEY_PTK_NAME="nazwaPTK";
-		// 9 KEY_REGION="region";
-		// 10 KEY_AREA="obszar";
-		// 11 KEY_DELETED_DATE="dataSkasowania";
-		// 12 KEY_STREET="ulica";
-		// 13 KEY_STREET_NO="numer";
-		// 14 KEY_ZIP_CODE="kodPocztowy";
-		// 15 KEY_CITY="miasto";
-		// 16 KEY_COMMUNITY="gmina";
-		// 17 KEY_DISTRICT="powiat";
-		// 18 KEY_PROVINCE="wojewodztwo";
-		// 19 KEY_TYPE="typ ";
-		// 20 KEY_CANDIDATE="kandydat";
-		// 21 KEY_CORD_X="wspX";
-		// 22 KEY_CORD_Y="wspY";
-		// 23 KEY_HEIGHT="wys";
-		// 24 KEY_BUILDING_HEIGHT="wysBud";
-		// 25 KEY_ACCESS_DESCRIBE="opisDostepu";
-		// 26 KEY_STATION_DESCRIBE="opisStacji";
-		// 27 KEY_PLUS_NUM="nrPlus";
-		// 28 KEY_PLAY_NUM="nrPlay";
-		// 29 KEY_POWER_STATION_NUMBER="nrElektrowni";
-		// 30 KEY_UPDATE_DATE="dataAktualizacji";
-		 int num_col=convertChoose(choose);
+		ArrayList<Station> result = new ArrayList<Station>();
+		int num_col=convertFromSpinner(choose);
 		 Log.i("wybor",COLUMNS[num_col]);
 		 String cond;
 		 if(num_col==0)
@@ -142,15 +113,71 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 		 {
 			 cond=COLUMNS[num_col]+" LIKE '%"+keyword+"%'";
 		 }
-		
+		// cond=COLUMNS[6]+" LIKE '%"+"nazwa"+"%'";
 		SQLiteDatabase db =this.getReadableDatabase();
 		Cursor cursor= db.query(TABLE,COLUMNS,cond,
 				null,null,null,null);
+		Log.i("database","cursor utworzony");
+		Log.i("ile wierszy ",cursor.getCount()+"");
+		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+		{
+			Log.i("wybor","przebieg petli");
+			result.add(makeBTSfromCursor(cursor));
+		}
 	//	cursor.move
-		Log.i("database result",""+cursor.getString(cursor.getColumnIndex(COLUMNS[0])));
-		return null;
+		//Log.i("database result",""+cursor.getString(cursor.getColumnIndex(COLUMNS[0])));
+		return result;
 	}
-	private int convertChoose(String input)
+	private Station makeBTSfromCursor(Cursor cursor)
+	{
+		Station station= new Station();
+		String bufferTab[]= new String[COLUMNS.length];
+		Log.i("tworzenie poj BTS","utwrzono tablice");
+		for(int i=0;i<COLUMNS.length;i++)
+		{
+			Log.i("tworzenie poj BTS","przebieg petli "+i);
+			int nr=cursor.getColumnIndex(COLUMNS[i]);
+			Log.i("nr kolumny ",""+nr);
+			Log.i("wartosc",cursor.getString(nr));
+			Log.i("wartosc z tabeli",COLUMNS[i]);
+			bufferTab[i]=cursor.getString(cursor.getColumnIndex(COLUMNS[i]));
+		}
+		Log.i("tworzenie poj BTS","po petli");
+		station.setStationNum(bufferTab[1]);
+		station.setNetWorksNum(bufferTab[2]);
+		station.setPTCNum(bufferTab[3]);
+		station.setPTKNum(bufferTab[4]);
+		station.setOwner(bufferTab[5]);
+		station.setStationName(bufferTab[6]);
+		station.setPTCName(bufferTab[7]);
+		station.setPTKName(bufferTab[8]);
+		station.setRegion(bufferTab[9]);
+		station.setArea(bufferTab[10]);
+		station.setDeletedData(bufferTab[11]);
+		station.setStreet(bufferTab[12]);
+		station.setStreetNo(bufferTab[13]);
+		station.setZip_Code(bufferTab[14]);
+		station.setCity(bufferTab[15]);
+		station.setCommunity(bufferTab[16]);
+		station.setDistrict(bufferTab[17]);
+		station.setProvince(bufferTab[18]);
+		station.setType(bufferTab[19]);
+		station.setCandidat(bufferTab[20]);
+		station.setCordX(bufferTab[21]);
+		station.setCordY(bufferTab[22]);
+		station.setHeight(bufferTab[23]);
+		station.setBuilding_height(bufferTab[24]);
+		station.setAccessDescribe(bufferTab[25]);
+		station.setStationDescribe(bufferTab[26]);
+		station.setPlusNum(bufferTab[27]);
+		station.setPlayNum(bufferTab[28]);
+		station.setPowerPlantNum(bufferTab[29]);
+		station.setUpdatedTime(bufferTab[30]);
+		Log.i("tworzenie poj BTS","ukonczono tworzenie bts");
+		
+		return station;
+	}
+	private int convertFromSpinner(String input)
 	{
 		int i;
 		
@@ -189,9 +216,41 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 		else
 			i=0;
 		
-		
 		return i;
 		
 		
+		
 	}
+	
+	// 0 PRIMARY_KEY="id"; (ALL)
+	// 1 KEY_STATION_NUM="NRStacji";
+	// 2 KEY_NETWORKS_NUM="nrNetWorks";
+	// 3 KEY_PTC_NUM="nrPTC";
+	// 4 KEY_PTK_NUM="nrPTK";
+	// 5 KEY_OWMER="wlasciciel";
+	// 6 KEY_STATION_NAME="nazwaStacji";
+	// 7 KEY_PTC_NAME="nazwaPTC";
+	// 8 KEY_PTK_NAME="nazwaPTK";
+	// 9 KEY_REGION="region";
+	// 10 KEY_AREA="obszar";
+	// 11 KEY_DELETED_DATE="dataSkasowania";
+	// 12 KEY_STREET="ulica";
+	// 13 KEY_STREET_NO="numer";
+	// 14 KEY_ZIP_CODE="kodPocztowy";
+	// 15 KEY_CITY="miasto";
+	// 16 KEY_COMMUNITY="gmina";
+	// 17 KEY_DISTRICT="powiat";
+	// 18 KEY_PROVINCE="wojewodztwo";
+	// 19 KEY_TYPE="typ";
+	// 20 KEY_CANDIDATE="kandydat";
+	// 21 KEY_CORD_X="wspX";
+	// 22 KEY_CORD_Y="wspY";
+	// 23 KEY_HEIGHT="wys";
+	// 24 KEY_BUILDING_HEIGHT="wysBud";
+	// 25 KEY_ACCESS_DESCRIBE="opisDostepu";
+	// 26 KEY_STATION_DESCRIBE="opisStacji";
+	// 27 KEY_PLUS_NUM="nrPlus";
+	// 28 KEY_PLAY_NUM="nrPlay";
+	// 29 KEY_POWER_STATION_NUMBER="nrElektrowni";
+	// 30 KEY_UPDATE_DATE="dataAktualizacji";
 }

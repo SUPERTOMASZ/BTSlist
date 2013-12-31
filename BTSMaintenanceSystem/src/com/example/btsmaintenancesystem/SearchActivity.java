@@ -2,10 +2,11 @@ package com.example.btsmaintenancesystem;
 
 import java.util.ArrayList;
 
-import searchpack.BTS;
+import database.DataBaseHelper;
+import database.PreparingDataBase;
+import database.Station;
+
 import searchpack.CustomListView;
-import searchpack.MyDataBaseHelper;
-import searchpack.PreparingDataBase;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -32,10 +33,10 @@ public class SearchActivity extends Activity  {
 	private PreparingDataBase db;
 	private Spinner choseSpinner;
 	private ListView list;
-	private ArrayList<BTS> tempList;
+	private ArrayList<Station> tempList;
 	private EditText editText;
 	private String spinnerChoose;
-	private MyDataBaseHelper mydb;
+	private DataBaseHelper mydb;
 	
 	
 	@Override
@@ -44,7 +45,7 @@ public class SearchActivity extends Activity  {
 		setContentView(R.layout.search_activity);
 		
 		this.db= new PreparingDataBase(getApplicationContext());
-		this.mydb= new MyDataBaseHelper(getApplicationContext());
+		this.mydb= new DataBaseHelper(getApplicationContext());
 		
 		
 		((ImageView)findViewById(R.id.line)).setImageResource(R.drawable.line);
@@ -58,7 +59,7 @@ public class SearchActivity extends Activity  {
 		
 		//sample of use
 		
-		this.tempList=new ArrayList<BTS>();
+		this.tempList=new ArrayList<Station>();
 		
 		this.customListView= new CustomListView(this,R.layout.intro_activity,
 											tempList);
@@ -95,8 +96,8 @@ public class SearchActivity extends Activity  {
 					int pos, long arg3) {
 				
 				spinnerChoose=arg0.getItemAtPosition(pos).toString();
-				editText.setText(spinnerChoose);
-				mydb.getBTS(" nazwastacji", spinnerChoose);
+				//editText.setText(spinnerChoose);
+				//mydb.getBTS(" nazwastacji", spinnerChoose);
 			}
 
 			@Override
@@ -114,7 +115,7 @@ public class SearchActivity extends Activity  {
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				if(event.getAction()==KeyEvent.ACTION_DOWN)
 				{
-					editText.setText("dziala");
+					//editText.setText("dziala");
 					PackageManager m = getPackageManager();
 					String s = getPackageName();
 					try {
@@ -123,11 +124,13 @@ public class SearchActivity extends Activity  {
 					} catch (NameNotFoundException e) {
 					   
 					}
-					tempList.add(new BTS("Sokolowiec1","szybka","55%45","15%23","PTCName","PTKName"));
-					tempList.add(new BTS("Sokolowiec2","szybka","55%45","15%23","PTCName","PTKName"));
-					tempList.add(new BTS("Sokolowiec3","szybka","55%45","15%23","PTCName","PTKName"));
-					tempList.add(new BTS("Sokolowiec3","szybka","55%45","15%23","PTCName","PTKName"));
 					
+					ArrayList<Station> temp1=mydb.getBTS(editText.getText().toString(),
+							spinnerChoose);
+					for(int i=0;i<tempList.size();i++)
+						tempList.remove(i);
+					for(int i=0;i<temp1.size();i++)
+						tempList.add(temp1.get(i));
 					customListView.notifyDataSetChanged();
 					list.refreshDrawableState();
 				
