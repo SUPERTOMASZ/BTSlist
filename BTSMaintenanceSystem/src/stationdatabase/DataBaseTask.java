@@ -1,4 +1,4 @@
-package database;
+package stationdatabase;
 
 import java.util.ArrayList;
 

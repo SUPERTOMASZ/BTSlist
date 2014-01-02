@@ -66,7 +66,7 @@
             android:layout_width="fill_parent"
             android:background="@drawable/dyzico"
             android:layout_marginBottom="10dp"
-            android:onClick="dyzMenu"
+            android:onClick="dutyMenu"
         />
              <Button
             android:layout_height="0dp"

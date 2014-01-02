@@ -2,12 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <LinearLayout >
+    android:orientation="vertical"
+    android:background="#232323" >
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_weight="0.25"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp">
+        
+        <ImageView 
+        android:src="@drawable/dutyico"
+        android:layout_weight="0.25"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        
+        />
+    <TextView
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="0.75"
+        android:text="Dyżury"
+        android:textColor="#0684c6"
+        android:textSize="35sp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:textStyle="bold"
+        />
         
         
         
         
     </LinearLayout>
+    <ListView android:layout_weight="0.75"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp">
+        
+    </ListView>
+    
 
 </LinearLayout>
