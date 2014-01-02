@@ -48,6 +48,7 @@
            		  android:layout_width="fill_parent"
             	  android:background="@drawable/smsico"
             	  android:layout_marginBottom="10dp"
+            	  android:onClick="smsMenu"
         />
          <Button
             android:layout_height="0dp"
@@ -56,6 +57,7 @@
             android:layout_width="fill_parent"
             android:background="@drawable/gpsico"
             android:layout_marginBottom="10dp"
+            android:onClick="gpsMenu"
         />
            <Button
             android:layout_height="0dp"
@@ -64,6 +66,7 @@
             android:layout_width="fill_parent"
             android:background="@drawable/dyzico"
             android:layout_marginBottom="10dp"
+            android:onClick="dyzMenu"
         />
              <Button
             android:layout_height="0dp"
@@ -72,6 +75,7 @@
             android:layout_width="fill_parent"
             android:background="@drawable/updateico"
             android:layout_marginBottom="10dp"
+            android:onClick="updateMenu"
         />
               	 <Button
             		android:layout_height="0dp"
@@ -80,6 +84,7 @@
             		android:layout_width="fill_parent"
             		android:background="@drawable/aboutico"
            	 		android:layout_marginBottom="10dp"
+           	 		android:onClick="aboutMenu"
       			  />
     </LinearLayout>
     	<LinearLayout

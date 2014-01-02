@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#232323" >
+    <LinearLayout 
+      
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25">
+    <ImageView 
+        android:src="@drawable/about_ico"
+        android:layout_weight="0.25"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        
+        />
+    <TextView
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="0.75"
+        android:text="O Aplikacji"
+        android:textColor="#ffa200"
+        android:textSize="35sp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:textStyle="bold"
+        />
+	</LinearLayout>
+		<ImageView 
+	 android:id="@+id/line"
+	 android:layout_height="0dp"
+	 android:layout_weight="0.01"
+	 android:layout_width="fill_parent"
+	 android:src="@drawable/line"/>
+	<TextView
+       
+        android:layout_width="fill_parent"
+        android:layout_weight="0.75"
+        android:layout_height="0dp"
+        android:text="@string/aboutText"
+        android:textColor="#ffa200"
+        android:textSize="15sp"
+        />
+	 
+		<ImageView 
+	
+	 android:layout_height="0dp"
+	 android:layout_weight="0.01"
+	 android:layout_width="fill_parent"
+	 android:src="@drawable/line"
+	 android:layout_marginBottom="50dp"/>
+	    
+	    
+
+
+</LinearLayout >
