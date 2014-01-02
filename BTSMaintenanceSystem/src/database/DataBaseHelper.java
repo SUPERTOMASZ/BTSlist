@@ -1,5 +1,6 @@
 package database;
 
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 
@@ -11,8 +12,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.SearchView.OnQueryTextListener;
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+public class DataBaseHelper extends SQLiteOpenHelper 
+
+{
 	
 	
 	private static String BASENAME="base.db";
@@ -100,49 +104,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 	 */
 	public ArrayList<Station> getBTS(String keyword,String choose)
 	{
-		
+		keyword=convertString(keyword);
 		ArrayList<Station> result = new ArrayList<Station>();
 		int num_col=convertFromSpinner(choose);
-		 Log.i("wybor",COLUMNS[num_col]);
 		 String cond;
-		 if(num_col==0)
-		 {
-			 cond="";
-		 }
-		 else
-		 {
-			 cond=COLUMNS[num_col]+" LIKE '%"+keyword+"%'";
-		 }
-		// cond=COLUMNS[6]+" LIKE '%"+"nazwa"+"%'";
-		SQLiteDatabase db =this.getReadableDatabase();
-		Cursor cursor= db.query(TABLE,COLUMNS,cond,
-				null,null,null,null);
-		Log.i("database","cursor utworzony");
-		Log.i("ile wierszy ",cursor.getCount()+"");
-		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-		{
-			Log.i("wybor","przebieg petli");
-			result.add(makeBTSfromCursor(cursor));
-		}
-	//	cursor.move
-		//Log.i("database result",""+cursor.getString(cursor.getColumnIndex(COLUMNS[0])));
+		 SQLiteDatabase db =this.getReadableDatabase();
+
+		 cond=COLUMNS[num_col]+" LIKE '%"+keyword+"%'";
+			 
+			Cursor cursor= db.query(TABLE,COLUMNS,cond,
+						null,null,null,null);
+			for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+				result.add(makeBTSfromCursor(cursor));
+				
+		 
+		
 		return result;
 	}
+	
 	private Station makeBTSfromCursor(Cursor cursor)
 	{
 		Station station= new Station();
 		String bufferTab[]= new String[COLUMNS.length];
 		Log.i("tworzenie poj BTS","utwrzono tablice");
 		for(int i=0;i<COLUMNS.length;i++)
-		{
-			Log.i("tworzenie poj BTS","przebieg petli "+i);
-			int nr=cursor.getColumnIndex(COLUMNS[i]);
-			Log.i("nr kolumny ",""+nr);
-			Log.i("wartosc",cursor.getString(nr));
-			Log.i("wartosc z tabeli",COLUMNS[i]);
 			bufferTab[i]=cursor.getString(cursor.getColumnIndex(COLUMNS[i]));
-		}
-		Log.i("tworzenie poj BTS","po petli");
+		
 		station.setStationNum(bufferTab[1]);
 		station.setNetWorksNum(bufferTab[2]);
 		station.setPTCNum(bufferTab[3]);
@@ -221,6 +208,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 		
 		
 	}
+	private String convertString(String input)
+	{
+		input=input.toLowerCase();
+		input=input.replaceAll("¹", "a");
+		input=input.replaceAll("æ", "c");
+		input=input.replaceAll("ê", "e");
+		input=input.replaceAll("³", "l");
+		input=input.replaceAll("ñ", "n");
+		input=input.replaceAll("ó", "o");
+		input=input.replaceAll("œ", "s");
+		input=input.replaceAll("Ÿ", "z");
+		input=input.replaceAll("¿", "z");
+		return input;
+	}
+
 	
 	// 0 PRIMARY_KEY="id"; (ALL)
 	// 1 KEY_STATION_NUM="NRStacji";

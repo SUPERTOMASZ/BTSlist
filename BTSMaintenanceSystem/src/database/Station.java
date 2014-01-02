@@ -167,8 +167,9 @@ public class Station
 	}
 	public void setType(String type) {
 		this.type = type;
-		this.ImageId=R.drawable.towerico1;
+		setImageId(type);
 	}
+	
 	public String getCandidat() {
 		return candidat;
 	}
@@ -234,6 +235,23 @@ public class Station
 	}
 	public void setImageId(int imageId) {
 		ImageId = imageId;
+	}
+	public void setImageId(String input) {
+		if(input.contains("budynek"))
+			this.ImageId=R.drawable.indoorico;
+		else if(input.contains("kosciol"))
+			this.ImageId=R.drawable.sacrumico;
+		else if(input.contains("maszt"))
+			this.ImageId=R.drawable.towerico;
+		else if(input.contains("wieza")||input.contains("tower"))
+			this.ImageId=R.drawable.tower2ico;
+		else if(input.contains("slup"))
+			this.ImageId=R.drawable.pilarico;
+		else if(input.contains("komin"))
+			this.ImageId=R.drawable.kominico;
+		else
+			this.ImageId=R.drawable.anyico;
+		
 	}
 	public String getPowerPlantNum() {
 		return powerPlantNum;

@@ -6,7 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="startButton">startBut</string>
     <string-array name="category">
-        <item>wszystkie</item>
         <item>numer stacji</item>
         <item>numer NetWorks</item>
         <item>numer PTC</item>

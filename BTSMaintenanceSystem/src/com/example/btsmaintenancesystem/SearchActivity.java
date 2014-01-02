@@ -3,18 +3,23 @@ package com.example.btsmaintenancesystem;
 import java.util.ArrayList;
 
 import database.DataBaseHelper;
+import database.DataBaseTask;
 import database.PreparingDataBase;
 import database.Station;
 
 import searchpack.CustomListView;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -24,10 +29,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 
 public class SearchActivity extends Activity  {
 
+	
 	
 	private CustomListView customListView;
 	private PreparingDataBase db;
@@ -35,7 +42,7 @@ public class SearchActivity extends Activity  {
 	private ListView list;
 	private ArrayList<Station> tempList;
 	private EditText editText;
-	private String spinnerChoose;
+	private String spinnerChoose="nazwa stacji";
 	private DataBaseHelper mydb;
 	
 	
@@ -57,7 +64,7 @@ public class SearchActivity extends Activity  {
 		this.editText=(EditText) findViewById(R.id.editText1);
 		setEditText();
 		
-		//sample of use
+		
 		
 		this.tempList=new ArrayList<Station>();
 		
@@ -96,8 +103,7 @@ public class SearchActivity extends Activity  {
 					int pos, long arg3) {
 				
 				spinnerChoose=arg0.getItemAtPosition(pos).toString();
-				//editText.setText(spinnerChoose);
-				//mydb.getBTS(" nazwastacji", spinnerChoose);
+				
 			}
 
 			@Override
@@ -110,29 +116,29 @@ public class SearchActivity extends Activity  {
 	private void setEditText()
 	{
 		editText.setOnEditorActionListener(new OnEditorActionListener() {
-			
+		
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				if(event.getAction()==KeyEvent.ACTION_DOWN)
 				{
-					//editText.setText("dziala");
-					PackageManager m = getPackageManager();
-					String s = getPackageName();
-					try {
-					    PackageInfo p = m.getPackageInfo(s, 0);
-					    s = p.applicationInfo.dataDir;
-					} catch (NameNotFoundException e) {
-					   
-					}
-					
+					Log.i("searchActivity","wcisnalem szukanie");
+					/*
 					ArrayList<Station> temp1=mydb.getBTS(editText.getText().toString(),
 							spinnerChoose);
 					for(int i=0;i<tempList.size();i++)
 						tempList.remove(i);
+					customListView.clear();
 					for(int i=0;i<temp1.size();i++)
 						tempList.add(temp1.get(i));
+					
 					customListView.notifyDataSetChanged();
-					list.refreshDrawableState();
+					*/
+					InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					mgr.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+				
+					new DataBaseTask(mydb,spinnerChoose,editText.getText().toString(),
+							tempList,customListView,editText,getApplicationContext())
+					.execute();
 				
 					return true;
 				}
@@ -142,7 +148,84 @@ public class SearchActivity extends Activity  {
 			}
 		});
 	}
-	
+	public CustomListView getCustomListView() {
+		return customListView;
+	}
+
+
+	public void setCustomListView(CustomListView customListView) {
+		this.customListView = customListView;
+	}
+
+
+	public PreparingDataBase getDb() {
+		return db;
+	}
+
+
+	public void setDb(PreparingDataBase db) {
+		this.db = db;
+	}
+
+
+	public Spinner getChoseSpinner() {
+		return choseSpinner;
+	}
+
+
+	public void setChoseSpinner(Spinner choseSpinner) {
+		this.choseSpinner = choseSpinner;
+	}
+
+
+	public ListView getList() {
+		return list;
+	}
+
+
+	public void setList(ListView list) {
+		this.list = list;
+	}
+
+
+	public ArrayList<Station> getTempList() {
+		return tempList;
+	}
+
+
+	public void setTempList(ArrayList<Station> tempList) {
+		this.tempList = tempList;
+	}
+
+
+	public EditText getEditText() {
+		return editText;
+	}
+
+
+	public void setEditText(EditText editText) {
+		this.editText = editText;
+	}
+
+
+	public String getSpinnerChoose() {
+		return spinnerChoose;
+	}
+
+
+	public void setSpinnerChoose(String spinnerChoose) {
+		this.spinnerChoose = spinnerChoose;
+	}
+
+
+	public DataBaseHelper getMydb() {
+		return mydb;
+	}
+
+
+	public void setMydb(DataBaseHelper mydb) {
+		this.mydb = mydb;
+	}
 	
 
 }
