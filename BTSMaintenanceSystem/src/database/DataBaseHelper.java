@@ -2,6 +2,7 @@ package database;
 
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import station.Station;
 
@@ -115,6 +116,55 @@ public class DataBaseHelper extends SQLiteOpenHelper
 		return result;
 	}
 	
+	public ArrayList<Station> findNearest(Double cordX, Double cordY)
+	{
+		 Double cordX1, cordX2, cordY1, cordY2;
+		 ArrayList<Station> result;
+		 SQLiteDatabase db =this.getReadableDatabase();
+		 int res_size;
+		 
+		 Double section = 50.0;  //!!
+		 cordX = 500.0; //!!
+		 
+		do 
+		{
+			 result = new ArrayList<Station>();
+		
+			 cordX1 = cordX-section;
+			 cordX2 = cordX+section;
+			 cordY1 = cordY-section;
+			 cordY2 = cordY+section;
+		
+			 String cond=KEY_HEIGHT+">"+cordX1+" AND "+KEY_HEIGHT+"<"+cordX2;  		//!!
+			 //Docelowo
+			 //String cond=KEY_CORD_X+">"+cordX1+" AND "+KEY_CORD_X+"<"+cordX2+" AND "+KEY_CORD_X+">"+cordY1+" AND "+KEY_CORD_X+"<"+cordY2;  		
+			
+		
+			 Cursor cursor= db.query(BASETABLE,COLUMNS,cond,
+						null,null,null,null);
+			 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+				 result.add(makeBTSfromCursor(cursor));
+			
+			 res_size = result.size();
+			 if (res_size>20)
+				 section/=2.0;
+			 else if (res_size<5)
+				 section*=1.5;
+				 
+		 }
+		while(res_size>20);
+		
+		for(int i = 0; i < result.size(); i++)
+			result.get(i).setDistance(cordX, cordY);
+		
+		
+		Collections.sort(result);
+		
+		return result;
+	}
+	
+	
+	
 	private Station makeBTSfromCursor(Cursor cursor)
 	{
 		Station station= new Station();
@@ -188,6 +238,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 		// 29 KEY_POWER_STATION_NUMBER="nrElektrowni";
 		// 30 KEY_UPDATE_DATE="dataAktualizacji";
 	}
+	
 	private int convertFromSpinner(String input)
 	{
 		int i;

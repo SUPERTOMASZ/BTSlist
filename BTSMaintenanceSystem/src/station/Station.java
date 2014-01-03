@@ -3,7 +3,7 @@ package station;
 import com.example.btsmaintenancesystem.R;
 import com.example.btsmaintenancesystem.R.drawable;
 
-public class Station
+public class Station implements Comparable<Station>
 {
 	private String stationNum;
 	private String netWorksNum;
@@ -39,7 +39,9 @@ public class Station
 	private String powerPlantNum;
 	private String updatedTime;
 	private int ImageId;
-	public Station()
+	private Double distance = 0.0;
+	
+	public Station() 
 	{
 	}
 	public String getStationNum() {
@@ -266,6 +268,21 @@ public class Station
 		this.updatedTime = updatedTime;
 	}
 	
+	public void setDistance(Double cordX, Double cordY)
+	{
+		//Docelowo coœ w stylu
+		//distance =  (cordX-this.cordX)*(cordX-this.cordX)+(cordY-this.cordY)*(cordY-this.cordY)
+		distance = Double.parseDouble(height);
+	}
 	
+	public Double getDistance()
+	{
+		return distance;
+	}
+	@Override
+	public int compareTo(Station stacja) 
+	{
+		return (int)(this.distance - stacja.getDistance());
+	}
 
 }

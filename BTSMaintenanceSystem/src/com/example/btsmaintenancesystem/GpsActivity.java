@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import database.DataBaseHelper;
 import database.PreparingDataBase;
 
+import station.DataBaseFind;
 import station.DataBaseTask;
 import station.Station;
 
 import searchpack.CustomListView;
 import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -25,7 +29,6 @@ public class GpsActivity extends Activity  {
 	private PreparingDataBase db;
 	private ListView list;
 	private ArrayList<Station> tempList;
-	private String spinnerChoose="nazwa stacji";
 	private DataBaseHelper mydb;
 	
 	
@@ -42,18 +45,36 @@ public class GpsActivity extends Activity  {
 		
 		this.list=(ListView) findViewById(R.id.listView1);
 	
-
-		
-		
 		this.tempList=new ArrayList<Station>();
 		
 		this.customListView= new CustomListView(this,R.layout.intro_activity,
 											tempList);
 		this.list.setAdapter(customListView);
 		
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		
-		
-	
+		Double cordX = 0.0; 
+		Double cordY = 0.0;
+		for (String providerStr : locationManager.getAllProviders()) 
+		{
+	        Location location = locationManager.getLastKnownLocation(providerStr);
+	        if (location != null) 
+	        {
+	            cordX=location.getLatitude();	
+	            cordY=location.getLongitude();
+	            break;
+	        }
+	    } 
+	    
+	    if ((cordX==0.0)&&(cordY==0.0))
+	    {
+	    	//pobraæ ostatni¹ znan¹ lokalizacje z XML
+	    }
+	    
+	       
+	    new DataBaseFind(mydb, cordX, cordY, tempList, customListView, getApplicationContext())
+		.execute();
+	    
 	
 	}
 	
@@ -62,8 +83,6 @@ public class GpsActivity extends Activity  {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-		
-		   
 		
 		return true;
 	}
@@ -109,17 +128,6 @@ public class GpsActivity extends Activity  {
 		this.tempList = tempList;
 	}
 
-
-
-
-	public String getSpinnerChoose() {
-		return spinnerChoose;
-	}
-
-
-	public void setSpinnerChoose(String spinnerChoose) {
-		this.spinnerChoose = spinnerChoose;
-	}
 
 
 	public DataBaseHelper getMydb() {
