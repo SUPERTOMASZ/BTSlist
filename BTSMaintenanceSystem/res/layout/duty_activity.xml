@@ -6,7 +6,7 @@
     android:background="#232323" >
     <LinearLayout 
         android:orientation="horizontal"
-        android:layout_weight="0.25"
+        android:layout_weight="0.2"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_margin="5sp">
@@ -32,37 +32,13 @@
         />
     </LinearLayout>
     
-    <TextView 
-        android:layout_width="fill_parent"
-        android:layout_weight="0.1"
-        android:layout_height="0dp"
-        android:text="@string/updateButtonDUty"
-        android:textSize="15sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginLeft="5sp"
-        />
-    <Button 
-      android:layout_width="fill_parent"
-      android:layout_height="0dp"
-      android:layout_weight="0.25"
-      android:background="#00a8ff"
-      android:layout_marginLeft="5sp"
-      android:layout_marginRight="5sp"
-      android:text="AKTUALIZUJ"
-      android:textStyle="bold"
-     
-      android:textSize="40sp"
-     android:textColor="#FFFFFF" />
-    <TextView 
-        android:layout_width="fill_parent"
-        android:layout_weight="0.15"
-        android:layout_height="0dp"
-        android:text="@string/updateDutyInfo"
-        android:textSize="15sp"
-        android:textColor="#00a8ff"
-        android:layout_margin="5dp"
-        android:textStyle="italic"/>
-    
+   
+    <ImageView 
+	        android:src="@drawable/line"
+	        android:layout_weight="0.1"
+	        android:layout_height="0dp"
+	        android:layout_width="match_parent"
+	        />
     <ListView
         android:id="@+id/dutyList"
          android:layout_weight="0.75"

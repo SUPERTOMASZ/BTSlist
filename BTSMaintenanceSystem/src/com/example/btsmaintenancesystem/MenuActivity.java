@@ -61,7 +61,7 @@ public class MenuActivity extends Activity {
 	
 	public void  updateMenu(View view)
 	{
-		Intent intent = new Intent(this,AboutActivity.class);
+		Intent intent = new Intent(this,UpdateActivity.class);
 	
 		startActivity(intent);
 		

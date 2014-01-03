@@ -60,6 +60,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.example.btsmaintenancesystem.UpdateActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.example.btsmaintenancesystem.GpsActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" >
