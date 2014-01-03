@@ -2,12 +2,13 @@ package com.example.btsmaintenancesystem;
 
 import java.util.ArrayList;
 
+import database.DataBaseHelper;
+import database.PreparingDataBase;
+
 
 import searchpack.CustomListView;
-import stationdatabase.DataBaseHelper;
-import stationdatabase.DataBaseTask;
-import stationdatabase.PreparingDataBase;
-import stationdatabase.Station;
+import station.DataBaseTask;
+import station.Station;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;

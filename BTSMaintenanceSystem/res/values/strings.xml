@@ -5,7 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="startButton">startBut</string>
-
+	<string name="updateButtonDUty">Kliknij, aby zaktualizować baze danych.</string>
+	<string name="updateDutyInfo">Aktualizacja wymaga połączenia z internetem i może potrwać kilka minut.</string>
     <string-array name="category">
         <item>numer stacji</item>
         <item>numer NetWorks</item>
@@ -36,5 +37,6 @@ bez przeczytania instrukcji obsługi.</string>
     <string name="title_activity_gps">GpsActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    
 
 </resources>

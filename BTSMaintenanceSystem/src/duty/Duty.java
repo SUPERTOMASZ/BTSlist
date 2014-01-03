@@ -6,6 +6,17 @@ public class Duty
 	private String workerName;
 	private String workerSurname;
 	private String date;
+	public Duty()
+	{
+		
+	}
+	public Duty(String name, String surname,String date)
+	{
+		this.workerName=name;
+		this.workerSurname=surname;
+		this.date=date;
+		
+	}
 	public String getWorkerName() {
 		return workerName;
 	}

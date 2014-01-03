@@ -8,7 +8,8 @@
         android:orientation="horizontal"
         android:layout_weight="0.25"
         android:layout_width="fill_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_margin="5sp">
         
         <ImageView 
         android:src="@drawable/dutyico"
@@ -16,26 +17,60 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         
+        
         />
     <TextView
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="0.75"
-        android:text="Dyżury"
+        android:text="DYŻURY"
         android:textColor="#0684c6"
         android:textSize="35sp"
         android:layout_gravity="center_vertical"
         android:gravity="center"
         android:textStyle="bold"
         />
-        
-        
-        
-        
     </LinearLayout>
-    <ListView android:layout_weight="0.75"
+    
+    <TextView 
         android:layout_width="fill_parent"
-        android:layout_height="0dp">
+        android:layout_weight="0.1"
+        android:layout_height="0dp"
+        android:text="@string/updateButtonDUty"
+        android:textSize="15sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginLeft="5sp"
+        />
+    <Button 
+      android:layout_width="fill_parent"
+      android:layout_height="0dp"
+      android:layout_weight="0.25"
+      android:background="#00a8ff"
+      android:layout_marginLeft="5sp"
+      android:layout_marginRight="5sp"
+      android:text="AKTUALIZUJ"
+      android:textStyle="bold"
+     
+      android:textSize="40sp"
+     android:textColor="#FFFFFF" />
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_weight="0.15"
+        android:layout_height="0dp"
+        android:text="@string/updateDutyInfo"
+        android:textSize="15sp"
+        android:textColor="#00a8ff"
+        android:layout_margin="5dp"
+        android:textStyle="italic"/>
+    
+    <ListView
+        android:id="@+id/dutyList"
+         android:layout_weight="0.75"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:divider="#0c608c"
+        android:dividerHeight="2sp"
+        >
         
     </ListView>
     

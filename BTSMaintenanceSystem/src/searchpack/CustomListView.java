@@ -2,7 +2,7 @@ package searchpack;
 
 import java.util.List;
 
-import stationdatabase.Station;
+import station.Station;
 
 import com.example.btsmaintenancesystem.R;
 import com.example.btsmaintenancesystem.R.id;
