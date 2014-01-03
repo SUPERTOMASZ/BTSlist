@@ -53,8 +53,8 @@ public class GpsActivity extends Activity  {
 		
 		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		
-		Double cordX = 0.0; 
-		Double cordY = 0.0;
+		double cordX = 0.0; 
+		double cordY = 0.0;
 		for (String providerStr : locationManager.getAllProviders()) 
 		{
 	        Location location = locationManager.getLastKnownLocation(providerStr);
@@ -72,7 +72,7 @@ public class GpsActivity extends Activity  {
 	    }
 	    
 	       
-	    new DataBaseFind(mydb, cordX, cordY, tempList, customListView, getApplicationContext())
+	    new DataBaseFind(mydb, (float)cordX, (float)cordY, tempList, customListView, getApplicationContext())
 		.execute();
 	    
 	

@@ -39,7 +39,7 @@ public class Station implements Comparable<Station>
 	private String powerPlantNum;
 	private String updatedTime;
 	private int ImageId;
-	private Double distance = 0.0;
+	private Float distance = 0f;
 	
 	public Station() 
 	{
@@ -268,14 +268,14 @@ public class Station implements Comparable<Station>
 		this.updatedTime = updatedTime;
 	}
 	
-	public void setDistance(Double cordX, Double cordY)
+	public void setDistance(Float cordX, Float cordY)
 	{
 		//Docelowo coœ w stylu
 		//distance =  (cordX-this.cordX)*(cordX-this.cordX)+(cordY-this.cordY)*(cordY-this.cordY)
-		distance = Double.parseDouble(height);
+		distance = Float.parseFloat(height);
 	}
 	
-	public Double getDistance()
+	public Float getDistance()
 	{
 		return distance;
 	}
@@ -285,4 +285,5 @@ public class Station implements Comparable<Station>
 		return (int)(this.distance - stacja.getDistance());
 	}
 
+	
 }

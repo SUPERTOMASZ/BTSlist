@@ -116,15 +116,15 @@ public class DataBaseHelper extends SQLiteOpenHelper
 		return result;
 	}
 	
-	public ArrayList<Station> findNearest(Double cordX, Double cordY)
+	public ArrayList<Station> findNearest(Float cordX, Float cordY)
 	{
-		 Double cordX1, cordX2, cordY1, cordY2;
+		 Float cordX1, cordX2, cordY1, cordY2;
 		 ArrayList<Station> result;
-		 SQLiteDatabase db =this.getReadableDatabase();
+		 SQLiteDatabase db = this.getReadableDatabase();
 		 int res_size;
-		 
-		 Double section = 50.0;  //!!
-		 cordX = 500.0; //!!
+		 Float temp =cordX;
+		 Float section = 50.0f;  //!!
+		 cordX = 500.0f; //!!
 		 
 		do 
 		{
@@ -146,14 +146,15 @@ public class DataBaseHelper extends SQLiteOpenHelper
 				 result.add(makeBTSfromCursor(cursor));
 			
 			 res_size = result.size();
-			 if (res_size>20)
-				 section/=2.0;
+			 if (res_size>1000)
+				 section/=2.0f;
 			 else if (res_size<5)
-				 section*=1.5;
+				 section*=1.5f;
 				 
 		 }
-		while(res_size>20);
+		while((res_size>1000)||(res_size<5));
 		
+		cordX=temp;
 		for(int i = 0; i < result.size(); i++)
 			result.get(i).setDistance(cordX, cordY);
 		
