@@ -5,6 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="startButton">startBut</string>
+
     <string-array name="category">
         <item>numer stacji</item>
         <item>numer NetWorks</item>
@@ -23,17 +24,17 @@
         <item>powiat</item>
         <item>wojewodztwo</item>
     </string-array>
-<string name="aboutText">
-BTS Center jest aplikacją stworzoną 
+
+    <string name="aboutText">BTS Center jest aplikacją stworzoną 
 w celu ułatwienia użytkownikowi obsługi i
 konserwacji stacji BTS na terenie całej Polski
 
 Aplikacja została zaprojektowana przy 
 użyciu najlepszych dostępnych środków, 
 aby użytkownik mógł z łatwością używać jej 
-bez przeczytania instrukcji obsługi.
-</string>
+bez przeczytania instrukcji obsługi.</string>
+    <string name="title_activity_gps">GpsActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
-
-    
 </resources>

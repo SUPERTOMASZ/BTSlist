@@ -13,9 +13,6 @@ public class MenuActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu_activity);
 		
-	
-		
-		
 	}
 
 	@Override
@@ -33,7 +30,36 @@ public class MenuActivity extends Activity {
 		
 		
 	}
-	public void  aboutMenu(View view)
+
+	public void  smsMenu(View view)
+	{
+		//do zmiany
+		Intent intent = new Intent(this,AboutActivity.class);
+	
+		startActivity(intent);
+		
+		
+	}
+	
+	public void  gpsMenu(View view)
+	{
+		Intent intent = new Intent(this,GpsActivity.class);
+	
+		startActivity(intent);
+		
+		
+	}
+	
+	public void  dutyMenu(View view)
+	{
+		Intent intent = new Intent(this,DutyActivity.class);
+	
+		startActivity(intent);
+		
+		
+	}
+	
+	public void  updateMenu(View view)
 	{
 		Intent intent = new Intent(this,AboutActivity.class);
 	
@@ -41,9 +67,9 @@ public class MenuActivity extends Activity {
 		
 		
 	}
-	public void  dutyMenu(View view)
+	public void  aboutMenu(View view)
 	{
-		Intent intent = new Intent(this,DutyActivity.class);
+		Intent intent = new Intent(this,AboutActivity.class);
 	
 		startActivity(intent);
 		
