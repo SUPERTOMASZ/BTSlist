@@ -61,8 +61,8 @@ public class BaseRead {
 		tmp.setUlicaInaczej(temp[19]);
 		tmp.setTyp(temp[20]);
 		tmp.setKandydat(temp[21]);
-		tmp.setWspolX(temp[22]);
-		tmp.setWspolY(temp[23]);
+		tmp.setWspolX(convert(temp[22]));        //!!
+		tmp.setWspolY(convert(temp[23]));		 //!!
 		tmp.setWysNadPomMorz(temp[24]);
 		tmp.setWysBud(temp[25]);
 		tmp.setZagiel(temp[26]);
@@ -96,4 +96,38 @@ public class BaseRead {
 		
 	}
 
+	   public static String convert(String cord)
+        {
+            Float st = 0f;
+            Float min = 0f;
+            Float sec = 0f;
+            
+            String temp[] = cord.split("s");
+            try
+            {
+                st = Float.parseFloat(temp[0]);
+            }
+            catch(Exception e){}
+            String temp1[] = temp[1].split("-");
+            try
+            {
+                min = Float.parseFloat(temp1[0]);
+            }
+            catch(Exception e){}
+            try
+            {
+                sec = Float.parseFloat(temp1[1]);
+            }
+            catch(Exception e){}
+            
+            Float result = st + min/60 + sec/3600;
+            String res = result.toString();
+             
+            return res;		
+			
+			//jesli ma zwracać Float to wstawić
+			//if (res.length()>10)            
+            //    result = Float.parseFloat(res);
+			//return result;
+        }
 }
