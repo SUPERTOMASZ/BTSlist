@@ -83,51 +83,95 @@ public class BaseRead {
 		Scanner scanner = new Scanner(fileIn);
 		BTS temp ;
 		int i=0;
+		//for( i=0;i<1000;i++)
 		while(scanner.hasNext())
 		{
-			temp=readOne(scanner.nextLine());
+			temp=readOne(convertFromPolish(scanner.nextLine()));
 			bc.insertIntoBtsTable(temp);
 			i++;
-			System.out.println(i);
+			//System.out.println(i);
 		
 		}
+		bc.insertWorkerBtsTable(new Worker("Sebastian","Salat"));
+		bc.insertWorkerBtsTable(new Worker("Piotr","Piotrowski"));
+		bc.insertWorkerBtsTable(new Worker("Krzysztof","Rymut"));
+		bc.insertWorkerBtsTable(new Worker("Rafal","Urbanowicz"));
+		
+		bc.insertDutyTable(null, null);
+		bc.insertDutyTable(null, null);
+		bc.insertDutyTable(null, null);
+		bc.insertDutyTable(null, null);
+		bc.insertDutyTable(null, null);
+		
+		
+		
+		bc.insertUpdateDate(null, null, null, null);
+		
 		
 		bc.closeConnection();
 		
 	}
+	private String convertFromPolish(String input)
+	{
+		input=input.toLowerCase();
+		input.replaceAll("¹", "a");
+		input.replaceAll("æ", "c");
+		input.replaceAll("ê", "e");
+		input.replaceAll("³", "l");
+		input.replaceAll("ñ", "n");
+		input.replaceAll("ó", "o");
+		input.replaceAll("œ", "s");
+		input.replaceAll("Ÿ", "z");
+		input.replaceAll("¿", "z");
+		return input;
+		
+		
+		
+	}
 
-	   public static String convert(String cord)
+	   public static float convert(String cord)
         {
-            Float st = 0f;
-            Float min = 0f;
-            Float sec = 0f;
+            Float st = 0f;//stopnie
+            Float min = 0f;//minuty
+            Float sec = 0f;//sekundy
+            String splitedString[];
+ 
+            try
+            {
+            	splitedString=cord.split("s");//dzielimy kordynaty na przed i po s,
+            									//aby wydobyc stopnie
+            	cord=splitedString[1];
+            	st=Float.parseFloat(splitedString[0]);
+            	//System.out.println("stopnie "+st);
+                
+            }
+            catch(Exception e){
+            	return 0;
+            }
+  
+            try
+            {
+            	splitedString=cord.split("-");//wydobywamy minuty w analogicnzy sposob
+            	cord=splitedString[1];
+            	min=Float.parseFloat(splitedString[0]);
+            	//System.out.println("minuty "+st);
+            }
+            catch(Exception e){
+            	return 0;
+            }
+            	try{
+            	sec=Float.parseFloat(splitedString[1]);
+            	//System.out.println("sekundy "+st);
+            	}
+            	 catch(Exception e){
+                 	return 0;
+                 }	
             
-            String temp[] = cord.split("s");
-            try
-            {
-                st = Float.parseFloat(temp[0]);
-            }
-            catch(Exception e){}
-            String temp1[] = temp[1].split("-");
-            try
-            {
-                min = Float.parseFloat(temp1[0]);
-            }
-            catch(Exception e){}
-            try
-            {
-                sec = Float.parseFloat(temp1[1]);
-            }
-            catch(Exception e){}
-            
-            Float result = st + min/60 + sec/3600;
-            String res = result.toString();
-             
-            return res;		
+          
+            	Float result=st + min/60 + sec/3600;
+            	//System.out.println("wynik"+result);
+            return (result);		
 			
-			//jesli ma zwracaÄ‡ Float to wstawiÄ‡
-			//if (res.length()>10)            
-            //    result = Float.parseFloat(res);
-			//return result;
+            
         }
 }

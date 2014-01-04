@@ -2,6 +2,7 @@ package database;
 
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import station.Station;
@@ -116,50 +117,64 @@ public class DataBaseHelper extends SQLiteOpenHelper
 		return result;
 	}
 	
-	public ArrayList<Station> findNearest(Float cordX, Float cordY)
+	public ArrayList<Station> findNearest(Double cordX, Double cordY)
 	{
-		 Float cordX1, cordX2, cordY1, cordY2;
-		 ArrayList<Station> result;
+
 		 SQLiteDatabase db = this.getReadableDatabase();
-		 int res_size;
-		 Float temp =cordX;
-		 Float section = 50.0f;  //!!
-		 cordX = 500.0f; //!!
+
+		 ArrayList<Station> result= new ArrayList<Station>();
+		 Log.i(" X ",""+cordX);
+		 Log.i(" Y",""+cordY);
+		 Log.i(" znalazlem ","otworzylem baze");
 		 
+		 Log.i(" znalazlem ","zapytanie");
+		 Double section =  0.5;  //!!
+		 int maxit=500;
+		 int ite = 0;
+		 int size=0;
+		 Cursor cursor;
+		 Double cordX1;
+		 Double cordX2;
+		 Double cordY1;
+		 Double cordY2;
+
 		do 
 		{
-			 result = new ArrayList<Station>();
-		
-			 cordX1 = cordX-section;
-			 cordX2 = cordX+section;
-			 cordY1 = cordY-section;
-			 cordY2 = cordY+section;
-		
-			 String cond=KEY_HEIGHT+">"+cordX1+" AND "+KEY_HEIGHT+"<"+cordX2;  		//!!
-			 //Docelowo
-			 //String cond=KEY_CORD_X+">"+cordX1+" AND "+KEY_CORD_X+"<"+cordX2+" AND "+KEY_CORD_X+">"+cordY1+" AND "+KEY_CORD_X+"<"+cordY2;  		
-			
-		
-			 Cursor cursor= db.query(BASETABLE,COLUMNS,cond,
+			cordX1=cordX-section;
+			cordX2=cordX+section;
+			cordY1=cordY-section;
+			cordY2=cordY+section;
+			String cond=KEY_CORD_X+" > "+cordX1+" AND "+KEY_CORD_X+
+					 " < "+cordX2+" AND "+KEY_CORD_Y+"> "+cordY1+" AND "+
+					 KEY_CORD_Y+" < "+cordY2;
+			 Log.i(" zapytanie ",cond);
+			 
+			cursor = db.query(BASETABLE,COLUMNS,cond,
 						null,null,null,null);
-			 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-				 result.add(makeBTSfromCursor(cursor));
-			
-			 res_size = result.size();
-			 if (res_size>1000)
-				 section/=2.0f;
-			 else if (res_size<5)
-				 section*=1.5f;
+			Log.i(" znalazlem ","po zapytaniem");
+			 size=cursor.getCount();
+			Log.i(" znalazlem ",cursor.getCount()+"");
+			 ite++;
+			 if (cursor.getCount()>20)
+				 section/=1.2;
+			 else if (cursor.getCount()<1)
+				 section*=1.1;
+
 				 
+		 
+
 		 }
-		while((res_size>1000)||(res_size<5));
+		while( (cursor.getCount()<1)||cursor.getCount()>20);
+		Log.i(" znalazlem ","wyszedlem z petli");
+		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+			 result.add(makeBTSfromCursor(cursor));
 		
-		cordX=temp;
 		for(int i = 0; i < result.size(); i++)
 			result.get(i).setDistance(cordX, cordY);
 		
-		
 		Collections.sort(result);
+		for(int i=0;i<result.size();i++)
+			Log.i("find nearest ",result.get(i).getDistance()+"");
 		
 		return result;
 	}
@@ -170,7 +185,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 	{
 		Station station= new Station();
 		String bufferTab[]= new String[COLUMNS.length];
-		Log.i("tworzenie poj BTS","utwrzono tablice");
+		//Log.i("tworzenie poj BTS","utwrzono tablice");
 		for(int i=0;i<COLUMNS.length;i++)
 			bufferTab[i]=cursor.getString(cursor.getColumnIndex(COLUMNS[i]));
 		
@@ -194,8 +209,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
 		station.setProvince(bufferTab[18]);
 		station.setType(bufferTab[19]);
 		station.setCandidat(bufferTab[20]);
-		station.setCordX(bufferTab[21]);
-		station.setCordY(bufferTab[22]);
+		station.setCordX(Double.parseDouble(bufferTab[21]));
+		station.setCordY(Double.parseDouble(bufferTab[22]));
 		station.setHeight(bufferTab[23]);
 		station.setBuilding_height(bufferTab[24]);
 		station.setAccessDescribe(bufferTab[25]);
@@ -204,7 +219,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 		station.setPlayNum(bufferTab[28]);
 		station.setPowerPlantNum(bufferTab[29]);
 		station.setUpdatedTime(bufferTab[30]);
-		Log.i("tworzenie poj BTS","ukonczono tworzenie bts");
+		//Log.i("tworzenie poj BTS","ukonczono tworzenie bts");
 		
 		return station;
 		// 0 PRIMARY_KEY="id"; (ALL)
@@ -302,13 +317,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
 	{
 		
 		ArrayList<Duty> result = new ArrayList<Duty>();
-	Log.i("Database","wszedlem do funkcji zwracajacej dyzury");
+	//Log.i("Database","wszedlem do funkcji zwracajacej dyzury");
 		 SQLiteDatabase db =this.getReadableDatabase();
-		 Log.i("Database","o");
+	//	 Log.i("Database","o");
 		Cursor cursor= db.query("( "+WORKERSTABLE+" NATURAL JOIN "+ DUTYTABLE+" )",
 				new String[]{KEY_NAME,KEY_SURNAME,KEY_DATE},null,
 						null,null,null,null);
-		Log.i("Database","otrzymalem wyniki "+cursor.getCount());
+		//Log.i("Database","otrzymalem wyniki "+cursor.getCount());
 			for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
 			{
 				Duty temp= new Duty();

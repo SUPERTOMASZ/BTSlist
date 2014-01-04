@@ -2,23 +2,19 @@ package com.example.btsmaintenancesystem;
 
 import java.util.ArrayList;
 
-import database.DataBaseHelper;
-import database.PreparingDataBase;
-
-import station.DataBaseFind;
-import station.DataBaseTask;
-import station.Station;
-
 import searchpack.CustomListView;
+import station.DataBaseFind;
+import station.NearestDataBaseFind;
+import station.Station;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
+import database.DataBaseHelper;
 
 
 
@@ -26,7 +22,6 @@ public class GpsActivity extends Activity  {
 
 	
 	private CustomListView customListView;
-	private PreparingDataBase db;
 	private ListView list;
 	private ArrayList<Station> tempList;
 	private DataBaseHelper mydb;
@@ -36,18 +31,15 @@ public class GpsActivity extends Activity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gps);
-		
-		this.db= new PreparingDataBase(getApplicationContext());
+
 		this.mydb= new DataBaseHelper(getApplicationContext());
 		
 		
-		((ImageView)findViewById(R.id.line)).setImageResource(R.drawable.line);
-		
-		this.list=(ListView) findViewById(R.id.listView1);
+		this.list=(ListView) findViewById(R.id.gpsList);
 	
 		this.tempList=new ArrayList<Station>();
 		
-		this.customListView= new CustomListView(this,R.layout.intro_activity,
+		this.customListView= new CustomListView(this,R.layout.activity_gps,
 											tempList);
 		this.list.setAdapter(customListView);
 		
@@ -60,20 +52,24 @@ public class GpsActivity extends Activity  {
 	        Location location = locationManager.getLastKnownLocation(providerStr);
 	        if (location != null) 
 	        {
-	            cordX=location.getLatitude();	
-	            cordY=location.getLongitude();
+	            cordY=location.getLatitude();	
+	            Log.i("gps","wspX "+cordX);
+	            cordX=location.getLongitude();
+	            Log.i("gps","wspY "+cordY);
 	            break;
 	        }
 	    } 
+
 	    
 	    if ((cordX==0.0)&&(cordY==0.0))
 	    {
 	    	//pobraæ ostatni¹ znan¹ lokalizacje z XML
 	    }
 	    
-	       
-	    new DataBaseFind(mydb, (float)cordX, (float)cordY, tempList, customListView, getApplicationContext())
-		.execute();
+
+
+	   new NearestDataBaseFind(mydb, cordX, cordY, tempList, customListView, getApplicationContext())
+	    .execute();
 	    
 	
 	}
@@ -86,58 +82,10 @@ public class GpsActivity extends Activity  {
 		
 		return true;
 	}
-	
-	public CustomListView getCustomListView() {
-		return customListView;
-	}
-
-
-	public void setCustomListView(CustomListView customListView) {
-		this.customListView = customListView;
-	}
-
-
-	public PreparingDataBase getDb() {
-		return db;
-	}
-
-
-	public void setDb(PreparingDataBase db) {
-		this.db = db;
-	}
 
 
 
 
-	public ListView getList() {
-		return list;
-	}
-
-
-	public void setList(ListView list) {
-		this.list = list;
-	}
-
-
-	public ArrayList<Station> getTempList() {
-		return tempList;
-	}
-
-
-	public void setTempList(ArrayList<Station> tempList) {
-		this.tempList = tempList;
-	}
-
-
-
-	public DataBaseHelper getMydb() {
-		return mydb;
-	}
-
-
-	public void setMydb(DataBaseHelper mydb) {
-		this.mydb = mydb;
-	}
 	
 
 }

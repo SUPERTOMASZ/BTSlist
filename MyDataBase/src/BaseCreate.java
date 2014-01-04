@@ -55,17 +55,38 @@ public class BaseCreate {
 				"wojewodztwo varchar(30)," +
 				"typ varchar(30)," +
 				"kandydat varchar(30)," +
-				"wspX varchar(10)," +
-				"wspY varchar(10)," +
+				"wspX DOUBLE," +
+				"wspY DOUBLE," +
 				"wys REAL," +
 				"wysBud REAL," +
 				"opisDostepu varchar(50)," +
 				"opisStacji varchar(50)," +
 				"nrPlus varchar(20)," +
 				"nrPlay varchar(20)," +
+				"nrElektrowni varchar(20)," +
 				"dataAktualizacji DATE DEFAULT (DATETIME('now') ) );";
+		String WorkerTable="CREATE TABLE IF NOT EXISTS Pracownicy" +
+				" (id_pracownika INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"imie VARCHAR(20),"+
+				"nazwisko VARCHAR(30)"+
+				");";
+		String DutyTable="CREATE TABLE IF NOT EXISTS Dyzury" +
+				" (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"data DATE,"+
+				"id_pracownika INTEGER ,"+
+				"FOREIGN KEY(id) REFERENCES Workers(id_pracownika)"+
+				");";
+		String UpdatedTable="CREATE TABLE IF NOT EXISTS DatyAktualizacji"+
+				" (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				 "data DATE,"+
+				 "nazwa VARCHAR(10)"+
+				 " );";
+	
 				try {
 					stat.execute(BTSTable);
+					stat.execute(WorkerTable);
+					stat.execute(DutyTable);
+					stat.execute(UpdatedTable);
 					return true;
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -87,6 +108,58 @@ public class BaseCreate {
 		}
 		return result;
 		
+	}
+	public boolean insertUpdateDate(String locDut,String locStat,String serDut,String serStat)
+	{
+		String order1="INSERT INTO DatyAktualizacji(data,nazwa) VALUES("+
+						"date('now'),\"dyzuryLokalne \" );";
+		String order2="INSERT INTO DatyAktualizacji(data,nazwa) VALUES("+
+				"date('now'),\"stacjeLokalne \" );";
+		String order3="INSERT INTO DatyAktualizacji(data,nazwa) VALUES("+
+				"date('now'),\"dyzurySerwera\" );";
+		String order4="INSERT INTO DatyAktualizacji(data,nazwa) VALUES("+
+				"date('now'),\"stacjeSerwera \" );";
+					try {
+						Statement temp=connection.createStatement();
+						temp.executeUpdate(order1);
+						temp.executeUpdate(order2);
+						temp.executeUpdate(order3);
+						temp.executeUpdate(order4);
+						return true;
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return false;
+					}
+	}
+	public boolean insertDutyTable(Worker worker,String data)
+	{
+		String order1="INSERT INTO Dyzury(data,id_pracownika) VALUES("+
+						"date('now'), 1);";
+					try {
+						Statement temp=connection.createStatement();
+						temp.executeUpdate(order1);
+						return true;
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return false;
+					}
+	}
+	public boolean insertWorkerBtsTable(Worker worker)
+	{
+		String order1="INSERT INTO Pracownicy(imie,nazwisko) VALUES("+
+						" \" "+worker.getName()+" \" , \" "+
+				worker.getSurname()+" \" );";
+					try {
+						Statement temp=connection.createStatement();
+						temp.executeUpdate(order1);
+						return true;
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return false;
+					}
 	}
 	public boolean insertIntoBtsTable(BTS bts)
 	{

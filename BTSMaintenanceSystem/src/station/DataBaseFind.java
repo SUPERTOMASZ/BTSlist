@@ -13,15 +13,15 @@ import android.widget.Toast;
 public class DataBaseFind extends AsyncTask<Void , Void, Void>
 {
 
-	private Float cordX;
-	private Float cordY;
+	private Double cordX;
+	private Double cordY;
 	private ArrayList<Station> list;
 	private CustomListView customListView;
 	private DataBaseHelper db;
 	private ArrayList<Station> temp;
 	private Context context;
 	
-	public DataBaseFind(DataBaseHelper db, Float cordX, Float cordY, ArrayList<Station> list,
+	public DataBaseFind(DataBaseHelper db, Double cordX, Double cordY, ArrayList<Station> list,
 			CustomListView customListView, Context contex)
 	{
 		this.cordY=cordY;

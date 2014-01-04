@@ -1,9 +1,15 @@
 package station;
 
+import java.io.Serializable;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
 import com.example.btsmaintenancesystem.R;
 import com.example.btsmaintenancesystem.R.drawable;
 
-public class Station implements Comparable<Station>
+public class Station implements Comparable<Station>,Serializable
 {
 	private String stationNum;
 	private String netWorksNum;
@@ -27,8 +33,8 @@ public class Station implements Comparable<Station>
 	private String ulicaInaczej; // ?!
 	private String type;
 	private String candidat;
-	private String cordX;
-	private String cordY;
+	private double cordX;
+	private double cordY;
 	private String height;
 	private String building_height;
 	private String Zagiel; // ?!
@@ -39,7 +45,7 @@ public class Station implements Comparable<Station>
 	private String powerPlantNum;
 	private String updatedTime;
 	private int ImageId;
-	private Float distance = 0f;
+	private Double distance = 0.0;
 	
 	public Station() 
 	{
@@ -178,20 +184,21 @@ public class Station implements Comparable<Station>
 	public void setCandidat(String candidat) {
 		this.candidat = candidat;
 	}
-	public String getCordX() {
-		return cordX;
-	}
-	public void setCordX(String cordX) {
-		this.cordX = cordX;
-	}
-	public String getCordY() {
-		return cordY;
-	}
-	public void setCordY(String cordY) {
-		this.cordY = cordY;
-	}
+
 	public String getHeight() {
 		return height;
+	}
+	public double getCordX() {
+		return cordX;
+	}
+	public void setCordX(double cordX) {
+		this.cordX = cordX;
+	}
+	public double getCordY() {
+		return cordY;
+	}
+	public void setCordY(double cordY) {
+		this.cordY = cordY;
 	}
 	public void setHeight(String height) {
 		this.height = height;
@@ -235,9 +242,7 @@ public class Station implements Comparable<Station>
 	public int getImageId() {
 		return ImageId;
 	}
-	public void setImageId(int imageId) {
-		ImageId = imageId;
-	}
+	
 	public void setImageId(String input) {
 		if(input.contains("budynek"))
 			this.ImageId=R.drawable.indoorico;
@@ -268,22 +273,37 @@ public class Station implements Comparable<Station>
 		this.updatedTime = updatedTime;
 	}
 	
-	public void setDistance(Float cordX, Float cordY)
+	public void setDistance(Double cordX, Double cordY)
 	{
-		//Docelowo coœ w stylu
-		//distance =  (cordX-this.cordX)*(cordX-this.cordX)+(cordY-this.cordY)*(cordY-this.cordY)
-		distance = Float.parseFloat(height);
+
+		
+		
+		this.distance =  (cordX-this.cordX)*(cordX-this.cordX)+
+				(cordY-this.cordY)*(cordY-this.cordY);
+	
+
 	}
 	
-	public Float getDistance()
+	public Double getDistance()
 	{
 		return distance;
 	}
+	
 	@Override
 	public int compareTo(Station stacja) 
 	{
-		return (int)(this.distance - stacja.getDistance());
+		if(this.distance>stacja.getDistance())
+			return 1;
+		else if(this.distance<stacja.getDistance())
+			return -1;
+		else
+			return 0;
+		// LOl to sorotwanie co napisales nie wiem czemu zle sortowalo chyba z godzine
+		//to kminilem co jest
+		
 	}
+	
+	
 
 	
 }

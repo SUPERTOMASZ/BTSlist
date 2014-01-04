@@ -23,8 +23,8 @@ public class BTS
 	private String ulicaInaczej;
 	private String typ;
 	private String Kandydat;
-	private String wspolX;
-	private String wspolY;
+	private float wspolX;
+	private float wspolY;
 	private String wysNadPomMorz;
 	private String wysBud;
 	private String Zagiel;
@@ -172,16 +172,16 @@ public class BTS
 	public void setKandydat(String kandydat) {
 		Kandydat = kandydat;
 	}
-	public String getWspolX() {
+	public float getWspolX() {
 		return wspolX;
 	}
-	public void setWspolX(String wspolX) {
+	public void setWspolX(float  wspolX) {
 		this.wspolX = wspolX;
 	}
-	public String getWspolY() {
+	public float  getWspolY() {
 		return wspolY;
 	}
-	public void setWspolY(String wspolY) {
+	public void setWspolY(float  wspolY) {
 		this.wspolY = wspolY;
 	}
 	public String getWysNadPomMorz() {

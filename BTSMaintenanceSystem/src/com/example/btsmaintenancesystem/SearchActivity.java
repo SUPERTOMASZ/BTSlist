@@ -11,6 +11,7 @@ import station.DataBaseTask;
 import station.Station;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -22,6 +23,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -61,6 +63,7 @@ public class SearchActivity extends Activity  {
 		setSpinner();
 		
 		this.list=(ListView) findViewById(R.id.listView1);
+		setCustomList();
 	
 		this.editText=(EditText) findViewById(R.id.editText1);
 		setEditText();
@@ -114,6 +117,28 @@ public class SearchActivity extends Activity  {
 			}
 		});
 	}
+	private void setCustomList()
+	{
+		list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent intet= new Intent();
+	
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("Station",tempList.get(arg2) );
+/*
+	                Bundle bundle = new Bundle();
+	                bundle.putSerializable("contact", new ContactSerializer(
+	                        sortContacts.get(position)));
+	                userProfileIntent.putExtras(bundle);
+	                v.getContext().startActivity(userProfileIntent);
+	                */
+			}
+		});
+
+	}
 	private void setEditText()
 	{
 		editText.setOnEditorActionListener(new OnEditorActionListener() {
@@ -123,17 +148,8 @@ public class SearchActivity extends Activity  {
 				if(event.getAction()==KeyEvent.ACTION_DOWN)
 				{
 					Log.i("searchActivity","wcisnalem szukanie");
-					/*
-					ArrayList<Station> temp1=mydb.getBTS(editText.getText().toString(),
-							spinnerChoose);
-					for(int i=0;i<tempList.size();i++)
-						tempList.remove(i);
-					customListView.clear();
-					for(int i=0;i<temp1.size();i++)
-						tempList.add(temp1.get(i));
-					
-					customListView.notifyDataSetChanged();
-					*/
+				
+				
 					InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 					mgr.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 				
@@ -149,6 +165,7 @@ public class SearchActivity extends Activity  {
 			}
 		});
 	}
+
 	public CustomListView getCustomListView() {
 		return customListView;
 	}
