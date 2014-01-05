@@ -6,16 +6,17 @@
     android:background="@drawable/background" >
     <LinearLayout 
         android:orientation="horizontal"
-        android:layout_weight="0.25"
+        android:layout_weight="0.6"
         android:layout_height="0dp"
         android:layout_width="match_parent"
         >
         <ImageView 
             android:id="@+id/display_ico"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"
+            android:layout_weight="0.2"
             android:layout_width="0dp"
-            android:src="@drawable/anyico"/>
+            android:src="@drawable/anyico"
+            />
         <LinearLayout 
             android:orientation="vertical"
             android:layout_height="match_parent"
@@ -23,39 +24,57 @@
             android:layout_width="0dp"
             >
             <TextView 
+                android:id="@+id/city_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="MIASTO  :"
+               android:textColor="#00a8ff"
                
                 />
             <TextView 
+                android:id="@+id/street_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="ULICA  :"
+               android:textColor="#00a8ff"
                
                 />
             <TextView 
+                android:id="@+id/cordX_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="KOORDYNATY X:"
+               android:textColor="#00a8ff"
                
                 />
             <TextView 
+                android:id="@+id/cordY_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="KOORDYNATY Y:"
+               android:textColor="#00a8ff"
                
                 />
             <TextView 
+                android:id="@+id/PTCname_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="NAZWA PTC  :"
+               android:textColor="#00a8ff"
                
                 />
             <TextView 
+                android:id="@+id/PTKname_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="NAZWA PTK :"
+               android:textColor="#00a8ff"
                
                 />
             
@@ -69,66 +88,117 @@
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:layout_width="match_parent"/>
+
     <TextView 
+        		android:id="@+id/statNum_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="NUMER STACJI  :"
+               android:textColor="#00a8ff"
                
                 />
     <TextView 
+        		android:id="@+id/netWorksNum_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="NUMER NETWORKS :"
+               android:textColor="#00a8ff"
                
                 />
     <TextView 
+        		android:id="@+id/PTCNum_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="NUMER PTC  :"
+               android:textColor="#00a8ff"
                
                 />
     <TextView 
+        		android:id="@+id/PTKNum_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="NUMER PTK :"
+               android:textColor="#00a8ff"
+
+                />
+    <TextView 
+        		android:id="@+id/staName_det"
+               android:layout_weight="0.16"
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:text="NAZWA STACJI  :"
+               android:textColor="#00a8ff"
                
                 />
     <TextView 
+        		android:id="@+id/owner_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="WŁAŚCICIEL  :"
+               android:textColor="#00a8ff"
                
                 />
     <TextView 
+				android:id="@+id/comm_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="GMINNA  :"
+               android:textColor="#00a8ff"
                
                 />
     <TextView 
+        		android:id="@+id/region_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="REGION :"
+               android:textColor="#00a8ff"
                
                 />
     <TextView 
+				android:id="@+id/deletedData_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="DATA SKASOWANIA  :"
+               android:textColor="#00a8ff"
                
                 />
     <TextView 
+				android:id="@+id/zip_codData"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="KOD POCZTOWY :"
+               android:textColor="#00a8ff"
                
                 />
     <TextView 
+				android:id="@+id/acc_desc_det"
                android:layout_weight="0.16"
                android:layout_width="match_parent"
                android:layout_height="0dp"
+               android:text="OPIS DOSTEPU  :"
+               android:textColor="#00a8ff"
                
                 />
+    <TextView 
+				android:id="@+id/stat_desc_det"
+               android:layout_weight="0.16"
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:text="OPIS STACJI :"
+               android:textColor="#00a8ff"
+                />
+    
+
+
      <ImageView 
         android:src="@drawable/line"
         android:layout_height="0dp"
@@ -138,32 +208,37 @@
          android:orientation="horizontal"
          android:layout_width="match_parent"
          android:layout_height="0dp"
-         android:layout_weight="0.3">
+         android:layout_weight="0.4">
          <Button 
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"
-             android:background="@drawable/inico"/>
+             android:background="@drawable/inico"
+             android:layout_margin="2sp"/>
           <Button 
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"
-             android:background="@drawable/outico"/>
+             android:background="@drawable/outico"
+             android:layout_margin="2sp"/>
            <Button 
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"
-             android:background="@drawable/carico"/>
+             android:background="@drawable/carico"
+             android:layout_margin="2sp"/>
             <Button 
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"
-             android:background="@drawable/callico"/>
+             android:background="@drawable/callico"
+             android:layout_margin="2sp"/>
              <Button 
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"
-             android:background="@drawable/alertsico"/>
+             android:background="@drawable/alertsico"
+             android:layout_margin="2sp"/>
      </LinearLayout>
     
 

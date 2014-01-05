@@ -3,10 +3,13 @@ package station;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.example.btsmaintenancesystem.GpsActivity;
+
 import database.DataBaseHelper;
 
 import searchpack.CustomListView;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,12 +25,11 @@ public class NearestDataBaseFind extends AsyncTask<Void , Void, Void>
 	private DataBaseHelper db;
 	private ArrayList<Station> temp;
 	private Context context;
-	
+
 
 	
 	public NearestDataBaseFind(DataBaseHelper db, Double cordX, Double cordY, ArrayList<Station> list,
-
-			CustomListView customListView, Context contex)
+							CustomListView customListView, Context contex)
 	{
 		this.cordY=cordY;
 		this.cordX=cordX;
@@ -35,6 +37,8 @@ public class NearestDataBaseFind extends AsyncTask<Void , Void, Void>
 		this.customListView=customListView;
 		this.db=db;
 		this.context=contex;
+
+	
 	}
 
 	@Override
@@ -66,13 +70,13 @@ public class NearestDataBaseFind extends AsyncTask<Void , Void, Void>
 		customListView.clear();
 		for(int i=0;i<temp.size();i++)
 				list.add(temp.get(i));
-				
 		customListView.notifyDataSetChanged();
-		
+
 		Toast toast = Toast.makeText(context,
 				"zakoñczono wyszukiwanie", Toast.LENGTH_LONG);
 		toast.setGravity(Gravity.TOP, 0, 0);
 		toast.show();
+		
 	}
 	
 

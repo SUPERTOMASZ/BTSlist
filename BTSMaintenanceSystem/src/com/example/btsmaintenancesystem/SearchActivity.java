@@ -47,6 +47,7 @@ public class SearchActivity extends Activity  {
 	private EditText editText;
 	private String spinnerChoose="nazwa stacji";
 	private DataBaseHelper mydb;
+	private Intent intent ;
 	
 	
 	@Override
@@ -54,6 +55,7 @@ public class SearchActivity extends Activity  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_activity);
 		
+		this.intent= new Intent(this,BTSActivity.class);
 		this.db= new PreparingDataBase(getApplicationContext());
 		this.mydb= new DataBaseHelper(getApplicationContext());
 		
@@ -124,17 +126,14 @@ public class SearchActivity extends Activity  {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent intet= new Intent();
-	
+			
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("Station",tempList.get(arg2) );
-/*
-	                Bundle bundle = new Bundle();
-	                bundle.putSerializable("contact", new ContactSerializer(
-	                        sortContacts.get(position)));
-	                userProfileIntent.putExtras(bundle);
-	                v.getContext().startActivity(userProfileIntent);
-	                */
+				intent.putExtra("Station", bundle);
+				
+				
+				startActivity(intent);
+	                
 			}
 		});
 

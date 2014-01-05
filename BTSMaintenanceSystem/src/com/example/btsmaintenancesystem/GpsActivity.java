@@ -6,9 +6,11 @@ import searchpack.CustomListView;
 import station.DataBaseFind;
 import station.NearestDataBaseFind;
 import station.Station;
+import GPSHelper.GPSHelper;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,13 +20,24 @@ import database.DataBaseHelper;
 
 
 
-public class GpsActivity extends Activity  {
+public class GpsActivity extends Activity {
 
 	
 	private CustomListView customListView;
+	public CustomListView getCustomListView() {
+		return customListView;
+	}
+
+
+	public void setCustomListView(CustomListView customListView) {
+		this.customListView = customListView;
+	}
 	private ListView list;
 	private ArrayList<Station> tempList;
 	private DataBaseHelper mydb;
+	private GPSHelper gpsHelper;
+	private Double cordX;
+	private Double cordY;
 	
 	
 	@Override
@@ -32,8 +45,9 @@ public class GpsActivity extends Activity  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gps);
 
-		this.mydb= new DataBaseHelper(getApplicationContext());
+		this.mydb= new DataBaseHelper(this);
 		
+		this.gpsHelper=new GPSHelper(GpsActivity.this);
 		
 		this.list=(ListView) findViewById(R.id.gpsList);
 	
@@ -42,34 +56,19 @@ public class GpsActivity extends Activity  {
 		this.customListView= new CustomListView(this,R.layout.activity_gps,
 											tempList);
 		this.list.setAdapter(customListView);
+
 		
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		
-		double cordX = 0.0; 
-		double cordY = 0.0;
-		for (String providerStr : locationManager.getAllProviders()) 
-		{
-	        Location location = locationManager.getLastKnownLocation(providerStr);
-	        if (location != null) 
-	        {
-	            cordY=location.getLatitude();	
-	            Log.i("gps","wspX "+cordX);
-	            cordX=location.getLongitude();
-	            Log.i("gps","wspY "+cordY);
-	            break;
-	        }
-	    } 
+	   Log.i("GpsActivity", this.gpsHelper.canGetLocation()+"");
+	   if(this.gpsHelper.canGetLocation()==false)
+		  this.gpsHelper.showSettingsAlert();
+	   else
+	   {
+		  
+		   
+		    makeList();
+		   
+	   }
 
-	    
-	    if ((cordX==0.0)&&(cordY==0.0))
-	    {
-	    	//pobraæ ostatni¹ znan¹ lokalizacje z XML
-	    }
-	    
-
-
-	   new NearestDataBaseFind(mydb, cordX, cordY, tempList, customListView, getApplicationContext())
-	    .execute();
 	    
 	
 	}
@@ -82,6 +81,17 @@ public class GpsActivity extends Activity  {
 		
 		return true;
 	}
+
+	public void makeList()
+	{
+		 new NearestDataBaseFind(mydb, gpsHelper.getLatitude(),
+				 gpsHelper.getLongitude(), tempList,
+				 customListView, getApplicationContext())
+		    .execute();
+		
+		
+	}
+
 
 
 
