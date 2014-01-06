@@ -71,8 +71,6 @@ public class GpsActivity extends Activity {
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("Station",tempList.get(arg2) );
 				intent.putExtra("Station", bundle);
-				
-				
 				startActivity(intent);
 	                
 			}

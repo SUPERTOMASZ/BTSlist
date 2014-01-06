@@ -1,5 +1,7 @@
 package com.example.btsmaintenancesystem;
 
+import sms.SmsSend;
+import sms.SmsXML;
 import station.Station;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,12 +16,15 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class BTSMaintenanceActivity extends Activity {
 
 	private TextView textViews[];
+	private SmsSend sms;
 	private Station station;
+	private SmsXML smsXML;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +35,9 @@ public class BTSMaintenanceActivity extends Activity {
 		makeTextViews();
 		setAndColorText(station);
 		this.station=station;
+		this.smsXML=new SmsXML(getAssets());
+		this.sms=new SmsSend(smsXML);
+	
 		
 		
 	}
@@ -115,12 +123,23 @@ public class BTSMaintenanceActivity extends Activity {
 	public void  stationEnter(View view)
 	{
 		
+		if(sms.sendEntrySms(station))
+			Toast.makeText(getApplicationContext(), "SMS Sent!",
+				Toast.LENGTH_LONG).show();
+		else
+			Toast.makeText(getApplicationContext(),"SMS faild, please try again later!",
+				Toast.LENGTH_LONG).show();
+	
 
 	}
 	public void  stationExit(View view)
 	{
-		
-
+		if(sms.sendExitSms(station))
+			Toast.makeText(getApplicationContext(), "SMS Sent!",
+				Toast.LENGTH_LONG).show();
+		else
+			Toast.makeText(getApplicationContext(),"SMS faild, please try again later!",
+				Toast.LENGTH_LONG).show();
 	}
 	public void  navigateToStation(View view)
 	{
@@ -136,7 +155,13 @@ public class BTSMaintenanceActivity extends Activity {
 	}
 	public void  checkAlarms(View view)
 	{
-		
+		if(sms.sendAlarmSms(station))
+			Toast.makeText(getApplicationContext(), "SMS Sent!",
+				Toast.LENGTH_LONG).show();
+		else
+			Toast.makeText(getApplicationContext(),"SMS faild, please try again later!",
+				Toast.LENGTH_LONG).show();
 
 	}
+	
 }
