@@ -64,7 +64,7 @@
             android:label="@string/app_name" >
         </activity>
          <activity
-            android:name="com.example.btsmaintenancesystem.BTSActivity"
+            android:name="com.example.btsmaintenancesystem.BTSMaintenanceActivity"
             android:label="@string/app_name" >
         </activity>
         <activity

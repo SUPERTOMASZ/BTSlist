@@ -3,17 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background" >
+    android:background="@drawable/background"
+     >
     <LinearLayout 
         android:orientation="horizontal"
-        android:layout_weight="0.6"
+        android:layout_weight="0.7"
         android:layout_height="0dp"
         android:layout_width="match_parent"
+        
         >
         <ImageView 
             android:id="@+id/display_ico"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="0.3"
             android:layout_width="0dp"
             android:src="@drawable/anyico"
             />
@@ -22,6 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.7"
             android:layout_width="0dp"
+            android:layout_marginLeft="5sp"
             >
             <TextView 
                 android:id="@+id/city_det"
@@ -30,7 +33,7 @@
                android:layout_height="0dp"
                android:text="MIASTO  :"
                android:textColor="#00a8ff"
-               
+             
                 />
             <TextView 
                 android:id="@+id/street_det"
@@ -87,7 +90,8 @@
         android:src="@drawable/line"
         android:layout_height="0dp"
         android:layout_weight="0.1"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        />
 
     <TextView 
         		android:id="@+id/statNum_det"
@@ -96,6 +100,7 @@
                android:layout_height="0dp"
                android:text="NUMER STACJI  :"
                android:textColor="#00a8ff"
+               android:layout_marginLeft="5sp"
                
                 />
     <TextView 
@@ -105,7 +110,7 @@
                android:layout_height="0dp"
                android:text="NUMER NETWORKS :"
                android:textColor="#00a8ff"
-               
+               android:layout_marginLeft="5sp"
                 />
     <TextView 
         		android:id="@+id/PTCNum_det"
@@ -114,7 +119,7 @@
                android:layout_height="0dp"
                android:text="NUMER PTC  :"
                android:textColor="#00a8ff"
-               
+               android:layout_marginLeft="5sp"
                 />
     <TextView 
         		android:id="@+id/PTKNum_det"
@@ -123,7 +128,7 @@
                android:layout_height="0dp"
                android:text="NUMER PTK :"
                android:textColor="#00a8ff"
-
+				android:layout_marginLeft="5sp"
                 />
     <TextView 
         		android:id="@+id/staName_det"
@@ -132,7 +137,7 @@
                android:layout_height="0dp"
                android:text="NAZWA STACJI  :"
                android:textColor="#00a8ff"
-               
+               	android:layout_marginLeft="5sp"
                 />
     <TextView 
         		android:id="@+id/owner_det"
@@ -141,7 +146,7 @@
                android:layout_height="0dp"
                android:text="WŁAŚCICIEL  :"
                android:textColor="#00a8ff"
-               
+               android:layout_marginLeft="5sp"
                 />
     <TextView 
 				android:id="@+id/comm_det"
@@ -150,7 +155,7 @@
                android:layout_height="0dp"
                android:text="GMINNA  :"
                android:textColor="#00a8ff"
-               
+               android:layout_marginLeft="5sp"
                 />
     <TextView 
         		android:id="@+id/region_det"
@@ -159,7 +164,7 @@
                android:layout_height="0dp"
                android:text="REGION :"
                android:textColor="#00a8ff"
-               
+               android:layout_marginLeft="5sp"
                 />
     <TextView 
 				android:id="@+id/deletedData_det"
@@ -168,7 +173,7 @@
                android:layout_height="0dp"
                android:text="DATA SKASOWANIA  :"
                android:textColor="#00a8ff"
-               
+               android:layout_marginLeft="5sp"
                 />
     <TextView 
 				android:id="@+id/zip_codData"
@@ -177,7 +182,7 @@
                android:layout_height="0dp"
                android:text="KOD POCZTOWY :"
                android:textColor="#00a8ff"
-               
+               android:layout_marginLeft="5sp"
                 />
     <TextView 
 				android:id="@+id/acc_desc_det"
@@ -186,7 +191,7 @@
                android:layout_height="0dp"
                android:text="OPIS DOSTEPU  :"
                android:textColor="#00a8ff"
-               
+               android:layout_marginLeft="5sp"
                 />
     <TextView 
 				android:id="@+id/stat_desc_det"
@@ -195,6 +200,7 @@
                android:layout_height="0dp"
                android:text="OPIS STACJI :"
                android:textColor="#00a8ff"
+               android:layout_marginLeft="5sp"
                 />
     
 
@@ -210,30 +216,35 @@
          android:layout_height="0dp"
          android:layout_weight="0.4">
          <Button 
+             android:onClick="stationEnter"
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"
              android:background="@drawable/inico"
              android:layout_margin="2sp"/>
           <Button 
+             android:onClick="stationExit"
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"
              android:background="@drawable/outico"
              android:layout_margin="2sp"/>
            <Button 
+              android:onClick="navigateToStation"
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"
              android:background="@drawable/carico"
              android:layout_margin="2sp"/>
             <Button 
+               android:onClick="callToStation"
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"
              android:background="@drawable/callico"
              android:layout_margin="2sp"/>
              <Button 
+               android:onClick="checkAlarms"
              android:layout_weight="0.2"
              android:layout_height="match_parent"
              android:layout_width="0dp"

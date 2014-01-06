@@ -55,7 +55,7 @@ public class SearchActivity extends Activity  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_activity);
 		
-		this.intent= new Intent(this,BTSActivity.class);
+		this.intent= new Intent(this,BTSMaintenanceActivity.class);
 		this.db= new PreparingDataBase(getApplicationContext());
 		this.mydb= new DataBaseHelper(getApplicationContext());
 		

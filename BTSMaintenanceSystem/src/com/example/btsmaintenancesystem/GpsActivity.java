@@ -9,13 +9,17 @@ import station.Station;
 import GPSHelper.GPSHelper;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 import database.DataBaseHelper;
 
 
@@ -38,6 +42,7 @@ public class GpsActivity extends Activity {
 	private GPSHelper gpsHelper;
 	private Double cordX;
 	private Double cordY;
+	private Intent intent ;
 	
 	
 	@Override
@@ -56,6 +61,22 @@ public class GpsActivity extends Activity {
 		this.customListView= new CustomListView(this,R.layout.activity_gps,
 											tempList);
 		this.list.setAdapter(customListView);
+		this.intent= new Intent(this,BTSMaintenanceActivity.class);
+		list.setOnItemClickListener(new OnItemClickListener() {
+			
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+			
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("Station",tempList.get(arg2) );
+				intent.putExtra("Station", bundle);
+				
+				
+				startActivity(intent);
+	                
+			}
+		});
 
 		
 	   Log.i("GpsActivity", this.gpsHelper.canGetLocation()+"");
