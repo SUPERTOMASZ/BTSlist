@@ -34,7 +34,7 @@ public class MenuActivity extends Activity {
 	public void  smsMenu(View view)
 	{
 		//do zmiany
-		Intent intent = new Intent(this,AboutActivity.class);
+		Intent intent = new Intent(this,SMSEditActivity.class);
 	
 		startActivity(intent);
 		
