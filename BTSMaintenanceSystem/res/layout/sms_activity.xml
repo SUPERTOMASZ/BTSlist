@@ -12,15 +12,20 @@
         <ImageView 
             android:src="@drawable/sms_ico"
             android:layout_width="0dp"
-            android:layout_weight="0.2"
-            android:layout_height="match_parent"/>
+            android:layout_weight="0.25"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="5sp"/>
         <TextView 
             android:layout_width="0dp"
-            android:layout_weight="0.8"
+            android:layout_weight="0.75"
             android:layout_height="match_parent"
             android:text="SMS"
             android:textColor="#0684c6"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"/>
         
     </LinearLayout>
     <ImageView 
@@ -29,72 +34,125 @@
         android:layout_height="0dp"
         android:layout_weight="0.1"/>
     <Spinner 
-        android:layout_weight="0.1"
+        android:id="@+id/templateChoose"
+        android:layout_weight="0.2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#00a8ff"/>
+        android:background="#00a8ff"
+        android:layout_margin="5sp"
+        android:visibility="visible"
+        
+        />
+    
     	<TextView 
     	    android:text="TREŚĆ WIADOMOŚCI"
     	    android:textColor="#ffa200"
     	    android:layout_width="match_parent"
-    	    android:layout_weight="0.1"
+    	    android:layout_weight="0.15"
     	    android:layout_height="0dp"
-    	    android:layout_marginLeft="10sp"/>
-    	<ImageView 
-        android:src="@drawable/line"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"/>
+    	    android:layout_marginLeft="10sp"
+    	    android:textSize="25sp"/>
+    	
     	<LinearLayout 
     	    android:orientation="horizontal"
-    	    android:layout_weight="0.2"
+    	    android:layout_weight="0.25"
     	    android:layout_width="match_parent"
     	    android:layout_height="0dp">
     	    <EditText 
+    	        android:id="@+id/contatin_edit_text"
     	        android:layout_weight="0.8"
     	        android:layout_height="match_parent"
     	        android:layout_width="0dp"
+    	    android:singleLine="true" 
+    		android:ellipsize="end"
+			android:maxLines="1"
+			android:textSize="20sp"
+			android:textColor="#00a8ff"
     	        />
     	    <Spinner 
+    	           android:id="@+id/contatin_spinner"
     	        android:layout_weight="0.2"
     	        android:layout_height="match_parent"
     	        android:layout_width="0dp"
-    	        android:background="@drawable/spinnerico"/>
+    	        android:background="@drawable/text_spinner_sms"
+    	        android:layout_margin="5sp"
+    	        />
+    	
     	</LinearLayout>
     	
-    	<Button 
-    	    android:layout_width="wrap_content"
+    	<LinearLayout 
+    	    android:orientation="horizontal"
     	    android:layout_height="0dp"
     	    android:layout_weight="0.2"
+    	    android:layout_width="match_parent"
+    	    ></LinearLayout>
+    	    <Button 
+    	    android:id="@+id/contatin_button"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="0dp"
+    	    android:layout_weight="0.15"
     	    android:text="Edytuj treść"
-    	    android:gravity="right"
-    	    android:layout_gravity="right"
     	    android:background="#00a8ff"
     	    android:textColor="#ffffff"
     	    android:textAlignment="center"
+    	    android:layout_margin="5sp"
+    	    android:textSize="20sp"
+    	     android:gravity="center"
+    	    android:layout_gravity="right"
+   
+    	    
+    	    
     	    />
+    	
     	<TextView 
     	    android:text="NUMER"
     	    android:textColor="#ffa200"
     	    android:layout_width="match_parent"
-    	    android:layout_weight="0.1"
+    	    android:layout_weight="0.15"
     	    android:layout_height="0dp"
-    	    android:layout_marginLeft="10sp"/>
-    	<EditText 
-    	    android:layout_width="match_parent"
-    	    android:layout_height="0dp"
-    	    android:layout_weight="0.1"/>
-    	<Button 
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="0dp"
+    	    android:layout_marginLeft="10sp"
+    	    android:layout_margin="5sp"
+    	    android:textSize="25sp"
+    	    />
+    <LinearLayout 
+    	    android:orientation="horizontal"
     	    android:layout_weight="0.2"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="0dp">
+    	    
+    	    <EditText 
+    	    android:id="@+id/phonoNo_edit_text"
+    	    android:layout_width="0dp"
+    		android:layout_height="match_parent"
+    	    android:layout_weight="0.7"
+    		android:singleLine="true" 
+    		android:ellipsize="end"
+			android:maxLines="1"
+			android:textSize="20sp"
+			android:textColor="#00a8ff"
+    	    />
+    	<Button 
+    	   android:id="@+id/phoneNo_button"
+    	   android:layout_width="0dp"
+    		android:layout_height="match_parent"
+    	    android:layout_weight="0.5"
     	    android:text="Edytuj numer"
     	    android:layout_gravity="right"
     	    android:background="#00a8ff"
-    	    android:textColor="#ffffff"/>
+    	    android:textColor="#ffffff"
+    	    android:textSize="20sp"
+    	    android:layout_margin="5sp"
+    	   
+    	   />
+    	  
+    	</LinearLayout>
+    	
     	<Button 
+    	    android:id="@+id/preView_sms"
     	    android:layout_width="match_parent"
     	    android:layout_height="0dp"
-    	    android:layout_weight="0.3"/>
+    	    android:layout_weight="0.3"
+    	    android:background="@drawable/button_sms"
+    	    android:layout_margin="5sp"/>
 
 </LinearLayout>

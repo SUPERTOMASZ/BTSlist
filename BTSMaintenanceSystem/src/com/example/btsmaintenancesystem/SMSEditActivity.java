@@ -6,15 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 
 public class SMSEditActivity extends Activity {
 
+	private Spinner templateChoose;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sms_activity);
-		new PreparingDataBase(getApplicationContext());
+		this.templateChoose=(Spinner) findViewById(R.id.templateChoose);
+		setTemplateSpinner();
 		
 	}
 	
@@ -27,6 +31,13 @@ public class SMSEditActivity extends Activity {
 		   
 		
 		return true;
+	}
+	private void setTemplateSpinner()
+	{
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+		        R.array.Smscategory, R.layout.template_spinner);
+		adapter.setDropDownViewResource(R.layout.choosespinneritem_drop_down);
+		this.templateChoose.setAdapter(adapter);
 	}
 	
 

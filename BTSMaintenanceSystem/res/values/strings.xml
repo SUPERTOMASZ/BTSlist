@@ -37,6 +37,11 @@ bez przeczytania instrukcji obsługi.</string>
     <string name="title_activity_gps">GpsActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string-array name="Smscategory">
+        <item>Zgłoszenie wejścia</item>
+        <item>Zgłoszenie wyjścia</item>
+        <item>Sprawdzenie alarmów</item>
+    </string-array>
     
 
 </resources>

@@ -22,17 +22,18 @@
         android:layout_width="0dp"
         android:layout_weight="0.75"
         android:text="O Aplikacji"
-        android:textColor="#ffa200"
+        android:textColor="#00a8ff"
         android:textSize="35sp"
         android:layout_gravity="center_vertical"
         android:gravity="center"
         android:textStyle="bold"
+        
         />
 	</LinearLayout>
 		<ImageView 
 	 android:id="@+id/line"
 	 android:layout_height="0dp"
-	 android:layout_weight="0.01"
+	 android:layout_weight="0.1"
 	 android:layout_width="fill_parent"
 	 android:src="@drawable/line"/>
 	<TextView
