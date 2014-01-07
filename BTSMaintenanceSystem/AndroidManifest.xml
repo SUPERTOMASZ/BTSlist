@@ -73,6 +73,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.example.btsmaintenancesystem.PrevActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.example.btsmaintenancesystem.GpsActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" >

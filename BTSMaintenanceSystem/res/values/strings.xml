@@ -43,6 +43,7 @@ bez przeczytania instrukcji obsługi.</string>
         <item>Sprawdzenie alarmów</item>
     </string-array>
     <string-array name="SmsInputcategory">
+      <item>nic</item>
       <item>numer stacji</item>
       <item>numer NetWorks</item>
       <item>numer PTC</item>
