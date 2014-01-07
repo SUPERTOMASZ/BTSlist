@@ -42,6 +42,12 @@ bez przeczytania instrukcji obsługi.</string>
         <item>Zgłoszenie wyjścia</item>
         <item>Sprawdzenie alarmów</item>
     </string-array>
+    <string-array name="SmsInputcategory">
+      <item>numer stacji</item>
+      <item>numer NetWorks</item>
+      <item>numer PTC</item>
+      <item>numer PTK</item>
+    </string-array>
     
 
 </resources>

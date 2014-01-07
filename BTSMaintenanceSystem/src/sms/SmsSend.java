@@ -16,8 +16,8 @@ public class SmsSend
 	{
 			
 	  try {
-		  Log.i("Sms",phoneNo);
-		  Log.i("Sms",contain);
+		  Log.i("Sms numer ",phoneNo);
+		  Log.i("Sms zawartosc",contain);
 		SmsManager smsManager = SmsManager.getDefault();
 		smsManager.sendTextMessage(phoneNo, null, contain, null, null);
 		

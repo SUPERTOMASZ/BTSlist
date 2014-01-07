@@ -35,7 +35,7 @@ public class BTSMaintenanceActivity extends Activity {
 		makeTextViews();
 		setAndColorText(station);
 		this.station=station;
-		this.smsXML=new SmsXML(getAssets());
+		this.smsXML=new SmsXML(getApplicationContext(),getAssets());
 		this.sms=new SmsSend(smsXML);
 	
 		

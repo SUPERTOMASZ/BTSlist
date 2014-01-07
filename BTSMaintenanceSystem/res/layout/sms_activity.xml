@@ -99,6 +99,7 @@
     	    android:textSize="20sp"
     	     android:gravity="center"
     	    android:layout_gravity="right"
+    	    android:onClick="contatin_button"
    
     	    
     	    
@@ -142,6 +143,7 @@
     	    android:textColor="#ffffff"
     	    android:textSize="20sp"
     	    android:layout_margin="5sp"
+    	    android:onClick="phoneNo_button"
     	   
     	   />
     	  

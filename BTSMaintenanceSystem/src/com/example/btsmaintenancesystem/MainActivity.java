@@ -1,5 +1,6 @@
 package com.example.btsmaintenancesystem;
 
+import sms.PrepareXML;
 import database.PreparingDataBase;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.intro_activity);
 		new PreparingDataBase(getApplicationContext());
+		new PrepareXML(getApplicationContext());
 		
 	}
 	
