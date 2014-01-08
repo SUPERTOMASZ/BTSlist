@@ -61,8 +61,8 @@ public class BaseRead {
 		tmp.setUlicaInaczej(temp[19]);
 		tmp.setTyp(temp[20]);
 		tmp.setKandydat(temp[21]);
-		tmp.setWspolX(convert(temp[22]));        //!!
-		tmp.setWspolY(convert(temp[23]));		 //!!
+		tmp.setWspolX(convert(temp[23]));        //!!
+		tmp.setWspolY(convert(temp[22]));		 //!!
 		tmp.setWysNadPomMorz(temp[24]);
 		tmp.setWysBud(temp[25]);
 		tmp.setZagiel(temp[26]);
@@ -81,15 +81,19 @@ public class BaseRead {
 	{
 		
 		Scanner scanner = new Scanner(fileIn);
+		String tempString;
 		BTS temp ;
 		int i=0;
-		//for( i=0;i<1000;i++)
+		//for( i=0;i<10;i++)
 		while(scanner.hasNext())
 		{
-			temp=readOne(convertFromPolish(scanner.nextLine()));
+			tempString=scanner.nextLine();
+			tempString=convertFromPolish(tempString);
+			temp=readOne(tempString);
 			bc.insertIntoBtsTable(temp);
 			i++;
-			//System.out.println(i);
+			if(i%200==0)
+			System.out.println(i);
 		
 		}
 		bc.insertWorkerBtsTable(new Worker("Sebastian","Salat"));
@@ -114,15 +118,15 @@ public class BaseRead {
 	private String convertFromPolish(String input)
 	{
 		input=input.toLowerCase();
-		input.replaceAll("¹", "a");
-		input.replaceAll("æ", "c");
-		input.replaceAll("ê", "e");
-		input.replaceAll("³", "l");
-		input.replaceAll("ñ", "n");
-		input.replaceAll("ó", "o");
-		input.replaceAll("œ", "s");
-		input.replaceAll("Ÿ", "z");
-		input.replaceAll("¿", "z");
+		input=input.replaceAll("¹", "a");
+		input=input.replaceAll("æ", "c");
+		input=input.replaceAll("ê", "e");
+		input=input.replaceAll("³", "l");
+		input=input.replaceAll("ñ", "n");
+		input=input.replaceAll("ó", "o");
+		input=input.replaceAll("œ", "s");
+		input=input.replaceAll("Ÿ", "z");
+		input=input.replaceAll("¿", "z");
 		return input;
 		
 		

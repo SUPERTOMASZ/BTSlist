@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -157,6 +158,10 @@ public class SMSEditActivity extends Activity {
 		
 					
 		xml.editPhonoNo(phonoNo.getText().toString(), templateString);
+		Toast toast = Toast.makeText(getApplicationContext(),
+				"zmieniono docelowy numer", Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.TOP, 0, 0);
+		toast.show();
 		
 	}
 	public void contatin_button(View view)
@@ -164,6 +169,11 @@ public class SMSEditActivity extends Activity {
 		
 		xml.editContatin(tempContain, templateString);
 		tempContain="";
+		Toast toast = Toast.makeText(getApplicationContext(),
+				"zmieniono tresc", Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.TOP, 0, 0);
+		toast.show();
+		
 		
 	}
 	public void prevBut(View view)
