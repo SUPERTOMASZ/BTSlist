@@ -1,6 +1,6 @@
 import java.net.URL;
 
-import GUI.IntroFrame;
+import GUI.MainFrame;
 
 
 public class Main {
@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String[] args) 
 	{
 		URL url;
-		new IntroFrame(100,200);
+		new MainFrame(800, 600);
 		
 		/*
 			String login="developer@btsmaintenancesystem.cba.pl";
