@@ -52,7 +52,7 @@ public class GpsActivity extends Activity {
 
 		this.mydb= new DataBaseHelper(this);
 		
-		this.gpsHelper=new GPSHelper(GpsActivity.this);
+		this.gpsHelper=new GPSHelper(GpsActivity.this,this);
 		
 		this.list=(ListView) findViewById(R.id.gpsList);
 	
@@ -82,22 +82,14 @@ public class GpsActivity extends Activity {
 		  this.gpsHelper.showSettingsAlert();
 	   else
 	   {
-		  
-		   
 		    makeList();
-		   
 	   }
-
-	    
-	
 	}
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-		
 		return true;
 	}
 
@@ -107,8 +99,6 @@ public class GpsActivity extends Activity {
 				 gpsHelper.getLongitude(), tempList,
 				 customListView, getApplicationContext())
 		    .execute();
-		
-		
 	}
 
 

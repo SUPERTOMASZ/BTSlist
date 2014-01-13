@@ -33,7 +33,7 @@ public class GPSHelper extends Service implements LocationListener
 	
 	protected LocationManager locationManager;
 	
-	public GPSHelper(Context context)
+	public GPSHelper(Context context,GpsActivity gpsAc)
 	{
 		this.context=context;
 		this.gpsAc=gpsAc;
@@ -68,6 +68,7 @@ public class GPSHelper extends Service implements LocationListener
 				 if(locationManager!=null)
 				 {
 					 Log.i("GPSHelper","siec udalo sie ");
+					 
 					 location=locationManager.getLastKnownLocation
 							 				(LocationManager.NETWORK_PROVIDER);
 					 if(location!=null)
@@ -174,13 +175,11 @@ public class GPSHelper extends Service implements LocationListener
 		Log.i("GPSHelper", "On provider disabled"+provider);
 		
 	}
-
-
 	@Override
 	public void onProviderEnabled(String provider) {
 		Log.i("GPSHelper", "On provider enabled"+provider);
-		getLocation();
-		gpsAc.makeList();
+		//getLocation();
+		//gpsAc.makeList();
 		Log.i("GPSHelper"," kazalem zrobic liste");
 		//gpsAc.getCustomListView().notifyDataSetChanged();
 		
