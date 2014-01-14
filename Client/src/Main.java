@@ -1,6 +1,14 @@
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
-import GUI.MainFrame;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import Data.Station;
+import Ftp.Connect;
 
 
 public class Main {
@@ -11,28 +19,10 @@ public class Main {
 	public static void main(String[] args) 
 	{
 		URL url;
-		new MainFrame(800, 600);
+		new Connect(); 
+		//new MainFrame(800, 600);
+		//new IntroFrame(400,600);
 		
-		/*
-			String login="developer@btsmaintenancesystem.cba.pl";
-			String pass="atem44";
-			String protocol="ftp://";
-			String host ="btsmaintenancesystem.cba.pl";
-			FTPClient ftpClient = new FTPClient();
-			try {
-				ftpClient.connect("btsmaintenancesystem.cba.pl");
-				ftpClient.login(login, pass);
-				FTPFile[] temp=ftpClient.listFiles();
-				for(int i=0;i<temp.length;i++)
-				System.out.println(temp[i].getName());
-			} catch (SocketException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-		/*
 		ArrayList <Station> stations= new ArrayList<Station>();
 			Station station = new Station();
 			station.setName("Michal");
