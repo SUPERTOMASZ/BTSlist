@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -59,6 +61,7 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame(int width,int height) {
 	
+		setResizable(false);
 		getContentPane().setLayout(null);
 		setTitle("BTS Maintenance System");
 		Toolkit tool=Toolkit.getDefaultToolkit();
@@ -133,10 +136,18 @@ public class MainFrame extends JFrame {
 		this.dutyCat.setFont(new Font("Serif", Font.BOLD, 16));
 		this.dutyCat.setForeground(new Color(255,255,255));
 		getContentPane().add(dutyCat);
-		this.workerSearchBut= new JButton(new ImageIcon("images/Searchicodesktop.gif"));
+		try {
+			this.workerSearchBut= new JButton(
+					new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/Searchicodesktop.gif"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.workerSearchBut.setBounds(213, 30, 47, 35);
 		getContentPane().add(workerSearchBut);
-
+		
 		this.textArea = new JTextField();
 		this.textArea.setBounds(270, 30, 197, 35);
 		this.textArea.setBackground(new Color(0,0,0));
@@ -152,10 +163,26 @@ public class MainFrame extends JFrame {
 		this.textField.setFont(new Font("Serif", Font.BOLD, 16));
 		this.textField.setForeground(new Color(255,255,255));
 		getContentPane().add(textField);
-		this.dutySearchBut = new JButton(new ImageIcon("images/Searchicodesktop.gif"));
+		try {
+			this.dutySearchBut= new JButton(
+					new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/Searchicodesktop.gif"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.dutySearchBut.setBounds(467, 30, 47, 35);
 		getContentPane().add(dutySearchBut);
-		this.stationSearchBut = new JButton(new ImageIcon("images/Searchicodesktop.gif"));
+		
+		try {
+			this.stationSearchBut= new JButton(
+					new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/Searchicodesktop.gif"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.stationSearchBut.setBounds(727, 30, 47, 35);
 		getContentPane().add(stationSearchBut);
 		this.textField_1 = new JTextField();
@@ -191,40 +218,61 @@ public class MainFrame extends JFrame {
 		this.stationTable.setBackground(new Color(29,29,29));
 		getContentPane().add(stationTable);
 		
-		this.workerAddBut = new JButton(new ImageIcon("images/addico.gif"));
+		try {
+			ImageIcon addIco=new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/addico.gif")));
+			this.workerAddBut= new JButton(addIco);
+			this.dutyAddBut= new JButton(addIco);
+			this.stationAddBut=new JButton(addIco);
+			ImageIcon edIco=new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/editico.gif")));
+			this.workerUpButton=new JButton(edIco);
+			this.stationUpBut=new JButton(edIco);
+			this.dutyUpBut=new JButton(edIco);
+			ImageIcon delIco=new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/subtico.gif")));
+			this.workerDelButton= new JButton(delIco);
+			this.stationDelBut= new JButton(delIco);
+			this.dutyDelBut= new JButton(delIco);
+			ImageIcon synIco=new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/updateicodesktop.gif")));
+			this.workerSyncButton=new JButton(synIco);
+			this.stationSynBut=new JButton(synIco);
+			this.dutySynBut=new JButton(synIco);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		
 		this.workerAddBut.setBounds(220, 110, 45, 45);
 		getContentPane().add(workerAddBut);
-		this.workerDelButton = new JButton(new ImageIcon("images/subtico.gif"));
 		this.workerDelButton.setBounds(220, 180, 45, 45);
 		getContentPane().add(workerDelButton);
-		this.workerUpButton = new JButton(new ImageIcon("images/editico.gif"));
 		this.workerUpButton.setBounds(220, 250, 45, 45);
 		getContentPane().add(workerUpButton);
-		this.dutyAddBut = new JButton(new ImageIcon("images/addico.gif"));
 		this.dutyAddBut.setBounds(477, 110, 45, 45);
 		getContentPane().add(dutyAddBut);
-		this.dutyDelBut = new JButton(new ImageIcon("images/subtico.gif"));
 		this.dutyDelBut.setBounds(477, 180, 45, 45);
 		getContentPane().add(dutyDelBut);
-		this.dutyUpBut = new JButton(new ImageIcon("images/editico.gif"));
+
 		this.dutyUpBut.setBounds(477, 250, 45, 45);
 		getContentPane().add(dutyUpBut);
-		this.stationAddBut = new JButton(new ImageIcon("images/addico.gif"));
+
 		this.stationAddBut.setBounds(733, 110, 45, 45);
 		getContentPane().add(stationAddBut);
-		this.stationDelBut = new JButton(new ImageIcon("images/subtico.gif"));
 		this.stationDelBut.setBounds(733, 180, 45, 45);
 		getContentPane().add(stationDelBut);
-		this.stationUpBut = new JButton(new ImageIcon("images/editico.gif"));
 		this.stationUpBut.setBounds(733, 250, 45, 45);
 		getContentPane().add(stationUpBut);
-		this.workerSyncButton = new JButton(new ImageIcon("images/updateicodesktop.gif"));
+		
 		this.workerSyncButton.setBounds(220, 320, 45, 45);
 		getContentPane().add(workerSyncButton);
-		this.dutySynBut = new JButton(new ImageIcon("images/updateicodesktop.gif"));
+
 		this.dutySynBut.setBounds(477, 320, 45, 45);
 		getContentPane().add(dutySynBut);
-		this.stationSynBut = new JButton(new ImageIcon("images/updateicodesktop.gif"));
+	
 		this.stationSynBut.setBounds(733, 320, 45, 45);
 		getContentPane().add(stationSynBut);
 	}

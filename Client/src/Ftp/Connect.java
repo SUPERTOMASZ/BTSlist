@@ -17,16 +17,21 @@ public class Connect
 	private String pass="atem44";
 	private String protocol="ftp://";
 	private String host ="btsmaintenancesystem.cba.pl";
+	public static final  String workerPath="Workers";
+	public static final  String dutyPath="Duties";
+	public static final  String station="Stations";
+	public static final  String addPath="/Add";
+	public static final  String upPath="/Update";
+	public static final String delPath="/Delete";
 	private FTPClient ftpClient;
 	public Connect()
 	{
 		this.ftpClient = new FTPClient();
 		try {
+			
 			ftpClient.connect("btsmaintenancesystem.cba.pl");
 			ftpClient.login(login, pass);
 			ftpClient.cwd("ATEM");
-			ftpClient.deleteFile("new");
-			ftpClient.deleteFile("test");
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,31 +39,37 @@ public class Connect
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		sendFileToDirectory(new File("user.json"), "Workers", "new.json");
-
 	}
-	public boolean sendFileToDirectory(File file,String path,String newFileName)
+	
+	public int  coutFiles(String path)
 	{
-			byte[] temp=new byte[1024];
-			int length;
+		int result=-1;
 		try {
 			ftpClient.cwd(path);
-			OutputStream streamOut=ftpClient.appendFileStream(newFileName);
-			InputStream in = new FileInputStream(file);
-			while((length=in.read(temp))>0 )
-			{
-				System.out.println(length);
-				streamOut.write(temp, 0, length);
-				streamOut.flush();
-			}
-			streamOut.close();
-			in.close();
+			System.out.println(ftpClient.printWorkingDirectory());
+			FTPFile[] temp =ftpClient.listFiles();
+		
+			for(int i=0;i<temp.length;i++)
+				System.out.println(temp[i].getName());
+			result=temp.length;
+			result=result-2;//bo liczone sa .. i .
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		return result;
 	}
+	
+	public void disconect()
+	{
+		try {
+			ftpClient.disconnect();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 

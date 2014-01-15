@@ -31,14 +31,28 @@ public class IntroFrame extends JFrame {
 		this.screenWidth=dim.width;
 		this.screenHeight=dim.height;
 		setLocation( (dim.width-width)/2, (dim.height-height)/2);
-		setSize(200, 300);
-		Color color= new Color(45,45,45);
+		setSize(width,height);
 		add(new Panel(),BorderLayout.CENTER);
-		//getContentPane().setBackground(color);
+	
 
 		setVisible(true);
 		
 	}
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paint(g);
+		BufferedImage img = null;
+		try {
+			img =  ImageIO.read(getClass().getResource("/images/Intro.jpg"));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    g.drawImage(img, 0, 0, width, height, this);
+	}
+	
 	class Panel extends JPanel
 	{
 		
@@ -49,13 +63,13 @@ public class IntroFrame extends JFrame {
 			setVisible(true);
 	
 		}
+		/*
 		@Override
 		  protected void paintComponent(Graphics g) {
 		    super.paintComponent(g);
 		    // paint the background image and scale it to fill the entire space
 		     BufferedImage img = null;
 			try {
-				System.out.println(getClass().getResource("/images/Intro.jpg"));
 				img =  ImageIO.read(getClass().getResource("/images/Intro.jpg"));
 				
 			} catch (IOException e) {
@@ -63,7 +77,7 @@ public class IntroFrame extends JFrame {
 				e.printStackTrace();
 			}
 		    g.drawImage(img, 0, 0, width, height, this);
-		  }
+		  }*/
 		
 	}
 

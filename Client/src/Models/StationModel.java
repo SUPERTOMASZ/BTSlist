@@ -1,4 +1,4 @@
-package GUI;
+package Models;
 
 public class StationModel 
 {
