@@ -9,6 +9,11 @@ public class Duty
 	{
 		
 	}
+	public Duty(Worker worker,String data)
+	{
+		this.worker=worker;
+		this.Data=data;
+	}
 	public Worker getWorker() {
 		return worker;
 	}

@@ -29,13 +29,8 @@ public class StationModel extends AbstractTableModel
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Duty result=input.get(row);
-		if(col==0)
-			return result.getWorker().getSurname();
-		else if(col==1)
-			return result.getData();
-		else 
-			return "";
+		Station result=input.get(row);
+		return result.getStationName();
 		
 	}
 

@@ -16,16 +16,19 @@ public class SendThread <T> extends Thread
 	
 	public SendThread(ArrayList<T> list,String path)
 	{
-	
+		connect= new Connect();
 		this.sendList=list;
 		
 		this.path=path;
+		
 	}
 	
 	@Override
 	public void run() 
 	{
-		connect= new Connect();
+		
+		System.out.println(connect.getFtpClient().isConnected());
+		System.out.println(sendList.size());
 		if(sendList.size()>0)
 		{
 			ObjectMapper mapper = new ObjectMapper();

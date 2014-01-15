@@ -23,9 +23,16 @@ public class InitThread extends Thread
 	public void run() 
 	{
 		
-		//Connect workerConnect = new Connect();
-		//int workerAdds=workerConnect.coutFiles(Connect.workerPath+Connect.addPath);
-		//workerConnect.disconect();
+		Connect workerConnect = new Connect();
+		int workerAdds=workerConnect.coutFiles(Connect.workerPath+Connect.addPath);
+		workerConnect.disconect();
+		workerConnect.connect();
+		int workerEd=workerConnect.coutFiles(Connect.workerPath+Connect.upPath);
+		workerConnect.disconect();
+		workerConnect.connect();
+		int workerDel=workerConnect.coutFiles(Connect.workerPath+Connect.delPath);
+		System.out.println(workerAdds+" "+workerEd+" "+workerDel);
+		workerConnect.disconect();
 		
 		
 		

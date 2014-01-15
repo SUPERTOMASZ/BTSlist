@@ -26,6 +26,8 @@ import Data.Worker;
 import Ftp.Connect;
 import Ftp.SendThread;
 import GUIListners.SynchListner;
+import Models.DutyModel;
+import Models.StationModel;
 
 import javax.swing.JLabel;
 
@@ -269,13 +271,31 @@ public class MainFrame extends JFrame {
 		this.workerTable.setForeground(new Color(255,255,255));
 		this.workerTable.setFont(new Font("Serif", Font.PLAIN, 20));
 		getContentPane().add(workerTable);
+		//////////////////////////////////
 		this.dutyTable = new JTable();
 		this.dutyTable.setBounds(270, 118, 204, 451);
 		this.dutyTable.setBackground(new Color(29,29,29));
+		//
+		ArrayList<Duty> tempDuty= new ArrayList<Duty>();
+		tempDuty.add(new Duty(tempWork.get(0),"01.01.2014"));
+		this.dutyTable.setModel(new DutyModel(tempDuty));
+		this.dutyTable.setFont(new Font("Serif", Font.PLAIN, 20));
+		this.dutyTable.setForeground(new Color(255,255,255));
 		getContentPane().add(dutyTable);
+		///////////////////////////////
+		ArrayList<Station> tempStations = new ArrayList<Station>();
+		Station station = new Station();
+		station.setStationName("testowa nazwa");
+		station.setPTCName("PTC nazwa");
+		station.setPTKName("PTK nazwa");
+		station.setNetWorksNum("23344");
+		tempStations.add(station);
 		this.stationTable = new JTable();
 		this.stationTable.setBounds(524, 118, 204, 451);
 		this.stationTable.setBackground(new Color(29,29,29));
+		this.stationTable.setModel(new StationModel(tempStations));
+		this.stationTable.setFont(new Font("Serif", Font.PLAIN, 20));
+		this.stationTable.setForeground(new Color(255,255,255));
 		getContentPane().add(stationTable);
 	}
 	private void initTextFields()
@@ -313,6 +333,7 @@ public class MainFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource().equals(workerSyncButton))
 			{
+				System.out.println(workersAdd.size()+" lista");
 				SendThread<Worker> thread1= new SendThread<>(workersAdd,
 										Connect.workerPath+Connect.addPath);
 				thread1.start();

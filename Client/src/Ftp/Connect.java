@@ -23,6 +23,8 @@ public class Connect
 	public static final  String addPath="/Add";
 	public static final  String upPath="/Update";
 	public static final String delPath="/Delete";
+	
+
 	private FTPClient ftpClient;
 	public Connect()
 	{
@@ -60,10 +62,12 @@ public class Connect
 				System.out.println(temp[i].getName());
 			result=temp.length;
 			result=result-2;//bo liczone sa .. i .
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(result);
 		return result;
 	}
 	public OutputStream createStream(String path)
@@ -71,6 +75,7 @@ public class Connect
 		int cout=coutFiles(path);
 		OutputStream out = null;
 		try {
+			System.out.println( (cout+1));
 			out=this.ftpClient.appendFileStream( (cout+1)+".json");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -88,7 +93,12 @@ public class Connect
 			e.printStackTrace();
 		}
 	}
-	
+	public FTPClient getFtpClient() {
+		return ftpClient;
+	}
+	public void setFtpClient(FTPClient ftpClient) {
+		this.ftpClient = ftpClient;
+	}
 	
 	
 
