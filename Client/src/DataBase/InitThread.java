@@ -1,6 +1,10 @@
 package DataBase;
 
+import java.util.ArrayList;
+
+import Data.Worker;
 import Ftp.Connect;
+import Ftp.SendThread;
 import GUI.IntroFrame;
 import GUI.MainFrame;
 
@@ -18,8 +22,15 @@ public class InitThread extends Thread
 	@Override
 	public void run() 
 	{
-		Connect workerConect = new Connect();
-		System.out.println(workerConect.coutFiles(Connect.workerPath+Connect.addPath));
+		
+		//Connect workerConnect = new Connect();
+		//int workerAdds=workerConnect.coutFiles(Connect.workerPath+Connect.addPath);
+		//workerConnect.disconect();
+		
+		
+		
+		
+		
 		introFrame.setVisible(false);
 		new MainFrame(800, 600);
 	}

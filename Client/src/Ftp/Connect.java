@@ -13,10 +13,10 @@ import org.apache.commons.net.ftp.FTPFile;
 
 public class Connect 
 {
-	private String login="developer@btsmaintenancesystem.cba.pl";
-	private String pass="atem44";
+	private String login="michal@blajar.pl";
+	private String pass="Test123";
 	private String protocol="ftp://";
-	private String host ="btsmaintenancesystem.cba.pl";
+	private String host ="blajar.pl";
 	public static final  String workerPath="Workers";
 	public static final  String dutyPath="Duties";
 	public static final  String station="Stations";
@@ -26,18 +26,25 @@ public class Connect
 	private FTPClient ftpClient;
 	public Connect()
 	{
+		connect();
+	}
+	public boolean connect()
+	{
 		this.ftpClient = new FTPClient();
 		try {
 			
-			ftpClient.connect("btsmaintenancesystem.cba.pl");
+			ftpClient.connect(host);
 			ftpClient.login(login, pass);
 			ftpClient.cwd("ATEM");
+			return true;
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -58,6 +65,18 @@ public class Connect
 			e.printStackTrace();
 		}
 		return result;
+	}
+	public OutputStream createStream(String path)
+	{
+		int cout=coutFiles(path);
+		OutputStream out = null;
+		try {
+			out=this.ftpClient.appendFileStream( (cout+1)+".json");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return out;
 	}
 	
 	public void disconect()

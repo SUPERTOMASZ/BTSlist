@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,7 +20,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
+import Data.Duty;
+import Data.Station;
 import Data.Worker;
+import Ftp.Connect;
+import Ftp.SendThread;
+import GUIListners.SynchListner;
+
 import javax.swing.JLabel;
 
 public class MainFrame extends JFrame {
@@ -55,6 +63,15 @@ public class MainFrame extends JFrame {
 	private JLabel lblNazwisko_1;
 	private JLabel lblData;
 	private JLabel lblIdentyfikator;
+	private ArrayList<Worker> workersAdd;
+	private ArrayList<Worker> workersEd;
+	private ArrayList<Worker> workersDel;
+	private ArrayList<Duty> dutiesAdd;
+	private ArrayList<Duty> dutiesEd;
+	private ArrayList<Duty> dutiesDel;
+	private ArrayList<Station> stationsAdd;
+	private ArrayList<Station> stationsEd;
+	private ArrayList<Station> stationsDel;
 	
 	/**
 	 * Create the frame.
@@ -71,12 +88,143 @@ public class MainFrame extends JFrame {
 		this.screenWidth=dim.width;
 		this.screenHeight=dim.height;
 		setLocation( (dim.width-width)/2, (dim.height-height)/2);
-		setSize(800, 600);
+		setSize(width, height);
 		Color color= new Color(45,45,45);
-		init();
+		initButtons();
+		initCategoriesList();
+		initLabels();
+		initTables();
+		initTextFields();
+		initLists();
 		getContentPane().setBackground(color);
 		
-		JLabel lblNewLabel = new JLabel("Imi\u0119");
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE );
+		setVisible(true);
+	}
+	private void initLists()
+	{
+		this.workersAdd= new ArrayList<Worker>();
+		this.workersAdd.add(new Worker("test1","test1"));
+		this.workersAdd.add(new Worker("test2","test2"));
+		this.workersEd= new ArrayList<Worker>();
+		this.workersEd.add(new Worker("edited1","edited1"));
+		this.workersDel= new ArrayList<Worker>();
+		this.dutiesAdd= new ArrayList<Duty>();
+		this.dutiesEd= new ArrayList<Duty>();
+		this.dutiesDel= new ArrayList<Duty>();
+		this.stationsAdd= new ArrayList<Station>();
+		this.stationsEd= new ArrayList<Station>();
+		this.stationsDel= new ArrayList<Station>();
+	}
+	private void initButtons()
+	{
+		try {
+			ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getResource("/images/Searchicodesktop.gif")));
+			this.workerSearchBut= new JButton(icon);
+			this.dutySearchBut=  new JButton(icon);
+			this.stationSearchBut=new JButton(icon);
+			ImageIcon addIco=new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/addico.gif")));
+			this.workerAddBut= new JButton(addIco);
+			this.dutyAddBut= new JButton(addIco);
+			this.stationAddBut=new JButton(addIco);
+			ImageIcon edIco=new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/editico.gif")));
+			this.workerUpButton=new JButton(edIco);
+			this.stationUpBut=new JButton(edIco);
+			this.dutyUpBut=new JButton(edIco);
+			ImageIcon delIco=new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/subtico.gif")));
+			this.workerDelButton= new JButton(delIco);
+			this.stationDelBut= new JButton(delIco);
+			this.dutyDelBut= new JButton(delIco);
+			ImageIcon synIco=new ImageIcon(
+					ImageIO.read(getClass().getResource("/images/updateicodesktop.gif")));
+			this.workerSyncButton=new JButton(synIco);
+			this.workerSyncButton.addActionListener(new SynchListener());
+			this.stationSynBut=new JButton(synIco);
+			this.stationSynBut.addActionListener(new SynchListener());
+			this.dutySynBut=new JButton(synIco);
+			this.dutySynBut.addActionListener(new SynchListener());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		this.workerSearchBut.setBounds(214,30,47,35);
+	
+		getContentPane().add(workerSearchBut);
+		this.dutySearchBut.setBounds(467, 30, 47, 35);
+		getContentPane().add(dutySearchBut);
+		this.stationSearchBut.setBounds(727, 30, 47, 35);
+		getContentPane().add(stationSearchBut);
+		
+		this.workerAddBut.setBounds(220, 110, 45, 45);
+		getContentPane().add(workerAddBut);
+		this.workerDelButton.setBounds(220, 180, 45, 45);
+		getContentPane().add(workerDelButton);
+		this.workerUpButton.setBounds(220, 250, 45, 45);
+		getContentPane().add(workerUpButton);
+		this.dutyAddBut.setBounds(477, 110, 45, 45);
+		getContentPane().add(dutyAddBut);
+		this.dutyDelBut.setBounds(477, 180, 45, 45);
+		getContentPane().add(dutyDelBut);
+
+		this.dutyUpBut.setBounds(477, 250, 45, 45);
+		getContentPane().add(dutyUpBut);
+
+		this.stationAddBut.setBounds(733, 110, 45, 45);
+		getContentPane().add(stationAddBut);
+		this.stationDelBut.setBounds(733, 180, 45, 45);
+		getContentPane().add(stationDelBut);
+		this.stationUpBut.setBounds(733, 250, 45, 45);
+		getContentPane().add(stationUpBut);
+		
+		this.workerSyncButton.setBounds(220, 320, 45, 45);
+		this.workerSyncButton.addActionListener(new SynchListner());
+		getContentPane().add(workerSyncButton);
+		
+
+		this.dutySynBut.setBounds(477, 320, 45, 45);
+		getContentPane().add(dutySynBut);
+	
+		this.stationSynBut.setBounds(733, 320, 45, 45);
+		getContentPane().add(stationSynBut);
+	}
+	private void initCategoriesList()
+	{
+		String[] workCat={"imiê","nazwisko"};
+		this.workerCat = new JComboBox(workCat);
+		this.workerCat.setBounds(10, 70, 250, 28);
+		this.workerCat.setBackground(new Color(0,168,255));
+		this.workerCat.setBorder(BorderFactory.createEmptyBorder());
+		this.workerCat.setFont(new Font("Serif", Font.BOLD, 16));
+		this.workerCat.setForeground(new Color(255,255,255));
+		getContentPane().add(workerCat);
+		
+		String[] stationCatList={"nazwa","nazwaPTC","nazwaPTK","nrNet","nrPTK","nrPTC"};
+		this.stationCat = new JComboBox(stationCatList);
+		this.stationCat.setBounds(524, 70, 250, 28);
+		this.stationCat.setBackground(new Color(0,168,255));
+		this.stationCat.setBorder(BorderFactory.createEmptyBorder());
+		this.stationCat.setFont(new Font("Serif", Font.BOLD, 16));
+		this.stationCat.setForeground(new Color(255,255,255));
+		getContentPane().add(stationCat);
+		String [] dutyCatList={"nazwisko","data"};
+		
+		this.dutyCat = new JComboBox(dutyCatList);
+		this.dutyCat.setBounds(270, 70, 244, 28);
+		this.dutyCat.setBackground(new Color(0,168,255));
+		this.dutyCat.setBorder(BorderFactory.createEmptyBorder());
+		this.dutyCat.setFont(new Font("Serif", Font.BOLD, 16));
+		this.dutyCat.setForeground(new Color(255,255,255));
+		getContentPane().add(dutyCat);
+	}
+	private void initLabels()
+	{
+		JLabel lblNewLabel = new JLabel("Imie");
 		lblNewLabel.setForeground(new Color(255, 165, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(20, 99, 100, 14);
@@ -107,104 +255,16 @@ public class MainFrame extends JFrame {
 		lblIdentyfikator.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblIdentyfikator.setBounds(577, 99, 119, 14);
 		getContentPane().add(lblIdentyfikator);
-		setDefaultCloseOperation(EXIT_ON_CLOSE );
-		setVisible(true);
 	}
-	private void init()
+	private void initTables()
 	{
-		String[] workCat={"imiê","nazwisko"};
-		this.workerCat = new JComboBox(workCat);
-		this.workerCat.setBounds(10, 70, 250, 28);
-		this.workerCat.setBackground(new Color(0,168,255));
-		this.workerCat.setBorder(BorderFactory.createEmptyBorder());
-		this.workerCat.setFont(new Font("Serif", Font.BOLD, 16));
-		this.workerCat.setForeground(new Color(255,255,255));
-		getContentPane().add(workerCat);
-		String[] stationCatList={"nazwa","nazwaPTC","nazwaPTK","nrNet","nrPTK","nrPTC"};
-		this.stationCat = new JComboBox(stationCatList);
-		this.stationCat.setBounds(524, 70, 250, 28);
-		this.stationCat.setBackground(new Color(0,168,255));
-		this.stationCat.setBorder(BorderFactory.createEmptyBorder());
-		this.stationCat.setFont(new Font("Serif", Font.BOLD, 16));
-		this.stationCat.setForeground(new Color(255,255,255));
-		getContentPane().add(stationCat);
-		String [] dutyCatList={"nazwisko","data"};
-		this.dutyCat = new JComboBox(dutyCatList);
-		this.dutyCat.setBounds(270, 70, 244, 28);
-		this.dutyCat.setBackground(new Color(0,168,255));
-		this.dutyCat.setBorder(BorderFactory.createEmptyBorder());
-		this.dutyCat.setFont(new Font("Serif", Font.BOLD, 16));
-		this.dutyCat.setForeground(new Color(255,255,255));
-		getContentPane().add(dutyCat);
-		try {
-			this.workerSearchBut= new JButton(
-					new ImageIcon(
-					ImageIO.read(getClass().getResource("/images/Searchicodesktop.gif"))));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		this.workerSearchBut.setBounds(213, 30, 47, 35);
-		getContentPane().add(workerSearchBut);
-		
-		this.textArea = new JTextField();
-		this.textArea.setBounds(270, 30, 197, 35);
-		this.textArea.setBackground(new Color(0,0,0));
-		this.textArea.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
-		this.textArea.setFont(new Font("Serif", Font.BOLD, 16));
-		this.textArea.setForeground(new Color(255,255,255));
-		getContentPane().add(textArea);
-		this.textField = new JTextField();
-		this.textField.setBounds(10, 30, 204, 35);
-		this.textField.setColumns(10);
-		this.textField.setBackground(new Color(0,0,0));
-		this.textField.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
-		this.textField.setFont(new Font("Serif", Font.BOLD, 16));
-		this.textField.setForeground(new Color(255,255,255));
-		getContentPane().add(textField);
-		try {
-			this.dutySearchBut= new JButton(
-					new ImageIcon(
-					ImageIO.read(getClass().getResource("/images/Searchicodesktop.gif"))));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		this.dutySearchBut.setBounds(467, 30, 47, 35);
-		getContentPane().add(dutySearchBut);
-		
-		try {
-			this.stationSearchBut= new JButton(
-					new ImageIcon(
-					ImageIO.read(getClass().getResource("/images/Searchicodesktop.gif"))));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.stationSearchBut.setBounds(727, 30, 47, 35);
-		getContentPane().add(stationSearchBut);
-		this.textField_1 = new JTextField();
-		this.textField_1.setColumns(10);
-		this.textField_1.setBounds(524, 30, 204, 35);
-		this.textField_1.setBackground(new Color(0,0,0));
-		this.textField_1.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
-		this.textField_1.setFont(new Font("Serif", Font.BOLD, 16));
-		this.textField_1.setForeground(new Color(255,255,255));
-		getContentPane().add(textField_1);
 		this.workerTable = new JTable();
 		this.workerTable.setBounds(10, 118, 204, 451);
 		this.workerTable.setBackground(new Color(29,29,29));
 		//temp
 		ArrayList<Worker> tempWork= new ArrayList<Worker>();
 		tempWork.add(new Worker("Mateusz","Kosior"));
-		tempWork.add(new Worker("Mateusz","Kosior"));
-		tempWork.add(new Worker("Mateusz","Kosior"));
-		tempWork.add(new Worker("Mateusz","Kosior"));
-		tempWork.add(new Worker("Mateusz","Kosior"));
-		tempWork.add(new Worker("Mateusz","Kosior"));
-		tempWork.add(new Worker("Mateusz","Kosior"));
+
 		this.workerTable.setModel(new WorkerModel(tempWork));
 		this.workerTable.setForeground(new Color(255,255,255));
 		this.workerTable.setFont(new Font("Serif", Font.PLAIN, 20));
@@ -217,63 +277,81 @@ public class MainFrame extends JFrame {
 		this.stationTable.setBounds(524, 118, 204, 451);
 		this.stationTable.setBackground(new Color(29,29,29));
 		getContentPane().add(stationTable);
+	}
+	private void initTextFields()
+	{
+		this.textArea = new JTextField();
+		this.textArea.setBounds(270, 30, 197, 35);
+		this.textArea.setBackground(new Color(0,0,0));
+		this.textArea.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
+		this.textArea.setFont(new Font("Serif", Font.BOLD, 16));
+		this.textArea.setForeground(new Color(255,255,255));
+		getContentPane().add(textArea);
 		
-		try {
-			ImageIcon addIco=new ImageIcon(
-					ImageIO.read(getClass().getResource("/images/addico.gif")));
-			this.workerAddBut= new JButton(addIco);
-			this.dutyAddBut= new JButton(addIco);
-			this.stationAddBut=new JButton(addIco);
-			ImageIcon edIco=new ImageIcon(
-					ImageIO.read(getClass().getResource("/images/editico.gif")));
-			this.workerUpButton=new JButton(edIco);
-			this.stationUpBut=new JButton(edIco);
-			this.dutyUpBut=new JButton(edIco);
-			ImageIcon delIco=new ImageIcon(
-					ImageIO.read(getClass().getResource("/images/subtico.gif")));
-			this.workerDelButton= new JButton(delIco);
-			this.stationDelBut= new JButton(delIco);
-			this.dutyDelBut= new JButton(delIco);
-			ImageIcon synIco=new ImageIcon(
-					ImageIO.read(getClass().getResource("/images/updateicodesktop.gif")));
-			this.workerSyncButton=new JButton(synIco);
-			this.stationSynBut=new JButton(synIco);
-			this.dutySynBut=new JButton(synIco);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		this.textField = new JTextField();
+		this.textField.setBounds(10, 30, 204, 35);
+		this.textField.setColumns(10);
+		this.textField.setBackground(new Color(0,0,0));
+		this.textField.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
+		this.textField.setFont(new Font("Serif", Font.BOLD, 16));
+		this.textField.setForeground(new Color(255,255,255));
+		
+		getContentPane().add(textField);
+		this.textField_1 = new JTextField();
+		this.textField_1.setColumns(10);
+		this.textField_1.setBounds(524, 30, 204, 35);
+		this.textField_1.setBackground(new Color(0,0,0));
+		this.textField_1.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
+		this.textField_1.setFont(new Font("Serif", Font.BOLD, 16));
+		this.textField_1.setForeground(new Color(255,255,255));
+		getContentPane().add(textField_1);
+	}
+	public class SynchListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource().equals(workerSyncButton))
+			{
+				SendThread<Worker> thread1= new SendThread<>(workersAdd,
+										Connect.workerPath+Connect.addPath);
+				thread1.start();
+				SendThread<Worker> thread2= new SendThread<>(workersEd,
+						Connect.workerPath+Connect.upPath);
+				thread2.start();
+				SendThread<Worker> thread3= new SendThread<>(workersDel,
+						Connect.workerPath+Connect.delPath);
+				thread3.start();
+				System.out.println("wysylam");
+			}
+			else if(e.getSource().equals(dutySynBut))
+			{
+				SendThread<Duty> thread1= new SendThread<>(dutiesAdd,
+						Connect.dutyPath+Connect.addPath);
+						thread1.start();
+				SendThread<Duty> thread2= new SendThread<>(dutiesEd,
+						Connect.dutyPath+Connect.upPath);
+						thread2.start();
+				SendThread<Duty> thread3= new SendThread<>(dutiesDel,
+						Connect.dutyPath+Connect.delPath);
+						thread3.start();
+			}
+			else if(e.getSource().equals(stationSynBut))
+			{
+				SendThread<Station> thread1= new SendThread<>(stationsAdd,
+						Connect.station+Connect.addPath);
+						thread1.start();
+				SendThread<Station> thread2= new SendThread<>(stationsEd,
+						Connect.station+Connect.upPath);
+						thread2.start();
+				SendThread<Station> thread3= new SendThread<>(stationsDel,
+						Connect.station+Connect.delPath);
+						thread3.start();
+				
+			}
+			
 			
 		}
 		
-		
-		this.workerAddBut.setBounds(220, 110, 45, 45);
-		getContentPane().add(workerAddBut);
-		this.workerDelButton.setBounds(220, 180, 45, 45);
-		getContentPane().add(workerDelButton);
-		this.workerUpButton.setBounds(220, 250, 45, 45);
-		getContentPane().add(workerUpButton);
-		this.dutyAddBut.setBounds(477, 110, 45, 45);
-		getContentPane().add(dutyAddBut);
-		this.dutyDelBut.setBounds(477, 180, 45, 45);
-		getContentPane().add(dutyDelBut);
-
-		this.dutyUpBut.setBounds(477, 250, 45, 45);
-		getContentPane().add(dutyUpBut);
-
-		this.stationAddBut.setBounds(733, 110, 45, 45);
-		getContentPane().add(stationAddBut);
-		this.stationDelBut.setBounds(733, 180, 45, 45);
-		getContentPane().add(stationDelBut);
-		this.stationUpBut.setBounds(733, 250, 45, 45);
-		getContentPane().add(stationUpBut);
-		
-		this.workerSyncButton.setBounds(220, 320, 45, 45);
-		getContentPane().add(workerSyncButton);
-
-		this.dutySynBut.setBounds(477, 320, 45, 45);
-		getContentPane().add(dutySynBut);
-	
-		this.stationSynBut.setBounds(733, 320, 45, 45);
-		getContentPane().add(stationSynBut);
 	}
 }

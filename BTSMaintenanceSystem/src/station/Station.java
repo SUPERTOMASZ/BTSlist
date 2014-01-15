@@ -298,8 +298,7 @@ public class Station implements Comparable<Station>,Serializable
 			return -1;
 		else
 			return 0;
-		// LOl to sorotwanie co napisales nie wiem czemu zle sortowalo chyba z godzine
-		//to kminilem co jest
+		
 		
 	}
 	
