@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -118,6 +116,7 @@ public class MainFrame extends JFrame {
 		this.stationsAdd= new ArrayList<Station>();
 		this.stationsEd= new ArrayList<Station>();
 		this.stationsDel= new ArrayList<Station>();
+	
 	}
 	private void initButtons()
 	{
@@ -144,11 +143,21 @@ public class MainFrame extends JFrame {
 			ImageIcon synIco=new ImageIcon(
 					ImageIO.read(getClass().getResource("/images/updateicodesktop.gif")));
 			this.workerSyncButton=new JButton(synIco);
-			this.workerSyncButton.addActionListener(new SynchListener());
 			this.stationSynBut=new JButton(synIco);
-			this.stationSynBut.addActionListener(new SynchListener());
 			this.dutySynBut=new JButton(synIco);
-			this.dutySynBut.addActionListener(new SynchListener());
+			
+			SynchListner listener = new SynchListner(this);
+			
+			JButton[] buttons={ workerSearchBut,  workerAddBut, workerDelButton, workerUpButton, workerSyncButton,
+								dutySearchBut, dutyAddBut, dutyDelBut, dutyUpBut,  dutySynBut, 
+								stationSearchBut, stationAddBut, stationDelBut, stationUpBut, stationSynBut };
+			
+			//workerSearchBut.addActionListener(new SynchListener(null));
+			for (JButton button : buttons)
+			{
+				button.addActionListener(listener);				
+			}	
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -185,7 +194,6 @@ public class MainFrame extends JFrame {
 		getContentPane().add(stationUpBut);
 		
 		this.workerSyncButton.setBounds(220, 320, 45, 45);
-		this.workerSyncButton.addActionListener(new SynchListner());
 		getContentPane().add(workerSyncButton);
 		
 
@@ -326,8 +334,72 @@ public class MainFrame extends JFrame {
 		this.textField_1.setForeground(new Color(255,255,255));
 		getContentPane().add(textField_1);
 	}
+	
+	public int getButtonID(JButton b)
+	{
+		JButton[] buttons={ workerSearchBut,  workerAddBut, workerDelButton, workerUpButton, workerSyncButton,
+							dutySearchBut, dutyAddBut, dutyDelBut, dutyUpBut,  dutySynBut, 
+							stationSearchBut, stationAddBut, stationDelBut, stationUpBut, stationSynBut };
+		
+		for (int i = 0; i<buttons.length; i++)
+			if (b == buttons[i])
+				return i;
+		return -1;
+	}
+	
+	public ArrayList<Worker> getWorkersAdd()
+	{
+		return workersAdd;
+	}
+	public ArrayList<Worker> getWorkersEd()
+	{
+		return workersEd;
+	}
+	
+	public ArrayList<Worker> getWorkersDel()
+	{
+		return workersDel;
+	}
+	
+	public ArrayList<Duty> getDutiesAdd()
+	{
+		return dutiesAdd;
+	}
+	
+	public ArrayList<Duty> getDutiesEd()
+	{
+		return dutiesEd;
+	}
+	
+	public ArrayList<Duty> getDutiesDel()
+	{
+		return dutiesDel;
+	}
+	
+	public ArrayList<Station> getStationsAdd()
+	{
+		return stationsAdd;
+	}
+	
+	public ArrayList<Station> getStationsEd()
+	{
+		return stationsEd;
+	}
+	
+	public ArrayList<Station> getStationsDel()
+	{
+		return stationsDel;
+	}
+	
+}
+	
+	/*
 	public class SynchListener implements ActionListener
 	{
+
+		public SynchListener(MainFrame mainFrame) {
+			// TODO Auto-generated constructor stub
+		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -375,4 +447,7 @@ public class MainFrame extends JFrame {
 		}
 		
 	}
+	
+
 }
+*/
