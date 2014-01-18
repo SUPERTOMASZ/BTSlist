@@ -23,6 +23,7 @@ import Data.Station;
 import Data.Worker;
 import Ftp.Connect;
 import Ftp.SendThread;
+import GUIListners.AddListener;
 import GUIListners.SynchListner;
 import Models.DutyModel;
 import Models.StationModel;
@@ -145,17 +146,20 @@ public class MainFrame extends JFrame {
 			this.stationSynBut=new JButton(synIco);
 			this.dutySynBut=new JButton(synIco);
 			
-			SynchListner listener = new SynchListner(this);
-			this.workerSyncButton.addActionListener(listener);
-			this.dutySynBut.addActionListener(listener);
-			this.stationSynBut.addActionListener(listener);
-			
+			/////////////
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
 		}
-		
+
+			SynchListner synListener = new SynchListner(this);
+			this.workerSyncButton.addActionListener(synListener);
+			this.dutySynBut.addActionListener(synListener);
+			this.stationSynBut.addActionListener(synListener);
+			AddListener addListener=new AddListener(this);
+			this.workerAddBut.addActionListener(addListener);
+			this.dutyAddBut.addActionListener(addListener);
+			this.stationAddBut.addActionListener(addListener);
+			
 		this.workerSearchBut.setBounds(214,30,47,35);
 	
 		getContentPane().add(workerSearchBut);
@@ -388,6 +392,24 @@ public class MainFrame extends JFrame {
 	}
 	public void setStationSynBut(JButton stationSynBut) {
 		this.stationSynBut = stationSynBut;
+	}
+	public JButton getWorkerAddBut() {
+		return workerAddBut;
+	}
+	public void setWorkerAddBut(JButton workerAddBut) {
+		this.workerAddBut = workerAddBut;
+	}
+	public JButton getDutyAddBut() {
+		return dutyAddBut;
+	}
+	public void setDutyAddBut(JButton dutyAddBut) {
+		this.dutyAddBut = dutyAddBut;
+	}
+	public JButton getStationAddBut() {
+		return stationAddBut;
+	}
+	public void setStationAddBut(JButton stationAddBut) {
+		this.stationAddBut = stationAddBut;
 	}
 	
 }

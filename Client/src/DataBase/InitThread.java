@@ -22,7 +22,7 @@ public class InitThread extends Thread
 	@Override
 	public void run() 
 	{
-		
+		/*
 		Connect workerConnect = new Connect();
 		int workerAdds=workerConnect.coutFiles(Connect.workerPath+Connect.addPath);
 		workerConnect.disconect();
@@ -34,9 +34,8 @@ public class InitThread extends Thread
 		System.out.println(workerAdds+" "+workerEd+" "+workerDel);
 		
 		workerConnect.disconect();
-		DataBaseQuery db= new DataBaseQuery();
-		//db.insert(new Worker("Michal","Blach"));
-		
+	
+		*/
 		
 		
 		
