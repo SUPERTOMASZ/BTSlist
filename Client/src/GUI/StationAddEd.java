@@ -1,19 +1,18 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
 
 import Data.Station;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.Color;
-import java.awt.Font;
 
 public class StationAddEd extends JDialog {
 
@@ -33,7 +32,11 @@ public class StationAddEd extends JDialog {
 	private JTextField power_plantField;
 	private JTextField heightField;
 	private Station station;
+	private JLabel log;
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public StationAddEd(ArrayList<Station> list)
 	{
 		setBounds(100, 100, 450, 481);
@@ -71,6 +74,7 @@ public class StationAddEd extends JDialog {
 		button.setBackground(new Color(15, 15, 15));
 		button.setBounds(335, 408, 89, 23);
 		getContentPane().add(button);
+		button.addActionListener(new AddListener(list));
 		
 		JButton btnAnuluj = new JButton("Anuluj");
 		btnAnuluj.setForeground(new Color(0, 168, 255));
@@ -79,7 +83,17 @@ public class StationAddEd extends JDialog {
 		btnAnuluj.setBorder(null);
 		btnAnuluj.setBackground(new Color(15, 15, 15));
 		btnAnuluj.setBounds(236, 408, 89, 23);
+		btnAnuluj.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+				
+			}
+		});
 		getContentPane().add(btnAnuluj);
+		
+		
 	}
 	private void initTextFields()
 	{
@@ -279,6 +293,55 @@ public class StationAddEd extends JDialog {
 		height.setForeground(new Color(0,168,255));
 		height.setFont(new Font("Tahoma", Font.BOLD, 14));
 		getContentPane().add(height);
+		
+		log = new JLabel("");
+		log.setForeground(new Color(255,255,255));
+		log.setBounds(180, 414, 46, 14);
+		getContentPane().add(log);
+	}
+	public class AddListener implements ActionListener
+	{
+		private ArrayList<Station> list;
+		public AddListener(ArrayList<Station> list)
+		{
+			this.list=list;
+			
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			Station tempstation = new Station();
+			tempstation.setCity(cityField.getText());
+			cityField.setText("");
+			tempstation.setAccessDescribe(acc_desField.getText());
+			acc_desField.setText("");
+			tempstation.setCordX(Double.parseDouble(cordXField.getText()));
+			cordXField.setText("");
+			tempstation.setCordY(Double.parseDouble(cordYField.getText()));
+			cordYField.setText("");
+			tempstation.setHeight(heightField.getText());
+			heightField.setText("");
+			tempstation.setZip_Code(zip_codeField.getText());
+			zip_codeField.setText("");
+			tempstation.setStreet(adrField.getText());
+			adrField.setText("");
+			tempstation.setStationNum(nrStaField.getText());
+			nrStaField.setText("");
+			tempstation.setNetWorksNum(nrNetWorksField.getText());
+			nrNetWorksField.setText("");
+			tempstation.setPTCNum(nrPTCField.getText());
+			nrPTCField.setText("");
+			tempstation.setPTKNum(nrPTKField.getText());
+			nrPTKField.setText("");
+			tempstation.setStationDescribe(descField.getText());
+			descField.setText("");
+			tempstation.setPowerPlantNum(power_plantField.getText());
+			power_plantField.setText("");
+			log.setText("dodano");
+			list.add(tempstation);
+				
+		}
+		
 	}
 
 }
