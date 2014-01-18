@@ -55,6 +55,8 @@ public class MainFrame extends JFrame {
 	private JButton dutyDelBut;
 	private JButton dutyUpBut;
 	private JButton stationAddBut;
+	
+
 	private JButton stationDelBut;
 	private JButton stationUpBut;
 	private JButton workerSyncButton;
@@ -105,10 +107,7 @@ public class MainFrame extends JFrame {
 	private void initLists()
 	{
 		this.workersAdd= new ArrayList<Worker>();
-		this.workersAdd.add(new Worker("test1","test1"));
-		this.workersAdd.add(new Worker("test2","test2"));
 		this.workersEd= new ArrayList<Worker>();
-		this.workersEd.add(new Worker("edited1","edited1"));
 		this.workersDel= new ArrayList<Worker>();
 		this.dutiesAdd= new ArrayList<Duty>();
 		this.dutiesEd= new ArrayList<Duty>();
@@ -147,16 +146,9 @@ public class MainFrame extends JFrame {
 			this.dutySynBut=new JButton(synIco);
 			
 			SynchListner listener = new SynchListner(this);
-			
-			JButton[] buttons={ workerSearchBut,  workerAddBut, workerDelButton, workerUpButton, workerSyncButton,
-								dutySearchBut, dutyAddBut, dutyDelBut, dutyUpBut,  dutySynBut, 
-								stationSearchBut, stationAddBut, stationDelBut, stationUpBut, stationSynBut };
-			
-			//workerSearchBut.addActionListener(new SynchListener(null));
-			for (JButton button : buttons)
-			{
-				button.addActionListener(listener);				
-			}	
+			this.workerSyncButton.addActionListener(listener);
+			this.dutySynBut.addActionListener(listener);
+			this.stationSynBut.addActionListener(listener);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -335,17 +327,6 @@ public class MainFrame extends JFrame {
 		getContentPane().add(textField_1);
 	}
 	
-	public int getButtonID(JButton b)
-	{
-		JButton[] buttons={ workerSearchBut,  workerAddBut, workerDelButton, workerUpButton, workerSyncButton,
-							dutySearchBut, dutyAddBut, dutyDelBut, dutyUpBut,  dutySynBut, 
-							stationSearchBut, stationAddBut, stationDelBut, stationUpBut, stationSynBut };
-		
-		for (int i = 0; i<buttons.length; i++)
-			if (b == buttons[i])
-				return i;
-		return -1;
-	}
 	
 	public ArrayList<Worker> getWorkersAdd()
 	{
@@ -390,64 +371,25 @@ public class MainFrame extends JFrame {
 	{
 		return stationsDel;
 	}
-	
-}
-	
-	/*
-	public class SynchListener implements ActionListener
-	{
-
-		public SynchListener(MainFrame mainFrame) {
-			// TODO Auto-generated constructor stub
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource().equals(workerSyncButton))
-			{
-				System.out.println(workersAdd.size()+" lista");
-				SendThread<Worker> thread1= new SendThread<>(workersAdd,
-										Connect.workerPath+Connect.addPath);
-				thread1.start();
-				SendThread<Worker> thread2= new SendThread<>(workersEd,
-						Connect.workerPath+Connect.upPath);
-				thread2.start();
-				SendThread<Worker> thread3= new SendThread<>(workersDel,
-						Connect.workerPath+Connect.delPath);
-				thread3.start();
-				System.out.println("wysylam");
-			}
-			else if(e.getSource().equals(dutySynBut))
-			{
-				SendThread<Duty> thread1= new SendThread<>(dutiesAdd,
-						Connect.dutyPath+Connect.addPath);
-						thread1.start();
-				SendThread<Duty> thread2= new SendThread<>(dutiesEd,
-						Connect.dutyPath+Connect.upPath);
-						thread2.start();
-				SendThread<Duty> thread3= new SendThread<>(dutiesDel,
-						Connect.dutyPath+Connect.delPath);
-						thread3.start();
-			}
-			else if(e.getSource().equals(stationSynBut))
-			{
-				SendThread<Station> thread1= new SendThread<>(stationsAdd,
-						Connect.station+Connect.addPath);
-						thread1.start();
-				SendThread<Station> thread2= new SendThread<>(stationsEd,
-						Connect.station+Connect.upPath);
-						thread2.start();
-				SendThread<Station> thread3= new SendThread<>(stationsDel,
-						Connect.station+Connect.delPath);
-						thread3.start();
-				
-			}
-			
-			
-		}
-		
+	public JButton getWorkerSyncButton() {
+		return workerSyncButton;
+	}
+	public void setWorkerSyncButton(JButton workerSyncButton) {
+		this.workerSyncButton = workerSyncButton;
+	}
+	public JButton getDutySynBut() {
+		return dutySynBut;
+	}
+	public void setDutySynBut(JButton dutySynBut) {
+		this.dutySynBut = dutySynBut;
+	}
+	public JButton getStationSynBut() {
+		return stationSynBut;
+	}
+	public void setStationSynBut(JButton stationSynBut) {
+		this.stationSynBut = stationSynBut;
 	}
 	
-
 }
-*/
+	
+	

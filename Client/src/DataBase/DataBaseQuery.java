@@ -13,6 +13,7 @@ import Data.Worker;
 public class DataBaseQuery 
 {
 
+
 	Connection c;
 	
 	public DataBaseQuery()
@@ -21,7 +22,8 @@ public class DataBaseQuery
 		try 
 	    {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:assets/base.db");
+			c = DriverManager.getConnection("jdbc:sqlite:"+getClass().getResource("databases/base.db"));
+			System.out.println("otworzylem c2"+(c==null));
 	    }
 	    catch (SQLException e)
 	    {
@@ -37,7 +39,8 @@ public class DataBaseQuery
 	public void insert(Worker worker)
 	{
 		try 
-		{
+		{if(c==null)
+			System.out.println("null");
 			Statement temp=c.createStatement();
 			String order1="INSERT INTO Pracownicy(imie,nazwisko) VALUES("+" \" "
 			+worker.getName()+" \" , \" "

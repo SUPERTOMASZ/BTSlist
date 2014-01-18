@@ -32,8 +32,10 @@ public class InitThread extends Thread
 		workerConnect.connect();
 		int workerDel=workerConnect.coutFiles(Connect.workerPath+Connect.delPath);
 		System.out.println(workerAdds+" "+workerEd+" "+workerDel);
-		workerConnect.disconect();
 		
+		workerConnect.disconect();
+		DataBaseQuery db= new DataBaseQuery();
+		//db.insert(new Worker("Michal","Blach"));
 		
 		
 		
