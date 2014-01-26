@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class Station implements Serializable
 {
+	private int ID;
 	private String stationNum;
 	private String netWorksNum;
 	private String PTCNum;
@@ -42,6 +43,8 @@ public class Station implements Serializable
 	
 	public Station() 
 	{
+		
+		
 	}
 	public String getStationNum() {
 		return stationNum;
@@ -243,6 +246,12 @@ public class Station implements Serializable
 	}
 	public void setUpdatedTime(String updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
 	}
 	
 	

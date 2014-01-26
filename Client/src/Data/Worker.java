@@ -6,6 +6,7 @@ public class Worker implements Serializable
 {
 	private String name;
 	private String surname;
+	private int ID;
 	public Worker()
 	{
 		
@@ -31,6 +32,12 @@ public class Worker implements Serializable
 	public String toString() {
 		// TODO Auto-generated method stub
 		return name+" "+surname;
+	}
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 }

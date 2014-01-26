@@ -2,6 +2,7 @@ package DataBase;
 
 import java.util.ArrayList;
 
+import Data.Station;
 import Data.Worker;
 import Ftp.Connect;
 import Ftp.SendThread;
@@ -34,8 +35,9 @@ public class InitThread extends Thread
 		System.out.println(workerAdds+" "+workerEd+" "+workerDel);
 		
 		workerConnect.disconect();
-	
 		*/
+		
+		
 		
 		
 		

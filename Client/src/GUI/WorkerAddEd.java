@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Data.Worker;
+import DataBase.DataBaseQuery;
 
 public class WorkerAddEd extends JDialog {
 
@@ -27,7 +28,7 @@ public class WorkerAddEd extends JDialog {
 		this.list=list;
 		log= new JLabel("");
 		log.setForeground(new Color(255,255,255));
-		log.setBounds(142, 133, 84, 14);
+		log.setBounds(29, 133, 197, 14);
 		getContentPane().add(log);
 		setBounds(100, 100, 450, 200);
 		getContentPane().setLayout(null);
@@ -103,13 +104,16 @@ public class WorkerAddEd extends JDialog {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Worker worker=new Worker(nameField.getText(),surnameField.getText());
+			String name=DataBaseQuery.convertFromPolish(nameField.getText());
+			String surname=DataBaseQuery.convertFromPolish(surnameField.getText());
+			Worker worker=new Worker(name,surname);
 			list.add(worker);
 			nameField.setText("");
 			surnameField.setText("");
-			log.setText("dodano");
-			for(int i=0;i<list.size();i++)
-				System.out.println(list.get(i).getName());
+			DataBaseQuery db = new DataBaseQuery();
+			db.insert(worker);
+			log.setText("dodano pracownika");
+			
 		}
 		
 	}

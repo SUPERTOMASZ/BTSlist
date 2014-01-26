@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 import Data.Worker;
+import DataBase.DataBaseQuery;
 
 public class WorkerModel extends AbstractTableModel
 {
@@ -12,6 +13,7 @@ public class WorkerModel extends AbstractTableModel
 	public WorkerModel(ArrayList<Worker> input)
 	{
 		this.input=input;
+		System.out.println("worker model");
 	}
 	@Override
 	public int getColumnCount() {
@@ -29,9 +31,17 @@ public class WorkerModel extends AbstractTableModel
 	public Object getValueAt(int row, int col) {
 		Worker result=input.get(row);
 		if(col==0)
-			return result.getName();
+		{
+			System.out.println(DataBaseQuery.firstLetter2Up(result.getName()));
+			return(DataBaseQuery.firstLetter2Up(result.getName()));
+			
+		}
 		else 
-			return result.getSurname();
+		{
+			System.out.println(DataBaseQuery.firstLetter2Up(result.getSurname()));
+			return(DataBaseQuery.firstLetter2Up(result.getSurname()));
+		}
+			
 		
 	}
 

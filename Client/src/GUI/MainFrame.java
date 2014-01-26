@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,40 +15,41 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import Data.Duty;
 import Data.Station;
 import Data.Worker;
-import Ftp.Connect;
-import Ftp.SendThread;
+import DataBase.DataBaseQuery;
 import GUIListners.AddListener;
 import GUIListners.SynchListner;
 import Models.DutyModel;
-import Models.StationModel;
-
-import javax.swing.JLabel;
 
 public class MainFrame extends JFrame {
 
-	private JPanel contentPane;
+
 	private int width;
 	private int height;
 	private int screenWidth;
 	private int screenHeight;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField workerField;
+	private JTextField stationField;
 	private JTable workerTable;
-	private JTable dutyTable;
 	private JTable stationTable;
 	private JComboBox workerCat ;
 	private JComboBox stationCat;
 	private JComboBox dutyCat;
 	private JButton workerSearchBut;
-	private JTextField textArea;
+	private JTextField dutyField;
 	private JButton dutySearchBut;
 	private JButton stationSearchBut;
 	private JButton workerAddBut;
@@ -75,12 +78,19 @@ public class MainFrame extends JFrame {
 	private ArrayList<Station> stationsAdd;
 	private ArrayList<Station> stationsEd;
 	private ArrayList<Station> stationsDel;
+	private ArrayList<Worker> workeResultList;
+	private ArrayList<Duty> dutyResultList;
+	private ArrayList<Station> stationResultList;
+	private JScrollPane workerScroolPanel;
+	private JScrollPane dutyScroolPanel;
+	private JScrollPane stationScroolPanel;
 	
 	/**
 	 * Create the frame.
 	 */
 	public MainFrame(int width,int height) {
 	
+		
 		setResizable(false);
 		getContentPane().setLayout(null);
 		setTitle("BTS Maintenance System");
@@ -91,17 +101,19 @@ public class MainFrame extends JFrame {
 		this.screenWidth=dim.width;
 		this.screenHeight=dim.height;
 		setLocation( (dim.width-width)/2, (dim.height-height)/2);
-		setSize(width, height);
+		//setSize(width, height);
+		setSize(800,600);
 		Color color= new Color(45,45,45);
-		initButtons();
+		initLists();
 		initCategoriesList();
 		initLabels();
 		initTables();
 		initTextFields();
-		initLists();
+	
+		initButtons();
 		getContentPane().setBackground(color);
-		
-		
+
+			initScroolPanels();
 		setDefaultCloseOperation(EXIT_ON_CLOSE );
 		setVisible(true);
 	}
@@ -116,7 +128,32 @@ public class MainFrame extends JFrame {
 		this.stationsAdd= new ArrayList<Station>();
 		this.stationsEd= new ArrayList<Station>();
 		this.stationsDel= new ArrayList<Station>();
+		this.workeResultList=new ArrayList<Worker>();
+		this.dutyResultList= new ArrayList<Duty>();
+		this.stationResultList = new ArrayList<Station>();
 	
+	}
+	private void initScroolPanels()
+	{
+		this.workerScroolPanel =new JScrollPane(workerTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		workerScroolPanel.setViewportBorder(null);
+		workerScroolPanel.setBounds(10, 124, 202, 445);
+		this.workerScroolPanel.getViewport().setBackground(new Color(29,29,29));
+		this.workerScroolPanel.getViewport().setForeground(new Color(29,29,29));
+		this.workerScroolPanel.getViewport().setBorder(null);
+
+		getContentPane().add(workerScroolPanel);
+		
+		dutyScroolPanel = new JScrollPane();
+		dutyScroolPanel.getViewport().setBackground(new Color(29,29,29));
+		dutyScroolPanel.setBounds(270, 119, 204, 450);
+		getContentPane().add(dutyScroolPanel);
+		
+		stationScroolPanel = new JScrollPane();
+		stationScroolPanel.setViewportBorder(null);
+		
+		stationScroolPanel.setBounds(524, 119, 204, 450);
+		getContentPane().add(stationScroolPanel);
 	}
 	private void initButtons()
 	{
@@ -198,6 +235,10 @@ public class MainFrame extends JFrame {
 	
 		this.stationSynBut.setBounds(733, 320, 45, 45);
 		getContentPane().add(stationSynBut);
+		
+		this.workerSearchBut.addActionListener(new SearchListener());
+		this.dutySearchBut.addActionListener(new SearchListener());
+		this.stationSearchBut.addActionListener(new SearchListener());
 	}
 	private void initCategoriesList()
 	{
@@ -267,68 +308,45 @@ public class MainFrame extends JFrame {
 		this.workerTable = new JTable();
 		this.workerTable.setBounds(10, 118, 204, 451);
 		this.workerTable.setBackground(new Color(29,29,29));
-		//temp
-		ArrayList<Worker> tempWork= new ArrayList<Worker>();
-		tempWork.add(new Worker("Mateusz","Kosior"));
-
-		this.workerTable.setModel(new WorkerModel(tempWork));
 		this.workerTable.setForeground(new Color(255,255,255));
 		this.workerTable.setFont(new Font("Serif", Font.PLAIN, 20));
-		getContentPane().add(workerTable);
-		//////////////////////////////////
-		this.dutyTable = new JTable();
-		this.dutyTable.setBounds(270, 118, 204, 451);
-		this.dutyTable.setBackground(new Color(29,29,29));
-		//
-		ArrayList<Duty> tempDuty= new ArrayList<Duty>();
-		tempDuty.add(new Duty(tempWork.get(0),"01.01.2014"));
-		this.dutyTable.setModel(new DutyModel(tempDuty));
-		this.dutyTable.setFont(new Font("Serif", Font.PLAIN, 20));
-		this.dutyTable.setForeground(new Color(255,255,255));
-		getContentPane().add(dutyTable);
 		///////////////////////////////
-		ArrayList<Station> tempStations = new ArrayList<Station>();
-		Station station = new Station();
-		station.setStationName("testowa nazwa");
-		station.setPTCName("PTC nazwa");
-		station.setPTKName("PTK nazwa");
-		station.setNetWorksNum("23344");
-		tempStations.add(station);
+	
+		
 		this.stationTable = new JTable();
 		this.stationTable.setBounds(524, 118, 204, 451);
 		this.stationTable.setBackground(new Color(29,29,29));
-		this.stationTable.setModel(new StationModel(tempStations));
 		this.stationTable.setFont(new Font("Serif", Font.PLAIN, 20));
 		this.stationTable.setForeground(new Color(255,255,255));
 		getContentPane().add(stationTable);
 	}
 	private void initTextFields()
 	{
-		this.textArea = new JTextField();
-		this.textArea.setBounds(270, 30, 197, 35);
-		this.textArea.setBackground(new Color(0,0,0));
-		this.textArea.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
-		this.textArea.setFont(new Font("Serif", Font.BOLD, 16));
-		this.textArea.setForeground(new Color(255,255,255));
-		getContentPane().add(textArea);
+		this.dutyField = new JTextField();
+		this.dutyField.setBounds(270, 30, 197, 35);
+		this.dutyField.setBackground(new Color(0,0,0));
+		this.dutyField.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
+		this.dutyField.setFont(new Font("Serif", Font.BOLD, 16));
+		this.dutyField.setForeground(new Color(255,255,255));
+		getContentPane().add(dutyField);
 		
-		this.textField = new JTextField();
-		this.textField.setBounds(10, 30, 204, 35);
-		this.textField.setColumns(10);
-		this.textField.setBackground(new Color(0,0,0));
-		this.textField.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
-		this.textField.setFont(new Font("Serif", Font.BOLD, 16));
-		this.textField.setForeground(new Color(255,255,255));
+		this.workerField = new JTextField();
+		this.workerField.setBounds(10, 30, 204, 35);
+		this.workerField.setColumns(10);
+		this.workerField.setBackground(new Color(0,0,0));
+		this.workerField.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
+		this.workerField.setFont(new Font("Serif", Font.BOLD, 16));
+		this.workerField.setForeground(new Color(255,255,255));
 		
-		getContentPane().add(textField);
-		this.textField_1 = new JTextField();
-		this.textField_1.setColumns(10);
-		this.textField_1.setBounds(524, 30, 204, 35);
-		this.textField_1.setBackground(new Color(0,0,0));
-		this.textField_1.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
-		this.textField_1.setFont(new Font("Serif", Font.BOLD, 16));
-		this.textField_1.setForeground(new Color(255,255,255));
-		getContentPane().add(textField_1);
+		getContentPane().add(workerField);
+		this.stationField = new JTextField();
+		this.stationField.setColumns(10);
+		this.stationField.setBounds(524, 30, 204, 35);
+		this.stationField.setBackground(new Color(0,0,0));
+		this.stationField.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED , new Color(0,99,150), new Color(0,99,150)));
+		this.stationField.setFont(new Font("Serif", Font.BOLD, 16));
+		this.stationField.setForeground(new Color(255,255,255));
+		getContentPane().add(stationField);
 	}
 	
 	
@@ -411,7 +429,42 @@ public class MainFrame extends JFrame {
 	public void setStationAddBut(JButton stationAddBut) {
 		this.stationAddBut = stationAddBut;
 	}
-	
+	class SearchListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			Object pattern=e.getSource();
+			if(pattern.equals(workerSearchBut))
+			{
+				String keyword=workerField.getText();
+				String category=(String) workerCat.getSelectedItem();
+				workeResultList=(new DataBaseQuery().getWorkers(keyword, category));
+				System.out.println(workeResultList.size());
+				workerTable.setModel(new WorkerModel(workeResultList));
+				
+			}
+			else if(pattern.equals(dutySearchBut))
+			{
+				String keyword=dutyField.getText();
+				String category=(String) dutyCat.getSelectedItem();
+				dutyResultList=(new DataBaseQuery().getDuties(keyword, category));
+				System.out.println(dutyResultList.size());
+				dutyTable.setModel(new DutyModel(dutyResultList));
+				
+			}
+			else if(pattern.equals(stationSearchBut))
+			{
+				
+			}
+		
+			
+		}
+		
+		
+		
+	}
 }
 	
 	
