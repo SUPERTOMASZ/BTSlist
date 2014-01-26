@@ -122,13 +122,16 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
 		 SQLiteDatabase db = this.getReadableDatabase();
 
+		 cordX = 51.9;
+		 cordY = 20.3;
+		 
 		 ArrayList<Station> result= new ArrayList<Station>();
 		 Log.i(" X ",""+cordX);
 		 Log.i(" Y",""+cordY);
 		 Log.i(" znalazlem ","otworzylem baze");
 		 
 		 Log.i(" znalazlem ","zapytanie");
-		 Double section =  0.5;  //!!
+		 Double section =  0.2;  //!!
 		 int maxit=500;
 		 int ite = 0;
 		 int size=0;
@@ -155,16 +158,25 @@ public class DataBaseHelper extends SQLiteOpenHelper
 			 size=cursor.getCount();
 			Log.i(" znalazlem ",cursor.getCount()+"");
 			 ite++;
-			 if (cursor.getCount()>20)
-				 section/=1.2;
-			 else if (cursor.getCount()<1)
-				 section*=1.1;
+			 if (cursor.getCount()>40)
+				 if (cursor.getCount()>100)
+				 {
+					 section *=7;			//spodziewana iloœæ wyników 7^2
+					 section /= Math.sqrt(cursor.getCount());
+				 }
+				 else	 
+					 section/=1.3;
+			 else if (cursor.getCount()<7)
+				 if (cursor.getCount()==0)
+					 section*=5;
+				 else
+					 section*=1.5;
 
-				 
-		 
+			 Log.i(" Section ", section+"   maxit " +maxit);
+			 maxit--;
 
 		 }
-		while( (cursor.getCount()<1)||cursor.getCount()>20);
+		while( (cursor.getCount()<7)||cursor.getCount()>40);
 		Log.i(" znalazlem ","wyszedlem z petli");
 		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
 			 result.add(makeBTSfromCursor(cursor));
