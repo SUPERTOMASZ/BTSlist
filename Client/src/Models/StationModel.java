@@ -14,6 +14,7 @@ public class StationModel extends AbstractTableModel
 	public StationModel(ArrayList<Station> input)
 	{
 		this.input=input;
+		
 	}
 	@Override
 	public int getColumnCount() {

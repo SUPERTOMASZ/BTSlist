@@ -8,9 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.CellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,9 +21,12 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+import javax.swing.event.TableColumnModelListener;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -31,8 +36,10 @@ import Data.Station;
 import Data.Worker;
 import DataBase.DataBaseQuery;
 import GUIListners.AddListener;
+import GUIListners.EdListener;
 import GUIListners.SynchListner;
 import Models.DutyModel;
+import Models.StationModel;
 
 public class MainFrame extends JFrame {
 
@@ -45,6 +52,7 @@ public class MainFrame extends JFrame {
 	private JTextField stationField;
 	private JTable workerTable;
 	private JTable stationTable;
+	private JTable dutyTable;
 	private JComboBox workerCat ;
 	private JComboBox stationCat;
 	private JComboBox dutyCat;
@@ -59,8 +67,9 @@ public class MainFrame extends JFrame {
 	private JButton dutyDelBut;
 	private JButton dutyUpBut;
 	private JButton stationAddBut;
-	
-
+	public static final String[] workCat={"imiê","nazwisko"};
+	public static final String[] stationCatList={"nazwa","nazwaPTC","nazwaPTK","nrNet","nrPTK","nrPTC"};
+	public static final String [] dutyCatList={"nazwisko","data"};
 	private JButton stationDelBut;
 	private JButton stationUpBut;
 	private JButton workerSyncButton;
@@ -84,6 +93,8 @@ public class MainFrame extends JFrame {
 	private JScrollPane workerScroolPanel;
 	private JScrollPane dutyScroolPanel;
 	private JScrollPane stationScroolPanel;
+
+	
 	
 	/**
 	 * Create the frame.
@@ -140,18 +151,21 @@ public class MainFrame extends JFrame {
 		workerScroolPanel.setBounds(10, 124, 202, 445);
 		this.workerScroolPanel.getViewport().setBackground(new Color(29,29,29));
 		this.workerScroolPanel.getViewport().setForeground(new Color(29,29,29));
+		//this.workerScroolPanel.set
 		this.workerScroolPanel.getViewport().setBorder(null);
-
 		getContentPane().add(workerScroolPanel);
 		
-		dutyScroolPanel = new JScrollPane();
-		dutyScroolPanel.getViewport().setBackground(new Color(29,29,29));
+		dutyScroolPanel = new JScrollPane(dutyTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		dutyScroolPanel.setViewportBorder(null);
 		dutyScroolPanel.setBounds(270, 119, 204, 450);
+		this.dutyScroolPanel.getViewport().setBackground(new Color(29,29,29));
+		this.dutyScroolPanel.getViewport().setForeground(new Color(29,29,29));
 		getContentPane().add(dutyScroolPanel);
 		
-		stationScroolPanel = new JScrollPane();
+		stationScroolPanel = new JScrollPane(stationTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		stationScroolPanel.setViewportBorder(null);
-		
+		this.stationScroolPanel.getViewport().setBackground(new Color(29,29,29));
+		this.stationScroolPanel.getViewport().setForeground(new Color(29,29,29));
 		stationScroolPanel.setBounds(524, 119, 204, 450);
 		getContentPane().add(stationScroolPanel);
 	}
@@ -239,10 +253,14 @@ public class MainFrame extends JFrame {
 		this.workerSearchBut.addActionListener(new SearchListener());
 		this.dutySearchBut.addActionListener(new SearchListener());
 		this.stationSearchBut.addActionListener(new SearchListener());
+		
+		this.workerUpButton.addActionListener(new EdListener(this));
+		this.dutyUpBut.addActionListener(new EdListener(this));
+		this.stationUpBut.addActionListener(new EdListener(this));
 	}
 	private void initCategoriesList()
 	{
-		String[] workCat={"imiê","nazwisko"};
+		
 		this.workerCat = new JComboBox(workCat);
 		this.workerCat.setBounds(10, 70, 250, 28);
 		this.workerCat.setBackground(new Color(0,168,255));
@@ -251,7 +269,7 @@ public class MainFrame extends JFrame {
 		this.workerCat.setForeground(new Color(255,255,255));
 		getContentPane().add(workerCat);
 		
-		String[] stationCatList={"nazwa","nazwaPTC","nazwaPTK","nrNet","nrPTK","nrPTC"};
+		
 		this.stationCat = new JComboBox(stationCatList);
 		this.stationCat.setBounds(524, 70, 250, 28);
 		this.stationCat.setBackground(new Color(0,168,255));
@@ -259,7 +277,7 @@ public class MainFrame extends JFrame {
 		this.stationCat.setFont(new Font("Serif", Font.BOLD, 16));
 		this.stationCat.setForeground(new Color(255,255,255));
 		getContentPane().add(stationCat);
-		String [] dutyCatList={"nazwisko","data"};
+		
 		
 		this.dutyCat = new JComboBox(dutyCatList);
 		this.dutyCat.setBounds(270, 70, 244, 28);
@@ -303,21 +321,25 @@ public class MainFrame extends JFrame {
 		lblIdentyfikator.setBounds(577, 99, 119, 14);
 		getContentPane().add(lblIdentyfikator);
 	}
+	
 	private void initTables()
 	{
 		this.workerTable = new JTable();
-		this.workerTable.setBounds(10, 118, 204, 451);
+		
 		this.workerTable.setBackground(new Color(29,29,29));
 		this.workerTable.setForeground(new Color(255,255,255));
 		this.workerTable.setFont(new Font("Serif", Font.PLAIN, 20));
 		///////////////////////////////
-	
+		this.dutyTable = new JTable();
+		this.dutyTable.setForeground(Color.WHITE);
+		this.dutyTable.setFont(new Font("Serif", Font.PLAIN, 20));
+		this.dutyTable.setBackground(new Color(29,29,29));
 		
 		this.stationTable = new JTable();
-		this.stationTable.setBounds(524, 118, 204, 451);
 		this.stationTable.setBackground(new Color(29,29,29));
 		this.stationTable.setFont(new Font("Serif", Font.PLAIN, 20));
 		this.stationTable.setForeground(new Color(255,255,255));
+		this.stationTable.setFillsViewportHeight(true);
 		getContentPane().add(stationTable);
 	}
 	private void initTextFields()
@@ -429,6 +451,72 @@ public class MainFrame extends JFrame {
 	public void setStationAddBut(JButton stationAddBut) {
 		this.stationAddBut = stationAddBut;
 	}
+	public JTable getWorkerTable() {
+		return workerTable;
+	}
+	public void setWorkerTable(JTable workerTable) {
+		this.workerTable = workerTable;
+	}
+	public JTable getStationTable() {
+		return stationTable;
+	}
+	public void setStationTable(JTable stationTable) {
+		this.stationTable = stationTable;
+	}
+	public JTable getDutyTable() {
+		return dutyTable;
+	}
+	public void setDutyTable(JTable dutyTable) {
+		this.dutyTable = dutyTable;
+	}
+	public ArrayList<Worker> getWorkeResultList() {
+		return workeResultList;
+	}
+	public void setWorkeResultList(ArrayList<Worker> workeResultList) {
+		this.workeResultList = workeResultList;
+	}
+	public ArrayList<Duty> getDutyResultList() {
+		return dutyResultList;
+	}
+	public void setDutyResultList(ArrayList<Duty> dutyResultList) {
+		this.dutyResultList = dutyResultList;
+	}
+	public ArrayList<Station> getStationResultList() {
+		return stationResultList;
+	}
+	public void setStationResultList(ArrayList<Station> stationResultList) {
+		this.stationResultList = stationResultList;
+	}
+	
+	public JButton getWorkerUpButton() {
+		return workerUpButton;
+	}
+	public void setWorkerUpButton(JButton workerUpButton) {
+		this.workerUpButton = workerUpButton;
+	}
+	public JButton getDutyUpBut() {
+		return dutyUpBut;
+	}
+	public void setDutyUpBut(JButton dutyUpBut) {
+		this.dutyUpBut = dutyUpBut;
+	}
+	public JButton getStationUpBut() {
+		return stationUpBut;
+	}
+	public void setStationUpBut(JButton stationUpBut) {
+		this.stationUpBut = stationUpBut;
+	}
+	public void setWorkersEd(ArrayList<Worker> workersEd) {
+		this.workersEd = workersEd;
+	}
+	public void setDutiesEd(ArrayList<Duty> dutiesEd) {
+		this.dutiesEd = dutiesEd;
+	}
+	public void setStationsEd(ArrayList<Station> stationsEd) {
+		this.stationsEd = stationsEd;
+	}
+	
+
 	class SearchListener implements ActionListener
 	{
 
@@ -456,6 +544,11 @@ public class MainFrame extends JFrame {
 			}
 			else if(pattern.equals(stationSearchBut))
 			{
+				String keyword=stationField.getText();
+				String category=(String) stationCat.getSelectedItem();
+				stationResultList=(new DataBaseQuery().getBTS(keyword, category));
+			
+				stationTable.setModel(new StationModel(stationResultList));
 				
 			}
 		

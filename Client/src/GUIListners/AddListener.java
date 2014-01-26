@@ -3,10 +3,10 @@ package GUIListners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import GUI.DutyAddEd;
+import GUI.DutyAdd;
 import GUI.MainFrame;
-import GUI.StationAddEd;
-import GUI.WorkerAddEd;
+import GUI.StationAdd;
+import GUI.WorkerAdd;
 
 public class AddListener implements ActionListener
 {
@@ -23,15 +23,15 @@ public class AddListener implements ActionListener
 		Object pattern=e.getSource();
 		if(pattern.equals(mf.getWorkerAddBut()))
 		{
-			new WorkerAddEd(mf.getWorkersAdd());
+			new WorkerAdd(mf.getWorkersAdd());
 		}
 		else if(pattern.equals(mf.getDutyAddBut()))
 		{
-			new DutyAddEd(mf.getDutiesAdd());
+			new DutyAdd(mf.getDutiesAdd());
 		}
 		else if(pattern.equals(mf.getStationAddBut()))
 		{
-			new StationAddEd(mf.getStationsAdd());
+			new StationAdd(mf.getStationsAdd());
 		}
 		else
 		{

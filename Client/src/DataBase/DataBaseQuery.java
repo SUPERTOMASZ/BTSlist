@@ -16,6 +16,7 @@ import org.codehaus.jackson.map.DeserializerFactory.Config;
 import Data.Duty;
 import Data.Station;
 import Data.Worker;
+import GUI.MainFrame;
 
 public class DataBaseQuery 
 {
@@ -99,11 +100,10 @@ public class DataBaseQuery
 	{
 		try 
 		{
-			
 			Statement temp=c.createStatement();
 			String order1="INSERT INTO Pracownicy(imie,nazwisko) VALUES("+
-			" \" "+worker.getName().replaceAll(" ", "")+" \" ," +
-			" \" "+worker.getSurname().replaceAll(" ", "")+" \" );";
+			" \""+worker.getName().replaceAll(" ", "")+"\" ," +
+			" \""+worker.getSurname().replaceAll(" ", "")+"\" );";
 			temp.executeUpdate(order1);
 		} 
 		catch (SQLException e) 
@@ -124,7 +124,7 @@ public class DataBaseQuery
 			System.out.println(workerId);
 			Statement temp=c.createStatement();
 			String order1="INSERT INTO Dyzury(data,id_pracownika) VALUES"+
-			"( '"+duty.getData()+"' , "+workerId+");";
+			"( '"+duty.getData()+"' ,"+workerId+");";
 			temp.executeUpdate(order1);
 		} 
 		catch (SQLException e) 
@@ -147,29 +147,29 @@ public class DataBaseQuery
 					  "wspX,wspY,wys,wysBud,opisDostepu,opisStacji,nrPlus,nrPlay,nrElektrowni" +
 					  ")"+
 					  " VALUES(" +
-					  " \" "+bts.getStationNum()+" \" ," +
-					  " \" "+bts.getNetWorksNum()+" \" ," +
-					  " \" "+bts.getPTCNum()+" \"," +
-					  " \" "+bts.getPTKNum()+"\" , " +
-					  " \" "+bts.getOwner()+" \" ," +
-					  " \" "+bts.getStationName()+"\" ," +
-					  " \" "+bts.getPTCName()+" \", "+
-					  " \" "+bts.getPTKName()+" \","+
-					  " \" "+bts.getRegion()+" \" ," +
-					  " \" "+bts.getStreet()+" \" ," +
-					  " \" "+bts.getStreetNo()+" \" ," +
-					  " \" "+bts.getZip_Code()+" \" ," +
-					  " \" "+bts.getCity()+" \" ," +
-					  " \" "+bts.getType()+" \" ," +
-					  " \" "+bts.getCordX()+" \" ," +
-					  " \" "+bts.getCordY()+" \", " +
+					  " \""+bts.getStationNum()+"\" ," +
+					  " \" "+bts.getNetWorksNum()+"\" ," +
+					  " \""+bts.getPTCNum()+"\"," +
+					  " \""+bts.getPTKNum()+"\" , " +
+					  " \""+bts.getOwner()+"\" ," +
+					  " \""+bts.getStationName()+"\" ," +
+					  " \""+bts.getPTCName()+"\", "+
+					  " \""+bts.getPTKName()+"\","+
+					  " \""+bts.getRegion()+"\" ," +
+					  " \""+bts.getStreet()+"\" ," +
+					  " \""+bts.getStreetNo()+"\" ," +
+					  " \""+bts.getZip_Code()+"\" ," +
+					  " \""+bts.getCity()+"\" ," +
+					  " \""+bts.getType()+"\" ," +
+					  " \""+bts.getCordX()+"\" ," +
+					  " \""+bts.getCordY()+"\", " +
 					  checIsNumber(bts.getHeight())+ "," +
 					  checIsNumber(bts.getBuilding_height())+ "," +
-					  " \" "+bts.getAccessDescribe()+" \", " +
-					  " \" "+bts.getStationDescribe()+" \", " +
-					  " \" "+bts.getPlusNum()+" \", " +
-					  " \" "+bts.getPlayNum()+" \" , " +
-					  " \" "+bts.getPowerPlantNum()+" \" " +
+					  " \""+bts.getAccessDescribe()+"\", " +
+					  " \""+bts.getStationDescribe()+"\", " +
+					  " \""+bts.getPlusNum()+"\", " +
+					  " \""+bts.getPlayNum()+"\" , " +
+					  " \""+bts.getPowerPlantNum()+"\" " +
 					  " );";
 		System.out.println(order1);
 			temp.executeUpdate(order1);
@@ -203,30 +203,129 @@ public class DataBaseQuery
 	
 	public void update(Worker worker)
 	{
+		Statement temp;
+		try {
+			temp = c.createStatement();
+			String order ="UPDATE Pracownicy SET" +
+					" imie='"+worker.getName()+"',"+
+					" nazwisko='"+worker.getSurname()+
+					"' WHERE id_pracownika="+worker.getID()+" ;";
+			temp.executeUpdate(order);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
 	public void update(Duty duty)
 	{
-		
+		Statement temp;
+		try {
+			temp = c.createStatement();
+			String order ="UPDATE Dyzury SET" +
+					" id_pracownika='"+duty.getWorker().getID()+"',"+
+					" data='"+duty.getData()+"';";
+					
+			temp.executeUpdate(order);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void update(Station station)
+	public void update(Station bts)
 	{
+		Statement temp;
+		try {
+			temp = c.createStatement();
+			String order="UPDATE Bts SET " +
+				  "NRStacji=\" "+bts.getStationNum()+"\" ," +
+				  "nrNetWorks=\" "+bts.getNetWorksNum()+"\" ," +
+				  "nrPTC=\" "+bts.getPTCNum()+"\"," +
+				  "nrPTK=\""+bts.getPTKNum()+"\" , " +
+				  "wlasciciel=\" "+bts.getOwner()+"\" ," +
+				  "nazwaStacji=\" "+bts.getStationName()+"\" ," +
+				  "nazwaPTC=\" "+bts.getPTCName()+"\", "+
+				  "nazwaPTK=\" "+bts.getPTKName()+"\","+
+				  "region=\" "+bts.getRegion()+"\" ," +
+				  "ulica=\" "+bts.getStreet()+"\" ," +
+				  "numer=\" "+bts.getStreetNo()+"\" ," +
+				  "kodPocztowy= \" "+bts.getZip_Code()+"\" ," +
+				  "miasto=\" "+bts.getCity()+"\" ," +
+				  "typ=\" "+bts.getType()+"\" ," +
+				  "wspX=\" "+bts.getCordX()+"\" ," +
+				  "wspY=\" "+bts.getCordY()+"\", " +
+				  "wys="+checIsNumber(bts.getHeight())+ "," +
+				  "wysBud="+checIsNumber(bts.getBuilding_height())+ "," +
+				  "opisDostepu=\""+bts.getAccessDescribe()+"\", " +
+				  "opisStacji=\""+bts.getStationDescribe()+"\", " +
+				  "nrPlus=\""+bts.getPlusNum()+"\", " +
+				  "nrPlay=\""+bts.getPlayNum()+"\" , " +
+				  "nrElektrowni=\""+bts.getPowerPlantNum()+"\"" +
+				  " ;";
+		
+			System.out.println(order);
+		temp.executeUpdate(order);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
+	private String convertCategoriesFromCombo(String input) throws Exception
+	{
+		
+	
+		if (input.contains(MainFrame.stationCatList[0]))
+		{
+			return "nazwaStacji";
+			
+		}
+		else if (input.contains(MainFrame.stationCatList[1]))
+		{
+			return "nazwaPTC";
+		}
+		else if (input.contains(MainFrame.stationCatList[2]))
+		{
+			return "nazwaPTK";
+		}
+		else if (input.contains(MainFrame.stationCatList[3]))
+		{
+			return "nrNetWorks";
+		}
+		else if (input.contains(MainFrame.stationCatList[4]))
+		{
+			return "nrPTC";
+		}
+		else if (input.contains(MainFrame.stationCatList[5]))
+		{
+			return "nrPTK";
+		}
+		else 
+			throw new Exception();
+
+	}
+	
 	public ArrayList<Station> getBTS(String keyword,String choose)
 	{
 		
 		keyword=convertString(keyword);
+		try {
+			choose=convertCategoriesFromCombo(choose);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Statement stat = null;
 		ArrayList<Station> resultList = new ArrayList<Station>();
 	        try {
-	           System.out.println( c.isClosed());
+	
 	        	stat = c.createStatement();
-	           
-	            
-	        	ResultSet rs = stat.executeQuery( "SELECT * FROM "+BASETABLE+" WHERE "+choose +" LIKE '%"+keyword+"%' ;" );
+	           String order="SELECT * FROM "+BASETABLE+" WHERE "+choose +" LIKE '%"+keyword+"%' ;";
+	            System.out.println(order);
+	        	ResultSet rs = stat.executeQuery(order);
 	           while( rs.next())
 	           {
 	        	   Station station= new Station();
@@ -262,7 +361,7 @@ public class DataBaseQuery
 					station.setPowerPlantNum(rs.getString(30));
 					station.setUpdatedTime(rs.getString(31));
 				resultList.add(station);
-	        	 
+	        
 	           }
 	           
 	        }
@@ -326,15 +425,15 @@ public class DataBaseQuery
 					  stat = c.createStatement();
 					rs = stat.executeQuery( "SELECT * FROM "+DUTYTABLE+
 							" NATURAL JOIN "+WORKERSTABLE+" WHERE "+
-							category+" = ' "+keyword+" ' ;");
+							category+" LIKE '%"+keyword+"%' ;");
 					 while( rs.next())
 			           {
 			        	   Duty duty= new Duty();
 			        	   Worker worker= new Worker();
 			        	   duty.setData(rs.getString(2).replaceAll(" ", ""));
 			        	   worker.setID(rs.getInt(3));
-			        	   worker.setName(firstLetter2Up(rs.getString(4)));
-			        	   worker.setSurname(rs.getString(5).replaceAll(" ", ""));
+			        	   worker.setName(firstLetter2Up(rs.getString(4).replaceAll(" ", "")));
+			        	   worker.setSurname(firstLetter2Up(rs.getString(5).replaceAll(" ", "")));
 			        	   duty.setWorker(worker);
 			        	   
 						resultList.add(duty);
@@ -364,9 +463,6 @@ public class DataBaseQuery
 						if(rs.next())
 						{
 							int id=rs.getInt(1);
-							System.out.println(id);
-							System.out.println(rs.getString(2));
-							System.out.println(rs.getString(3));
 							end();
 							return id;
 						}
@@ -387,6 +483,7 @@ public class DataBaseQuery
 	private String convertString(String input)
 	{
 		input=input.toLowerCase();
+		input=input.replaceAll(" ","");
 		input=input.replaceAll("¹", "a");
 		input=input.replaceAll("æ", "c");
 		input=input.replaceAll("ê", "e");
