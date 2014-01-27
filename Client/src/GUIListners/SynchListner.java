@@ -3,6 +3,7 @@ package GUIListners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ public class SynchListner implements ActionListener
 		this.mf = mf;
 	}
 	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
@@ -38,10 +40,15 @@ public class SynchListner implements ActionListener
 			SendThread<Worker> thread2= new SendThread<>(mf.getWorkersEd(),
 					Connect.workerPath+Connect.upPath);
 			thread2.start();
+			System.out.println("przed wysylka "+mf.getWorkersDel().size());
 			SendThread<Worker> thread3= new SendThread<>(mf.getWorkersDel(),
 					Connect.workerPath+Connect.delPath);
 			thread3.start();
 			System.out.println("wysylam workerow");
+			
+			
+			
+			
 		}
 		else if(pattern.equals(mf.getDutySynBut()))
 		{
@@ -55,6 +62,10 @@ public class SynchListner implements ActionListener
 					Connect.dutyPath+Connect.delPath);
 			thread3.start();
 			System.out.println("wysylam dyzury");
+			////////////////////////////////
+			mf.getDutiesAdd().removeAll(mf.getDutiesAdd());
+			mf.getDutiesEd().removeAll(mf.getDutiesEd());
+			mf.getDutiesDel().removeAll(mf.getDutiesDel());
 		}
 		else if(pattern.equals(mf.getStationSynBut()))
 		{
@@ -68,6 +79,10 @@ public class SynchListner implements ActionListener
 					Connect.station+Connect.delPath);
 			thread3.start();
 			System.out.println("wysylam dyzury");
+			////////////////////////////////
+			mf.getStationsAdd().removeAll(mf.getStationsAdd());
+			mf.getStationsEd().removeAll(mf.getStationsEd());
+			mf.getStationsDel().removeAll(mf.getStationsDel());
 			
 		}
 		else

@@ -25,7 +25,7 @@ public class DataBaseQuery
 	private Connection c;
 	public static String BASENAME="base.db";
 	public static String BASETABLE= "Bts";
-	public static String PRIMARY_KEY="id";
+	public static String KEY_STATION_KEY="id";
 	public static String KEY_STATION_NUM="NRStacji";
 	public static String KEY_NETWORKS_NUM="nrNetWorks";
 	public static String KEY_PTC_NUM="nrPTC";
@@ -60,13 +60,26 @@ public class DataBaseQuery
 	private static String WORKERSTABLE= "Pracownicy";
 	private static String KEY_NAME= "imie";
 	private static String KEY_SURNAME= "nazwisko";
-
+	private static String KEY_WORKER_ID="id_pracownika";
 
 	private static String DUTYTABLE= "Dyzury";
+	private static String KEY_DUTY_ID= "id";
 	private static String KEY_DATE= "data";
-	private static String KEY_WORKER_ID="id_pracownika";
+	private static String KEY_DUTY_WORKER_ID="id_pracownika";
 	
-	private static final String [] COLUMNS={PRIMARY_KEY,KEY_STATION_NUM,KEY_NETWORKS_NUM,
+	private static String VERSION_TABLE="Wersje";
+	private static String KEY_VERSION_TABLE_NAME="nazwaTabeli";
+	private static String KEY_VERSION_CATEGORY_NAME="nazwaKategorii";
+	private static String KEY_VERSION_VERSION_NAME="wersja";
+	
+	public static String KEY_VERSION_STATION_NAME="stacje ";
+	public static String KEY_VERSION_DUTY_NAME="dyzury ";
+	public static String KEY_VERSION_WORKER_NAME="pracownicy ";
+	public static String KEY_VERSION_ADD_NAME="dodaj";
+	public static String KEY_VERSION_ED_NAME="edytuj";
+	public static String KEY_VERSION_DEL_NAME="usun";
+	
+	private static final String [] COLUMNS={KEY_STATION_KEY,KEY_STATION_NUM,KEY_NETWORKS_NUM,
 		KEY_PTC_NUM,KEY_PTK_NUM,KEY_OWNER,KEY_STATION_NAME,KEY_PTC_NAME,KEY_PTK_NAME,
 		KEY_REGION,KEY_AREA,KEY_DELETED_DATE,KEY_STREET,KEY_STREET_NO,KEY_ZIP_CODE,
 		KEY_CITY,KEY_COMMUNITY,KEY_DISTRICT,KEY_PROVINCE,KEY_TYPE,KEY_CANDIDATE,
@@ -189,16 +202,62 @@ public class DataBaseQuery
 	public void delete(Worker worker)
 	{
 		
+		try 
+		{
+			
+			Statement temp=c.createStatement();
+			String order1="DELETE FROM "+WORKERSTABLE+" WHERE "+KEY_WORKER_ID+
+					"="+worker.getID()+" ;";
+			System.out.println(order1);
+			temp.executeUpdate(order1);
+		} 
+		catch (SQLException e) 
+		{
+            System.err.println("Problem z poleceniem");
+		}
+		
+		
+		end();
+		
 	}
-	
 	public void delete(Duty duty)
 	{
+		try 
+		{
+			
+			Statement temp=c.createStatement();
+			String order1="DELETE FROM "+DUTYTABLE+" WHERE "+KEY_DUTY_ID+
+					"="+duty.getId()+" ;";
+			System.out.println(order1);
+			temp.executeUpdate(order1);
+		} 
+		catch (SQLException e) 
+		{
+            System.err.println("Problem z poleceniem");
+		}
 		
+		
+		end();
 	}
 	
 	public void delete(Station station)
 	{
+		try 
+		{
+			
+			Statement temp=c.createStatement();
+			String order1="DELETE FROM "+BASETABLE+" WHERE "+KEY_STATION_KEY+
+					"="+station.getID()+" ;";
+			System.out.println(order1);
+			temp.executeUpdate(order1);
+		} 
+		catch (SQLException e) 
+		{
+            System.err.println("Problem z poleceniem");
+		}
 		
+		
+		end();
 	}
 	
 	public void update(Worker worker)
@@ -226,8 +285,25 @@ public class DataBaseQuery
 			temp = c.createStatement();
 			String order ="UPDATE Dyzury SET" +
 					" id_pracownika='"+duty.getWorker().getID()+"',"+
-					" data='"+duty.getData()+"';";
-					
+					" data='"+duty.getData()+"' WHERE "+KEY_DUTY_ID+" ="+duty.getId()+";";
+			System.out.println(order);
+			temp.executeUpdate(order);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void updateVersion(Duty duty,String table,String category,int ver)
+	{
+		Statement temp;
+		try {
+			temp = c.createStatement();
+			String order ="UPDATE "+VERSION_TABLE+" SET " +
+						  KEY_VERSION_VERSION_NAME+"="+ver+" WHERE "+
+						  KEY_VERSION_TABLE_NAME+" = \""+table+"\" AND "+
+						  KEY_VERSION_CATEGORY_NAME+"=\""+category+"\" ;";
+						  
+			System.out.println(order);
 			temp.executeUpdate(order);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -264,6 +340,7 @@ public class DataBaseQuery
 				  "nrPlus=\""+bts.getPlusNum()+"\", " +
 				  "nrPlay=\""+bts.getPlayNum()+"\" , " +
 				  "nrElektrowni=\""+bts.getPowerPlantNum()+"\"" +
+				  "WHERE "+KEY_STATION_KEY+" ="+bts.getID()+
 				  " ;";
 		
 			System.out.println(order);
@@ -430,6 +507,7 @@ public class DataBaseQuery
 			           {
 			        	   Duty duty= new Duty();
 			        	   Worker worker= new Worker();
+			        	   duty.setId(rs.getInt(1));
 			        	   duty.setData(rs.getString(2).replaceAll(" ", ""));
 			        	   worker.setID(rs.getInt(3));
 			        	   worker.setName(firstLetter2Up(rs.getString(4).replaceAll(" ", "")));
@@ -452,12 +530,14 @@ public class DataBaseQuery
 		
 		name=DataBaseQuery.convertFromPolish(name);
 		surname=DataBaseQuery.convertFromPolish(surname);
+		String order="SELECT * FROM "+WORKERSTABLE+
+				" WHERE Imie='"+ name+ "' AND Nazwisko='"+surname+"' ;";
 		Statement stat = null;
 	        	ResultSet rs;
 				try {
 					  stat = c.createStatement();
-					rs = stat.executeQuery( "SELECT * FROM "+WORKERSTABLE+
-							" WHERE Imie=' "+ name+ " ' AND Nazwisko=' "+surname+" ' ;");
+					  System.out.println(order);
+					rs = stat.executeQuery(order);
 					
 						
 						if(rs.next())

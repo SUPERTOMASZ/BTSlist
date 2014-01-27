@@ -127,7 +127,7 @@ public class DutyEd extends JDialog {
 	}
 	public class EdListener implements ActionListener
 	{
-		private ArrayList<Duty> list;
+		
 		
 		@Override
 		public void actionPerformed(ActionEvent e) 

@@ -83,6 +83,17 @@ public class Connect
 		}
 		return out;
 	}
+	public InputStream createInputStream(String name,int ver)
+	{
+		InputStream input = null;
+		try {
+			input=ftpClient.retrieveFileStream("1.json");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return input;
+	}
 	
 	public void disconect()
 	{

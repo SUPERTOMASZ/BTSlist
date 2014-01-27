@@ -36,6 +36,7 @@ import Data.Station;
 import Data.Worker;
 import DataBase.DataBaseQuery;
 import GUIListners.AddListener;
+import GUIListners.DelListener;
 import GUIListners.EdListener;
 import GUIListners.SynchListner;
 import Models.DutyModel;
@@ -128,6 +129,7 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE );
 		setVisible(true);
 	}
+	
 	private void initLists()
 	{
 		this.workersAdd= new ArrayList<Worker>();
@@ -257,6 +259,10 @@ public class MainFrame extends JFrame {
 		this.workerUpButton.addActionListener(new EdListener(this));
 		this.dutyUpBut.addActionListener(new EdListener(this));
 		this.stationUpBut.addActionListener(new EdListener(this));
+		
+		this.workerDelButton.addActionListener(new DelListener(this));
+		this.dutyDelBut.addActionListener(new DelListener(this));
+		this.stationDelBut.addActionListener(new DelListener(this));
 	}
 	private void initCategoriesList()
 	{
@@ -515,7 +521,33 @@ public class MainFrame extends JFrame {
 	public void setStationsEd(ArrayList<Station> stationsEd) {
 		this.stationsEd = stationsEd;
 	}
-	
+	public JButton getWorkerDelButton() {
+		return workerDelButton;
+	}
+	public void setWorkerDelButton(JButton workerDelButton) {
+		this.workerDelButton = workerDelButton;
+	}
+	public JButton getDutyDelBut() {
+		return dutyDelBut;
+	}
+	public void setDutyDelBut(JButton dutyDelBut) {
+		this.dutyDelBut = dutyDelBut;
+	}
+	public JButton getStationDelBut() {
+		return stationDelBut;
+	}
+	public void setStationDelBut(JButton stationDelBut) {
+		this.stationDelBut = stationDelBut;
+	}
+	public void setWorkersDel(ArrayList<Worker> workersDel) {
+		this.workersDel = workersDel;
+	}
+	public void setDutiesDel(ArrayList<Duty> dutiesDel) {
+		this.dutiesDel = dutiesDel;
+	}
+	public void setStationsDel(ArrayList<Station> stationsDel) {
+		this.stationsDel = stationsDel;
+	}
 
 	class SearchListener implements ActionListener
 	{

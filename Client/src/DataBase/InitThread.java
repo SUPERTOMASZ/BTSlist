@@ -1,11 +1,15 @@
 package DataBase;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-import Data.Station;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+
 import Data.Worker;
 import Ftp.Connect;
-import Ftp.SendThread;
 import GUI.IntroFrame;
 import GUI.MainFrame;
 
@@ -23,9 +27,25 @@ public class InitThread extends Thread
 	@Override
 	public void run() 
 	{
-		/*
+		
 		Connect workerConnect = new Connect();
 		int workerAdds=workerConnect.coutFiles(Connect.workerPath+Connect.addPath);
+		ObjectMapper mapper =new ObjectMapper();
+		try {
+			ArrayList<Worker> list=mapper.readValue(workerConnect.createInputStream("", 1),
+					new TypeReference<ArrayList<Worker>>() { });
+			for(int i=0;i<list.size();i++)
+				System.out.println(list.get(i).getName());
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		workerConnect.disconect();
 		workerConnect.connect();
 		int workerEd=workerConnect.coutFiles(Connect.workerPath+Connect.upPath);
@@ -35,7 +55,7 @@ public class InitThread extends Thread
 		System.out.println(workerAdds+" "+workerEd+" "+workerDel);
 		
 		workerConnect.disconect();
-		*/
+		
 		
 		
 		

@@ -1,19 +1,23 @@
 package Data;
 
-public class Duty 
+import java.io.IOException;
+import java.io.Serializable;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+public class Duty implements Serializable
 {
-	
+	private int id;
 	private Worker worker;
 	private String Data;
 	public Duty()
 	{
 		
 	}
-	public Duty(Worker worker,String data)
-	{
-		this.worker=worker;
-		this.Data=data;
-	}
+
 	public Worker getWorker() {
 		return worker;
 	}
@@ -26,5 +30,33 @@ public class Duty
 	public void setData(String data) {
 		Data = data;
 	}
-
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+/*
+	@Override
+	public String toString() {
+		return id+" "+worker.toString()+" "+Data;
+	}
+	@JsonIgnore
+	public String getAsJSON() {
+	    ObjectMapper mapper = new ObjectMapper();
+	    try {
+			return mapper.writeValueAsString(this) ;
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	    return null;
+	}*/
+	
 }
