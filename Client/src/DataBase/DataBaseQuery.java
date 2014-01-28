@@ -75,9 +75,9 @@ public class DataBaseQuery
 	public static String KEY_VERSION_STATION_NAME="stacje ";
 	public static String KEY_VERSION_DUTY_NAME="dyzury ";
 	public static String KEY_VERSION_WORKER_NAME="pracownicy ";
-	public static String KEY_VERSION_ADD_NAME="dodaj";
-	public static String KEY_VERSION_ED_NAME="edytuj";
-	public static String KEY_VERSION_DEL_NAME="usun";
+	public static String KEY_VERSION_ADD_NAME=" dodaj";
+	public static String KEY_VERSION_ED_NAME=" edytuj";
+	public static String KEY_VERSION_DEL_NAME=" usun";
 	
 	private static final String [] COLUMNS={KEY_STATION_KEY,KEY_STATION_NUM,KEY_NETWORKS_NUM,
 		KEY_PTC_NUM,KEY_PTK_NUM,KEY_OWNER,KEY_STATION_NAME,KEY_PTC_NAME,KEY_PTK_NAME,
@@ -121,6 +121,7 @@ public class DataBaseQuery
 		} 
 		catch (SQLException e) 
 		{
+			e.printStackTrace();
             System.err.println("Problem z poleceniem");
 		}
 		
@@ -129,19 +130,20 @@ public class DataBaseQuery
 		
 	}
 	
-	public void insert(Duty duty,int workerId)
+	public void insert(Duty duty)
 	{
 		
 		try 
 		{
-			System.out.println(workerId);
 			Statement temp=c.createStatement();
 			String order1="INSERT INTO Dyzury(data,id_pracownika) VALUES"+
-			"( '"+duty.getData()+"' ,"+workerId+");";
+			"( '"+duty.getData()+"' ,"+duty.getWorker().getID()+");";
+			System.out.println(order1);
 			temp.executeUpdate(order1);
 		} 
 		catch (SQLException e) 
 		{
+			e.printStackTrace();
             System.err.println("Problem z poleceniem");
 		}
 		
@@ -233,6 +235,7 @@ public class DataBaseQuery
 		} 
 		catch (SQLException e) 
 		{
+			e.printStackTrace();
             System.err.println("Problem z poleceniem");
 		}
 		
@@ -253,6 +256,7 @@ public class DataBaseQuery
 		} 
 		catch (SQLException e) 
 		{
+			e.printStackTrace();
             System.err.println("Problem z poleceniem");
 		}
 		
@@ -274,7 +278,7 @@ public class DataBaseQuery
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		end();
 		
 	}
 	
@@ -292,8 +296,9 @@ public class DataBaseQuery
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		end();
 	}
-	public void updateVersion(Duty duty,String table,String category,int ver)
+	public void updateVersion(String table,String category,int ver)
 	{
 		Statement temp;
 		try {
@@ -309,6 +314,28 @@ public class DataBaseQuery
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		end();
+	}
+	public int getVersion(String table,String category)
+	{
+		Statement stat;
+		int result=-1;
+		try {
+			stat= c.createStatement();
+			String order ="SELECT * FROM "+VERSION_TABLE+" WHERE "+
+							KEY_VERSION_TABLE_NAME+" =\""+table+"\" AND "+
+							KEY_VERSION_CATEGORY_NAME+" =\""+category+"\" ;";
+						  
+			System.out.println(order);
+			ResultSet rs = stat.executeQuery(order);
+			result=rs.getInt(KEY_VERSION_VERSION_NAME);
+			System.out.println(result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		end();
+		 return result;
 	}
 	
 	public void update(Station bts)
@@ -349,7 +376,7 @@ public class DataBaseQuery
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		end();
 	}
 	private String convertCategoriesFromCombo(String input) throws Exception
 	{
@@ -479,12 +506,12 @@ public class DataBaseQuery
 						resultList.add(worker);
 			        	 
 			           }
-			           end();
+			         
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	          
+				  end();
 	           return resultList;
 	}
 	public ArrayList<Duty> getDuties(String keyword,String category)
@@ -517,17 +544,18 @@ public class DataBaseQuery
 						resultList.add(duty);
 			        	 
 			           }
-			           end();
+			         
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	          
+				  end();
 	           return resultList;
 	}
 	public int getWorkerId(String name,String surname)
 	{
 		
+		int id=-1;
 		name=DataBaseQuery.convertFromPolish(name);
 		surname=DataBaseQuery.convertFromPolish(surname);
 		String order="SELECT * FROM "+WORKERSTABLE+
@@ -538,26 +566,21 @@ public class DataBaseQuery
 					  stat = c.createStatement();
 					  System.out.println(order);
 					rs = stat.executeQuery(order);
-					
-						
+
 						if(rs.next())
 						{
-							int id=rs.getInt(1);
-							end();
-							return id;
-						}
-						else
-						{
-							end();
-							return(-1);
+							id=rs.getInt(1);
+
 						}
 
 	      }
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return -1;
+			
 		}
+				  end();
+				return id;
 	}
 
 	private String convertString(String input)
@@ -581,6 +604,7 @@ public class DataBaseQuery
 	{
 		try 
 		{
+			System.out.println("zamykam");
 			c.close();
 	    } 
 		catch (SQLException e) 

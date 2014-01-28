@@ -70,29 +70,42 @@ public class Connect
 		System.out.println(result);
 		return result;
 	}
-	public OutputStream createStream(String path)
+	public OutputStream createStream(int ver)
 	{
-		int cout=coutFiles(path);
+		
 		OutputStream out = null;
 		try {
-			System.out.println( (cout+1));
-			out=this.ftpClient.appendFileStream( (cout+1)+".json");
+			System.out.println( (ver+1));
+			out=this.ftpClient.appendFileStream( (ver+1)+".json");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return out;
 	}
-	public InputStream createInputStream(String name,int ver)
+	public InputStream createInputStream(int ver)
 	{
 		InputStream input = null;
 		try {
-			input=ftpClient.retrieveFileStream("1.json");
+			input=ftpClient.retrieveFileStream(ver+".json");
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return input;
+	}
+	public void finishInputStream(InputStream in)
+	{
+		
+		try {
+			in.close();
+			ftpClient.completePendingCommand();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void disconect()

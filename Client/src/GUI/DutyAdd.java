@@ -150,7 +150,7 @@ public class DutyAdd extends JDialog {
 					duty.setWorker(worker);
 					duty.setData(dataField.getText());
 					list.add(duty);
-					new DataBaseQuery().insert(duty, workerId);
+					new DataBaseQuery().insert(duty);
 					log.setText("dodano");
 					nameField.setText("");
 					surnameField1.setText("");
