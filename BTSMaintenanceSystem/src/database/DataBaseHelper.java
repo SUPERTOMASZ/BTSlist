@@ -122,8 +122,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
 		 SQLiteDatabase db = this.getReadableDatabase();
 
-		 cordX = 51.9;
-		 cordY = 20.3;
 		 
 		 ArrayList<Station> result= new ArrayList<Station>();
 		 Log.i(" X ",""+cordX);

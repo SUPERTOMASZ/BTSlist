@@ -84,6 +84,7 @@
         android:gravity="center"
         />
     <Button 
+      android:id="@+id/updateButton"
       android:layout_width="fill_parent"
       android:layout_height="0dp"
       android:layout_weight="0.2"
@@ -92,9 +93,9 @@
       android:layout_marginRight="5sp"
       android:text="AKTUALIZUJ"
       android:textStyle="bold"
-     
       android:textSize="40sp"
-     android:textColor="#FFFFFF" />
+     android:textColor="#FFFFFF"
+     android:onClick="updateButton" />
     <TextView 
         android:layout_width="fill_parent"
         android:layout_weight="0.1"

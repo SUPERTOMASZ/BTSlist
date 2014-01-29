@@ -34,9 +34,10 @@ public class Connect
 	{
 		this.ftpClient = new FTPClient();
 		try {
-			
+			ftpClient.enterLocalPassiveMode();
 			ftpClient.connect(host);
 			ftpClient.login(login, pass);
+			
 			ftpClient.cwd("ATEM");
 			return true;
 		} catch (SocketException e) {

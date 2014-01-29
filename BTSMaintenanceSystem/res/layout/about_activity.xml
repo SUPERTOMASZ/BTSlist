@@ -9,7 +9,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.25">
+        android:layout_weight="0.2">
     <ImageView 
         android:src="@drawable/about_ico"
         android:layout_weight="0.25"
@@ -36,25 +36,34 @@
 	 android:layout_weight="0.1"
 	 android:layout_width="fill_parent"
 	 android:src="@drawable/line"/>
-	<TextView
-       
-        android:layout_width="fill_parent"
-        android:layout_weight="0.75"
-        android:layout_height="0dp"
-        android:text="@string/aboutText"
-        android:textColor="#ffa200"
-        android:textSize="15sp"
-        />
-	 
-		<ImageView 
-	
-	 android:layout_height="0dp"
-	 android:layout_weight="0.01"
-	 android:layout_width="fill_parent"
-	 android:src="@drawable/line"
-	 android:layout_marginBottom="50dp"/>
-	    
-	    
 
+		
+		
+		<ScrollView
+		    android:id="@+id/scrollView1"
+		    android:layout_width="match_parent"
+		    android:layout_height="0dp"
+		    android:layout_weight="0.8" >
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:orientation="vertical" >
+		        <TextView
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="0.54"
+	    android:text="@string/aboutText"
+	    android:textColor="#ffa200"
+	    android:textSize="15sp" />
+		        <ImageView 
+        	android:src="@drawable/main_act"
+        	android:layout_weight="0.25"
+       		 android:layout_width="fill_parent"
+       	 android:layout_height="0dp"
+        
+        />
+		    </LinearLayout>
+		</ScrollView>
 
 </LinearLayout >
