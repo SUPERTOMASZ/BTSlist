@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 
 
-public class Connect extends AsyncTask<Void , Void, Void>
+public class Connect 
 {
 	private String login="michal@blajar.pl";
 	private String pass="Test123";
@@ -128,18 +128,7 @@ public class Connect extends AsyncTask<Void , Void, Void>
 	public void setFtpClient(FTPClient ftpClient) {
 		this.ftpClient = ftpClient;
 	}
-	@Override
-	protected void onPreExecute() {
-		// TODO Auto-generated method stub
-		super.onPreExecute();
 
-		
-	}
-	@Override
-	protected Void doInBackground(Void... arg0) {
-		connect();
-		return null;
-	}
 	
 	
 

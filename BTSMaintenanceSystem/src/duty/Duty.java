@@ -1,39 +1,35 @@
 package duty;
 
-public class Duty
+import java.io.Serializable;
+
+public class Duty implements Serializable
 {
-	
-	private String workerName;
-	private String workerSurname;
-	private String date;
+	private int id;
+	private Worker worker;
+	private String Data;
 	public Duty()
 	{
 		
 	}
-	public Duty(String name, String surname,String date)
-	{
-		this.workerName=name;
-		this.workerSurname=surname;
-		this.date=date;
-		
+
+	public Worker getWorker() {
+		return worker;
 	}
-	public String getWorkerName() {
-		return workerName;
+	public void setWorker(Worker worker) {
+		this.worker = worker;
 	}
-	public void setWorkerName(String workerName) {
-		this.workerName = workerName;
+	public String getData() {
+		return Data;
 	}
-	public String getWorkerSurname() {
-		return workerSurname;
+	public void setData(String data) {
+		Data = data;
 	}
-	public void setWorkerSurname(String workerSurname) {
-		this.workerSurname = workerSurname;
+	public int getId() {
+		return id;
 	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setId(int id) {
+		this.id = id;
 	}
 
+	
 }

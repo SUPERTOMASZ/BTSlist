@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import searchpack.CustomListView;
 import station.DataBaseFind;
 import station.NearestDataBaseFind;
-import station.Station;
+import station.DisplayStation;
 import GPSHelper.GPSHelper;
 import android.app.Activity;
 import android.content.Context;
@@ -37,7 +37,7 @@ public class GpsActivity extends Activity {
 		this.customListView = customListView;
 	}
 	private ListView list;
-	private ArrayList<Station> tempList;
+	private ArrayList<DisplayStation> tempList;
 	private DataBaseHelper mydb;
 	private GPSHelper gpsHelper;
 	private Double cordX;
@@ -56,7 +56,7 @@ public class GpsActivity extends Activity {
 		
 		this.list=(ListView) findViewById(R.id.gpsList);
 	
-		this.tempList=new ArrayList<Station>();
+		this.tempList=new ArrayList<DisplayStation>();
 		
 		this.customListView= new CustomListView(this,R.layout.activity_gps,
 											tempList);

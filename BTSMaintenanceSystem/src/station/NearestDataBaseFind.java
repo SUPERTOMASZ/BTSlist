@@ -20,15 +20,15 @@ public class NearestDataBaseFind extends AsyncTask<Void , Void, Void>
 
 	private Double cordX;
 	private Double cordY;
-	private ArrayList<Station> list;
+	private ArrayList<DisplayStation> list;
 	private CustomListView customListView;
 	private DataBaseHelper db;
-	private ArrayList<Station> temp;
+	private ArrayList<DisplayStation> temp;
 	private Context context;
 
 
 	
-	public NearestDataBaseFind(DataBaseHelper db, Double cordX, Double cordY, ArrayList<Station> list,
+	public NearestDataBaseFind(DataBaseHelper db, Double cordX, Double cordY, ArrayList<DisplayStation> list,
 							CustomListView customListView, Context contex)
 	{
 		this.cordY=cordY;

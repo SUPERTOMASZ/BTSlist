@@ -36,27 +36,6 @@ public class Duty implements Serializable
 	public void setId(int id) {
 		this.id = id;
 	}
-/*
-	@Override
-	public String toString() {
-		return id+" "+worker.toString()+" "+Data;
-	}
-	@JsonIgnore
-	public String getAsJSON() {
-	    ObjectMapper mapper = new ObjectMapper();
-	    try {
-			return mapper.writeValueAsString(this) ;
-		} catch (JsonGenerationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	    return null;
-	}*/
+
 	
 }

@@ -2,7 +2,7 @@ package duty;
 
 import java.util.List;
 
-import station.Station;
+import station.DisplayStation;
 
 import com.example.btsmaintenancesystem.R;
 import com.example.btsmaintenancesystem.R.id;
@@ -57,15 +57,15 @@ public class DutyCustomListView extends ArrayAdapter<Duty>
 		}
 		
 		
-		viewholder.date.setText(duty.getDate());
-		viewholder.name.setText(duty.getWorkerName()+" "+duty.getWorkerSurname());
+		viewholder.date.setText(duty.getData());
+		viewholder.name.setText(duty.getWorker().getName()+" "+duty.getWorker().getSurname());
 		
 		
 		return convertView;
 		
 		
 	}
-	private SpannableStringBuilder[] colorText(Station bts)
+	private SpannableStringBuilder[] colorText(DisplayStation bts)
 	{
 		final ForegroundColorSpan fcs = new ForegroundColorSpan(Color.rgb(255, 163, 0));
 		

@@ -26,14 +26,26 @@
         <item>wojewodztwo</item>
     </string-array>
 
-    <string name="aboutText">BTS Center jest aplikacją stworzoną 
-w celu ułatwienia użytkownikowi obsługi i
-konserwacji stacji BTS na terenie całej Polski
+    <string name="aboutText">
+BTS Center to aplikacja przygotowana na platformę Android ,
+która jest częścią BTS Maintenance System .
+System ten pozwala uprościć i usprawnić pracę , ludzi
+pracujących w dziale utrzymania łączności bezprzewodowej .
 
-Aplikacja została zaprojektowana przy 
-użyciu najlepszych dostępnych środków, 
-aby użytkownik mógł z łatwością używać jej 
-bez przeczytania instrukcji obsługi.</string>
+Jest prosty i intuicyjny w obsłudze , pozwala w bardzo krótkim czasie 
+znaleźć szukaną stacje , wystawić wejściówke , sprawdzić alarmy oraz
+odnaleźć stację na mapach googla .
+
+W skład systemu wchodzi również aplikacja desktopowa ,pozwalająca
+w bardzo prosty sposób zarządzać bazą danych stacji, jak również 
+listą pracowników i ustalać grafiki dyżurów.
+Aplikacja oparta jest na technologii JAVA , co gwarantuje 
+wieloplatformowość i łatwość w instalacji.
+
+Wszystkie urządzenia używające aplikacji BTS Maintenance System ,
+synchronizowane są ze sobą poprzez zewnetrzny serwer FTP, który dzięki
+uniwersalnemu API (używaniu plików JSON )pozwala w bardzo łatwy sposób 
+rozwinąć system na inne platformy.</string>
     <string name="title_activity_gps">GpsActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

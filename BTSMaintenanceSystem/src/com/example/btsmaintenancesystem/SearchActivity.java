@@ -8,7 +8,7 @@ import database.PreparingDataBase;
 
 import searchpack.CustomListView;
 import station.DataBaseTask;
-import station.Station;
+import station.DisplayStation;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -43,7 +43,7 @@ public class SearchActivity extends Activity  {
 	private PreparingDataBase db;
 	private Spinner choseSpinner;
 	private ListView list;
-	private ArrayList<Station> tempList;
+	private ArrayList<DisplayStation> tempList;
 	private EditText editText;
 	private String spinnerChoose="nazwa stacji";
 	private DataBaseHelper mydb;
@@ -72,7 +72,7 @@ public class SearchActivity extends Activity  {
 		
 		
 		
-		this.tempList=new ArrayList<Station>();
+		this.tempList=new ArrayList<DisplayStation>();
 		
 		this.customListView= new CustomListView(this,R.layout.intro_activity,
 											tempList);
@@ -205,12 +205,12 @@ public class SearchActivity extends Activity  {
 	}
 
 
-	public ArrayList<Station> getTempList() {
+	public ArrayList<DisplayStation> getTempList() {
 		return tempList;
 	}
 
 
-	public void setTempList(ArrayList<Station> tempList) {
+	public void setTempList(ArrayList<DisplayStation> tempList) {
 		this.tempList = tempList;
 	}
 

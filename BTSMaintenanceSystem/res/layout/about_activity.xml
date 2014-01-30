@@ -30,12 +30,7 @@
         
         />
 	</LinearLayout>
-		<ImageView 
-	 android:id="@+id/line"
-	 android:layout_height="0dp"
-	 android:layout_weight="0.1"
-	 android:layout_width="fill_parent"
-	 android:src="@drawable/line"/>
+		
 
 		
 		
@@ -43,7 +38,8 @@
 		    android:id="@+id/scrollView1"
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
-		    android:layout_weight="0.8" >
+		    android:layout_weight="0.8"
+		    android:layout_margin="0dp" >
 
 		    <LinearLayout
 		        android:layout_width="match_parent"
@@ -57,10 +53,57 @@
 	    android:textColor="#ffa200"
 	    android:textSize="15sp" />
 		        <ImageView 
-        	android:src="@drawable/main_act"
+	 
+	 android:layout_height="0dp"
+	 android:layout_weight="0.1"
+	 android:layout_width="match_parent"
+	 android:src="@drawable/line"/>
+		        <ImageView 
+        	android:src="@drawable/search1"
+        	android:layout_weight="0.25"
+       		 android:layout_width="match_parent"
+       	 android:layout_height="0dp"
+       	 android:layout_marginTop="5dp"
+        
+        />
+		        <ImageView 
+        	android:src="@drawable/sms1"
+        	android:layout_weight="0.25"
+       		 android:layout_width="match_parent"
+       	 android:layout_height="0dp"
+       		 android:layout_marginTop="5dp"
+        
+        />
+		         <ImageView 
+        	android:src="@drawable/sms2"
+        	android:layout_weight="0.25"
+       		 android:layout_width="match_parent"
+       	 android:layout_height="0dp"
+       		 android:layout_marginTop="5dp"
+        
+        />
+		         <ImageView 
+        	android:src="@drawable/sms3"
+        	android:layout_weight="0.25"
+       		 android:layout_width="match_parent"
+       	 android:layout_height="0dp"
+       	android:layout_marginTop="5dp"
+        
+        />
+		          <ImageView 
+        	android:src="@drawable/sms4"
         	android:layout_weight="0.25"
        		 android:layout_width="fill_parent"
        	 android:layout_height="0dp"
+       	  	android:layout_marginTop="5dp"
+        
+        />
+		          <ImageView 
+        	android:src="@drawable/details"
+        	android:layout_weight="0.25"
+       		 android:layout_width="match_parent"
+       	 android:layout_height="0dp"
+       	 	android:layout_marginTop="5dp"
         
         />
 		    </LinearLayout>

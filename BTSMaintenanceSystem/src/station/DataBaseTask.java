@@ -15,13 +15,13 @@ public class DataBaseTask extends AsyncTask<Void , Void, Void>
 {
 	private String choose;
 	private String keyword;
-	private ArrayList<Station> list;
+	private ArrayList<DisplayStation> list;
 	private CustomListView customListView;
 	private DataBaseHelper db;
-	private ArrayList<Station> temp;
+	private ArrayList<DisplayStation> temp;
 	private EditText edit;
 	private Context context;
-	public DataBaseTask(DataBaseHelper db,String choose,String keyword,ArrayList<Station> list,
+	public DataBaseTask(DataBaseHelper db,String choose,String keyword,ArrayList<DisplayStation> list,
 			CustomListView customListView,EditText edit,Context contex)
 	{
 		

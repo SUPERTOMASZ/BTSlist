@@ -6,6 +6,9 @@ import java.net.SocketException;
 
 import org.apache.commons.net.ftp.FTPClient;
 
+import database.DataBaseHelper;
+import duty.Worker;
+
 import FTPUpdate.Connect;
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,10 +18,7 @@ import android.view.View;
 
 public class UpdateActivity extends Activity {
 
-	private String login="michal@blajar.pl";
-	private String pass="Test123";
-	private String protocol="ftp://";
-	private String host ="blajar.pl";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,15 +42,7 @@ public class UpdateActivity extends Activity {
 	public void updateButton(View view)
 	{
 		
-		
-		
-		
 
-		new Connect().execute();
-
-		
-		
-		//button.setText(connect.connect()+"");
 		
 	}
 	

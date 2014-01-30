@@ -1,17 +1,20 @@
 package database;
 
 import java.nio.Buffer;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import station.Station;
+import station.DisplayStation;
 
 
 import com.example.btsmaintenancesystem.R;
 
 import duty.Duty;
+import duty.Worker;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -60,11 +63,26 @@ public class DataBaseHelper extends SQLiteOpenHelper
 	private static String KEY_UPDATE_DATE="dataAktualizacji";
 	
 	private static String WORKERSTABLE= "Pracownicy";
-	private static String DUTYTABLE= "Dyzury";
 	private static String KEY_NAME= "imie";
 	private static String KEY_SURNAME= "nazwisko";
-	private static String KEY_DATE= "data";
+	private static String KEY_WORKER_ID="id_pracownika";
 
+	private static String DUTYTABLE= "Dyzury";
+	private static String KEY_DUTY_ID= "id";
+	private static String KEY_DATE= "data";
+	private static String KEY_DUTY_WORKER_ID="id_pracownika";
+	
+	private static String VERSION_TABLE="Wersje";
+	private static String KEY_VERSION_TABLE_NAME="nazwaTabeli";
+	private static String KEY_VERSION_CATEGORY_NAME="nazwaKategorii";
+	private static String KEY_VERSION_VERSION_NAME="wersja";
+	
+	public static String KEY_VERSION_STATION_NAME="stacje ";
+	public static String KEY_VERSION_DUTY_NAME="dyzury ";
+	public static String KEY_VERSION_WORKER_NAME="pracownicy ";
+	public static String KEY_VERSION_ADD_NAME=" dodaj";
+	public static String KEY_VERSION_ED_NAME=" edytuj";
+	public static String KEY_VERSION_DEL_NAME=" usun";
 	
 	
 	
@@ -96,11 +114,39 @@ public class DataBaseHelper extends SQLiteOpenHelper
 		// TODO Auto-generated method stub
 		
 	}
+	public void insert(Worker worker)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(KEY_NAME, worker.getName());
+		values.put(KEY_SURNAME, worker.getSurname());
+		values.put(KEY_WORKER_ID, worker.getID());
 	
-	public ArrayList<Station> getBTS(String keyword,String choose)
+		 db.insert(WORKERSTABLE, null, values);
+		
+		
+	}
+	
+	public void insert(Duty duty)
+	{
+		
+		
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(KEY_DUTY_ID, duty.getId());
+		values.put(KEY_DATE, duty.getData());
+		values.put(KEY_WORKER_ID, duty.getWorker().getID());
+	
+		 db.insert(WORKERSTABLE, null, values);
+		
+		
+		
+		
+	}
+	public ArrayList<DisplayStation> getBTS(String keyword,String choose)
 	{
 		keyword=convertString(keyword);
-		ArrayList<Station> result = new ArrayList<Station>();
+		ArrayList<DisplayStation> result = new ArrayList<DisplayStation>();
 		int num_col=convertFromSpinner(choose);
 		 String cond;
 		 SQLiteDatabase db =this.getReadableDatabase();
@@ -117,13 +163,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
 		return result;
 	}
 	
-	public ArrayList<Station> findNearest(Double cordX, Double cordY)
+	public ArrayList<DisplayStation> findNearest(Double cordX, Double cordY)
 	{
 
 		 SQLiteDatabase db = this.getReadableDatabase();
 
 		 
-		 ArrayList<Station> result= new ArrayList<Station>();
+		 ArrayList<DisplayStation> result= new ArrayList<DisplayStation>();
 		 Log.i(" X ",""+cordX);
 		 Log.i(" Y",""+cordY);
 		 Log.i(" znalazlem ","otworzylem baze");
@@ -191,9 +237,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
 	
 	
 	
-	private Station makeBTSfromCursor(Cursor cursor)
+	private DisplayStation makeBTSfromCursor(Cursor cursor)
 	{
-		Station station= new Station();
+		DisplayStation station= new DisplayStation();
 		String bufferTab[]= new String[COLUMNS.length];
 		//Log.i("tworzenie poj BTS","utwrzono tablice");
 		for(int i=0;i<COLUMNS.length;i++)
@@ -331,16 +377,18 @@ public class DataBaseHelper extends SQLiteOpenHelper
 		 SQLiteDatabase db =this.getReadableDatabase();
 	//	 Log.i("Database","o");
 		Cursor cursor= db.query("( "+WORKERSTABLE+" NATURAL JOIN "+ DUTYTABLE+" )",
-				new String[]{KEY_NAME,KEY_SURNAME,KEY_DATE},null,
+				new String[]{KEY_WORKER_ID,KEY_NAME,KEY_SURNAME,KEY_DATE},null,
 						null,null,null,null);
 		//Log.i("Database","otrzymalem wyniki "+cursor.getCount());
 			for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
 			{
 				Duty temp= new Duty();
-				
-				temp.setWorkerName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-				temp.setWorkerSurname(cursor.getString(cursor.getColumnIndex(KEY_SURNAME)));
-				temp.setDate(cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+				Worker worker= new Worker();
+				worker.setID(cursor.getInt(cursor.getColumnIndex(KEY_WORKER_ID)));
+				worker.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
+				worker.setSurname(cursor.getString(cursor.getColumnIndex(KEY_SURNAME)));
+				temp.setData(cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+				temp.setWorker(worker);
 				result.add(temp);
 			}
 			

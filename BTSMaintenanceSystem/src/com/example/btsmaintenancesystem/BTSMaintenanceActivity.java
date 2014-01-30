@@ -2,7 +2,7 @@ package com.example.btsmaintenancesystem;
 
 import sms.SmsSend;
 import sms.SmsXML;
-import station.Station;
+import station.DisplayStation;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,7 +23,7 @@ public class BTSMaintenanceActivity extends Activity {
 
 	private TextView textViews[];
 	private SmsSend sms;
-	private Station station;
+	private DisplayStation station;
 	private SmsXML smsXML;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class BTSMaintenanceActivity extends Activity {
 		setContentView(R.layout.display_station_activity);
 		
 		Bundle bundle=getIntent().getBundleExtra("Station");
-		Station station=(Station) bundle.getSerializable("Station");
+		DisplayStation station=(DisplayStation) bundle.getSerializable("Station");
 		makeTextViews();
 		setAndColorText(station);
 		this.station=station;
@@ -74,10 +74,10 @@ public class BTSMaintenanceActivity extends Activity {
 		textViews[17]=(TextView) findViewById(R.id.stat_desc_det);
 		
 	}
-	private void setAndColorText(Station station)
+	private void setAndColorText(DisplayStation station)
 	{
 		ImageView imgView = (ImageView) findViewById(R.id.display_ico);
-		imgView.setImageResource(((Station) station).getImageId());
+		imgView.setImageResource(((DisplayStation) station).getImageId());
 		
 		final ForegroundColorSpan fcs = new ForegroundColorSpan(Color.rgb(255, 163, 0));
 		

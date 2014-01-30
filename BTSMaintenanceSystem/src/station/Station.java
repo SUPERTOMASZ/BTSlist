@@ -2,15 +2,11 @@ package station;
 
 import java.io.Serializable;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
 
-import com.example.btsmaintenancesystem.R;
-import com.example.btsmaintenancesystem.R.drawable;
 
-public class Station implements Comparable<Station>,Serializable
+public class Station implements Serializable
 {
+	private int ID;
 	private String stationNum;
 	private String netWorksNum;
 	private String PTCNum;
@@ -27,9 +23,9 @@ public class Station implements Comparable<Station>,Serializable
 	private String streetNo;
 	private String zip_Code;
 	private String city;
-	private String community="gmina";
-	private String district="powiat";
-	private String province="wojewodztwo";
+	private String community;
+	private String district;
+	private String province;
 	private String ulicaInaczej; // ?!
 	private String type;
 	private String candidat;
@@ -44,11 +40,11 @@ public class Station implements Comparable<Station>,Serializable
 	private String PlayNum;
 	private String powerPlantNum;
 	private String updatedTime;
-	private int ImageId;
-	private Double distance = 0.0;
 	
 	public Station() 
 	{
+		
+		
 	}
 	public String getStationNum() {
 		return stationNum;
@@ -175,7 +171,7 @@ public class Station implements Comparable<Station>,Serializable
 	}
 	public void setType(String type) {
 		this.type = type;
-		setImageId(type);
+		
 	}
 	
 	public String getCandidat() {
@@ -239,27 +235,6 @@ public class Station implements Comparable<Station>,Serializable
 	public void setPlayNum(String playNum) {
 		PlayNum = playNum;
 	}
-	public int getImageId() {
-		return ImageId;
-	}
-	
-	public void setImageId(String input) {
-		if(input.contains("budynek"))
-			this.ImageId=R.drawable.indoorico;
-		else if(input.contains("kosciol"))
-			this.ImageId=R.drawable.sacrumico;
-		else if(input.contains("maszt"))
-			this.ImageId=R.drawable.towerico;
-		else if(input.contains("wieza")||input.contains("tower"))
-			this.ImageId=R.drawable.tower2ico;
-		else if(input.contains("slup"))
-			this.ImageId=R.drawable.pilarico;
-		else if(input.contains("komin"))
-			this.ImageId=R.drawable.kominico;
-		else
-			this.ImageId=R.drawable.anyico;
-		
-	}
 	public String getPowerPlantNum() {
 		return powerPlantNum;
 	}
@@ -272,35 +247,14 @@ public class Station implements Comparable<Station>,Serializable
 	public void setUpdatedTime(String updatedTime) {
 		this.updatedTime = updatedTime;
 	}
-	
-	public void setDistance(Double cordX, Double cordY)
-	{
-
-		
-		
-		this.distance =  (cordX-this.cordX)*(cordX-this.cordX)+
-				(cordY-this.cordY)*(cordY-this.cordY);
-	
-
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
 	}
 	
-	public Double getDistance()
-	{
-		return distance;
-	}
 	
-	@Override
-	public int compareTo(Station stacja) 
-	{
-		if(this.distance>stacja.getDistance())
-			return 1;
-		else if(this.distance<stacja.getDistance())
-			return -1;
-		else
-			return 0;
-		
-		
-	}
 	
 	
 

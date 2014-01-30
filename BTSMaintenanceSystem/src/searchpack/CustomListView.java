@@ -2,7 +2,7 @@ package searchpack;
 
 import java.util.List;
 
-import station.Station;
+import station.DisplayStation;
 
 import com.example.btsmaintenancesystem.R;
 import com.example.btsmaintenancesystem.R.id;
@@ -23,10 +23,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CustomListView extends ArrayAdapter<Station>
+public class CustomListView extends ArrayAdapter<DisplayStation>
 {
 	private Context context;
-	public CustomListView(Context context, int resource, List<Station> objects) {
+	public CustomListView(Context context, int resource, List<DisplayStation> objects) {
 		super(context, resource, objects);
 		this.context=context;
 	}
@@ -44,7 +44,7 @@ public class CustomListView extends ArrayAdapter<Station>
 	public View getView (int position ,View convertView,ViewGroup parent)
 	{
 		ViewHolder viewholder= null;
-		Station bts = getItem(position);
+		DisplayStation bts = getItem(position);
 		LayoutInflater mInflater = (LayoutInflater) 
 				context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 		
@@ -73,13 +73,13 @@ public class CustomListView extends ArrayAdapter<Station>
 		viewholder.cordY.setText(tab[3]);
 		viewholder.PTCname.setText(tab[4]);
 		viewholder.PTKname.setText(tab[5]);
-		viewholder.icon.setImageResource(((Station) bts).getImageId());
+		viewholder.icon.setImageResource(((DisplayStation) bts).getImageId());
 		
 		return convertView;
 		
 		
 	}
-	private SpannableStringBuilder[] colorText(Station bts)
+	private SpannableStringBuilder[] colorText(DisplayStation bts)
 	{
 		final ForegroundColorSpan fcs = new ForegroundColorSpan(Color.rgb(255, 163, 0));
 		

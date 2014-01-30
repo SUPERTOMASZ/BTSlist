@@ -1,6 +1,6 @@
 package sms;
 
-import station.Station;
+import station.DisplayStation;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -29,34 +29,38 @@ public class SmsSend
 
 	return true;
 	}
-	public boolean sendEntrySms(Station station)
+	public boolean sendEntrySms(DisplayStation station)
 	{
 		String phoneNum=xml.getPhoneNumFromEntry();
 		String contain=xml.getContainFromEntry();
 		contain=convert(contain, station);
 		return sendSms(phoneNum,contain);
 	}
-	public boolean sendExitSms(Station station)
+	public boolean sendExitSms(DisplayStation station)
 	{
 		String phoneNum=xml.getPhoneNumFromExit();
 		String contain=xml.getContainFromExit();
 		contain=convert(contain, station);
 		return sendSms(phoneNum,contain);
 	}
-	public boolean sendAlarmSms(Station station)
+	public boolean sendAlarmSms(DisplayStation station)
 	{
 		String phoneNum=xml.getPhoneNumFromAlarms();
 		String contain=xml.getContainFromAlarms();
 		contain=convert(contain, station);
 		return sendSms(phoneNum,contain);
 	}
-	private String convert(String in,Station station)
+	private String convert(String in,DisplayStation station)
 	{
 		
 		String statNum=station.getStationNum();
+		statNum=statNum.replaceAll(" ", "");
 		String NetNum=station.getNetWorksNum();
+		NetNum=NetNum.replaceAll(" ", "");
 		String PTCNum=station.getPTCNum();
+		PTCNum=PTCNum.replaceAll(" ", "");
 		String PTKNum=station.getPTKNum();
+		PTKNum=PTKNum.replaceAll(" ", "");
 		
 		in=in.replaceAll("#nrStacji#", statNum);
 		in=in.replaceAll("#nrNET#", NetNum);
